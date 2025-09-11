@@ -68,7 +68,7 @@ public class HospitalFinder {
                     }
                     reader.close();
                     
-                    List<Hospital> hospitals = parseGooglePlacesResponse(response.toString());
+                    List<Hospital> hospitals = parseGooglePlacesResponse(response.toString(), latitude, longitude);
                     if (!hospitals.isEmpty()) {
                         nearbyHospitals = hospitals;
                         callback.onHospitalsFound(hospitals);
@@ -96,7 +96,7 @@ public class HospitalFinder {
                 "&key=" + GOOGLE_PLACES_API_KEY;
     }
     
-    private List<Hospital> parseGooglePlacesResponse(String jsonResponse) {
+    private List<Hospital> parseGooglePlacesResponse(String jsonResponse, double userLatitude, double userLongitude) {
         List<Hospital> hospitals = new ArrayList<>();
         
         try {
@@ -128,7 +128,7 @@ public class HospitalFinder {
                 }
                 
                 // Calculate distance (simplified)
-                hospital.setDistance(calculateDistance(latitude, longitude, 
+                hospital.setDistance(calculateDistance(userLatitude, userLongitude, 
                     hospital.getLatitude(), hospital.getLongitude()));
                 
                 hospitals.add(hospital);
