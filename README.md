@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Crash Alert Safety - Android Application
 
 A comprehensive Android crash detection and emergency alert application that automatically detects vehicle accidents and notifies emergency contacts and medical services when the driver is unable to respond.
@@ -170,3 +171,6 @@ For support, please open an issue on GitHub or contact the development team.
 - Material Design 3 UI
 - Home screen widget support
 - Comprehensive settings and configuration
+=======
+# Accident-Alert
+>>>>>>> b609a7660d47c81252fb6585467e40d89ca0b390
