@@ -113,6 +113,11 @@ public class MainActivity extends AppCompatActivity {
             permissionsNeeded.add(Manifest.permission.RECORD_AUDIO);
         }
         
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) 
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionsNeeded.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        
         if (!permissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this, 
                 permissionsNeeded.toArray(new String[0]), 

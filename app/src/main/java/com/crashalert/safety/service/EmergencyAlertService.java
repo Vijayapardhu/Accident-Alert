@@ -187,9 +187,14 @@ public class EmergencyAlertService extends Service {
             }
         };
         
-        // Register the phone state listener
-        if (telephonyManager != null) {
+        // Register the phone state listener only if we have permission
+        if (telephonyManager != null && 
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) 
+                == PackageManager.PERMISSION_GRANTED) {
             telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+            Log.d(TAG, "Phone state listener registered successfully");
+        } else {
+            Log.w(TAG, "READ_PHONE_STATE permission not granted - phone state monitoring disabled");
         }
     }
     
@@ -684,7 +689,9 @@ public class EmergencyAlertService extends Service {
         Log.d(TAG, "EmergencyAlertService destroyed");
         
         // Clean up phone state listener
-        if (telephonyManager != null && phoneStateListener != null) {
+        if (telephonyManager != null && phoneStateListener != null &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) 
+                == PackageManager.PERMISSION_GRANTED) {
             telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
         }
         
