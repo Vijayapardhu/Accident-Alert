@@ -594,15 +594,23 @@ public class EmergencyAlertService extends Service {
     private String createEmergencyMessage() {
         String locationText = String.format("%.6f, %.6f", crashLatitude, crashLongitude);
         String mapsLink = "https://www.google.com/maps?q=" + crashLatitude + "," + crashLongitude;
+        String timeStamp = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
         
-        return "🚨 EMERGENCY ALERT 🚨\n\n" +
-               "A crash has been detected!\n\n" +
-               "Time: " + java.text.DateFormat.getDateTimeInstance().format(new java.util.Date()) + "\n" +
-               "G-Force: " + String.format("%.2f", gForce) + "g\n" +
-               "Location: " + locationText + "\n" +
-               "Maps: " + mapsLink + "\n\n" +
-               "Please check on the person immediately!\n\n" +
-               "This is an automated message from Crash Alert Safety app.";
+        return "🚨 CRASH ALERT - EMERGENCY 🚨\n\n" +
+               "URGENT: A vehicle crash has been detected!\n\n" +
+               "📅 Time: " + timeStamp + "\n" +
+               "⚡ G-Force: " + String.format("%.2f", gForce) + "g (High impact detected)\n" +
+               "📍 Location: " + locationText + "\n" +
+               "🗺️ Google Maps: " + mapsLink + "\n\n" +
+               "🚑 Medical services and hospitals have been automatically notified.\n" +
+               "📞 Emergency calls are being made to medical facilities.\n\n" +
+               "⚠️ IMMEDIATE ACTION REQUIRED:\n" +
+               "• Check on the person immediately\n" +
+               "• Call emergency services if not already contacted\n" +
+               "• Use the Google Maps link to locate the crash site\n" +
+               "• The driver may be injured and needs urgent medical attention\n\n" +
+               "This is an automated emergency alert from Crash Alert Safety app.\n" +
+               "Please respond immediately!";
     }
     
     private void markAlertsAsSent() {

@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private SwitchMaterial drivingModeSwitch;
     private Button emergencyContactsBtn;
     private Button settingsBtn;
-    private Button testSmsBtn;
     private Button testHospitalBtn;
     private TextView statusText;
     private DatabaseHelper databaseHelper;
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         drivingModeSwitch = findViewById(R.id.driving_mode_switch);
         emergencyContactsBtn = findViewById(R.id.emergency_contacts_btn);
         settingsBtn = findViewById(R.id.settings_btn);
-        testSmsBtn = findViewById(R.id.test_sms_btn);
         testHospitalBtn = findViewById(R.id.test_hospital_btn);
         statusText = findViewById(R.id.status_text);
         
@@ -76,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         });
-        
-        testSmsBtn.setOnClickListener(v -> testSMSFunctionality());
         
         testHospitalBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, TestHospitalCallingActivity.class);
@@ -234,29 +230,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     
-    private void testSMSFunctionality() {
-        // Check SMS permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) 
-                != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "SMS permission not granted", Toast.LENGTH_LONG).show();
-            return;
-        }
-        
-        try {
-            // Test SMS sending
-            SmsManager smsManager = SmsManager.getDefault();
-            String testMessage = "Test SMS from Crash Alert Safety App - " + System.currentTimeMillis();
-            String testNumber = "1234567890"; // Replace with a test number
-            
-            Toast.makeText(this, "Testing SMS functionality...", Toast.LENGTH_SHORT).show();
-            
-            // Try to send test SMS
-            smsManager.sendTextMessage(testNumber, null, testMessage, null, null);
-            
-            Toast.makeText(this, "Test SMS sent successfully! Check logs for details.", Toast.LENGTH_LONG).show();
-            
-        } catch (Exception e) {
-            Toast.makeText(this, "SMS test failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
 }

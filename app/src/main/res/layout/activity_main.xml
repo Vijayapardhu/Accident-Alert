@@ -166,21 +166,6 @@
             app:iconPadding="12dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/test_sms_btn"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginBottom="12dp"
-            android:backgroundTint="@color/primary_color"
-            android:text="Test SMS"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="12dp"
-            app:icon="@drawable/ic_emergency"
-            app:iconGravity="textStart"
-            app:iconPadding="12dp" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/test_hospital_btn"
             android:layout_width="match_parent"
             android:layout_height="64dp"

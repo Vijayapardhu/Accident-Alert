@@ -42,8 +42,17 @@
         android:layout_height="wrap_content"
         android:text="Test Emergency Alert Service"
         android:textSize="16sp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="@color/emergency_color" />
+
+    <Button
+        android:id="@+id/test_emergency_contacts_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Emergency Contacts Notification"
+        android:textSize="16sp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/primary_color" />
 
     <ScrollView
         android:layout_width="match_parent"

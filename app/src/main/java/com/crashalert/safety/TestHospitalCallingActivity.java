@@ -33,6 +33,7 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
     private Button testHospitalSearchBtn;
     private Button testHospitalCallBtn;
     private Button testEmergencyAlertBtn;
+    private Button testEmergencyContactsBtn;
     private TextView statusText;
     
     private HospitalFinder hospitalFinder;
@@ -53,11 +54,13 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
         testHospitalSearchBtn = findViewById(R.id.test_hospital_search_btn);
         testHospitalCallBtn = findViewById(R.id.test_hospital_call_btn);
         testEmergencyAlertBtn = findViewById(R.id.test_emergency_alert_btn);
+        testEmergencyContactsBtn = findViewById(R.id.test_emergency_contacts_btn);
         statusText = findViewById(R.id.status_text);
         
         testHospitalSearchBtn.setOnClickListener(v -> testHospitalSearch());
         testHospitalCallBtn.setOnClickListener(v -> testHospitalCalling());
         testEmergencyAlertBtn.setOnClickListener(v -> testEmergencyAlert());
+        testEmergencyContactsBtn.setOnClickListener(v -> testEmergencyContacts());
         
         updateStatus("Ready to test hospital calling functionality");
     }
@@ -214,31 +217,54 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
         updateStatus("Emergency alert service started - check logs for details");
         Toast.makeText(this, "Emergency alert service started - check logs", Toast.LENGTH_SHORT).show();
         
-        // Also test SMS directly
-        testSMSSending();
     }
     
-    private void testSMSSending() {
-        try {
-            String testMessage = "🚨 TEST EMERGENCY ALERT 🚨\n\n" +
-                    "This is a test message from Crash Alert Safety App.\n" +
-                    "Location: 28.6139, 77.2090 (New Delhi)\n" +
-                    "Google Maps: https://www.google.com/maps?q=28.6139,77.2090\n\n" +
-                    "If this was a real emergency, help would be on the way!";
-            
-            // Test SMS to a dummy number (won't actually send)
-            updateStatus("Testing SMS functionality...");
-            Log.d("TestEmergency", "Test SMS message: " + testMessage);
-            
-            // You can replace this with a real test number
-            String testNumber = "1234567890"; // Replace with your test number
-            
-            Toast.makeText(this, "SMS test message prepared - check logs", Toast.LENGTH_LONG).show();
-            
-        } catch (Exception e) {
-            Log.e("TestEmergency", "SMS test failed", e);
-            updateStatus("SMS test failed: " + e.getMessage());
+    private void testEmergencyContacts() {
+        updateStatus("Testing emergency contact notification...");
+        
+        // Check permissions first
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) 
+                != PackageManager.PERMISSION_GRANTED) {
+            updateStatus("SMS permission not granted - cannot test emergency contacts");
+            Toast.makeText(this, "SMS permission required for emergency contact testing", Toast.LENGTH_LONG).show();
+            return;
         }
+        
+        // Start emergency alert service with test data (this will notify emergency contacts)
+        Intent serviceIntent = new Intent(this, EmergencyAlertService.class);
+        serviceIntent.putExtra("latitude", 28.6139);
+        serviceIntent.putExtra("longitude", 77.2090);
+        serviceIntent.putExtra("g_force", 4.5);
+        serviceIntent.putExtra("confirmed", true);
+        
+        startService(serviceIntent);
+        
+        updateStatus("Emergency contact notification test started - check logs for details");
+        Toast.makeText(this, "Emergency contacts will be notified - check logs", Toast.LENGTH_SHORT).show();
+        
+        // Show what the emergency message looks like
+        showEmergencyMessagePreview();
+    }
+    
+    private void showEmergencyMessagePreview() {
+        String testMessage = "🚨 CRASH ALERT - EMERGENCY 🚨\n\n" +
+                "URGENT: A vehicle crash has been detected!\n\n" +
+                "📅 Time: " + java.text.DateFormat.getDateTimeInstance().format(new java.util.Date()) + "\n" +
+                "⚡ G-Force: 4.50g (High impact detected)\n" +
+                "📍 Location: 28.613900, 77.209000\n" +
+                "🗺️ Google Maps: https://www.google.com/maps?q=28.6139,77.2090\n\n" +
+                "🚑 Medical services and hospitals have been automatically notified.\n" +
+                "📞 Emergency calls are being made to medical facilities.\n\n" +
+                "⚠️ IMMEDIATE ACTION REQUIRED:\n" +
+                "• Check on the person immediately\n" +
+                "• Call emergency services if not already contacted\n" +
+                "• Use the Google Maps link to locate the crash site\n" +
+                "• The driver may be injured and needs urgent medical attention\n\n" +
+                "This is an automated emergency alert from Crash Alert Safety app.\n" +
+                "Please respond immediately!";
+        
+        Log.d("TestEmergencyContacts", "Emergency message preview: " + testMessage);
+        updateStatus("Emergency message preview logged - check Android logs for full message");
     }
     
     private void updateStatus(String message) {
