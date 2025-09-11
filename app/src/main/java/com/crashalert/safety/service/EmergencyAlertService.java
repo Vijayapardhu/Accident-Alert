@@ -6,10 +6,14 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.IBinder;
+import android.telephony.PhoneStateListener;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -47,6 +51,11 @@ public class EmergencyAlertService extends Service {
     private double crashLongitude;
     private double gForce;
     private boolean isConfirmed;
+    
+    // Call state monitoring
+    private boolean isCallActive = false;
+    private boolean callAnswered = false;
+    private PhoneStateListener phoneStateListener;
     
     @Override
     public void onCreate() {
@@ -117,6 +126,40 @@ public class EmergencyAlertService extends Service {
         executorService = Executors.newFixedThreadPool(3);
         smsManager = SmsManager.getDefault();
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        
+        // Initialize phone state listener for call monitoring
+        initializePhoneStateListener();
+    }
+    
+    private void initializePhoneStateListener() {
+        phoneStateListener = new PhoneStateListener() {
+            @Override
+            public void onCallStateChanged(int state, String phoneNumber) {
+                super.onCallStateChanged(state, phoneNumber);
+                
+                switch (state) {
+                    case TelephonyManager.CALL_STATE_IDLE:
+                        Log.d(TAG, "Call state: IDLE");
+                        isCallActive = false;
+                        break;
+                    case TelephonyManager.CALL_STATE_RINGING:
+                        Log.d(TAG, "Call state: RINGING - " + phoneNumber);
+                        isCallActive = true;
+                        callAnswered = false;
+                        break;
+                    case TelephonyManager.CALL_STATE_OFFHOOK:
+                        Log.d(TAG, "Call state: OFFHOOK - Call answered!");
+                        isCallActive = true;
+                        callAnswered = true;
+                        break;
+                }
+            }
+        };
+        
+        // Register the phone state listener
+        if (telephonyManager != null) {
+            telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        }
     }
     
     private Notification createNotification() {
@@ -242,14 +285,15 @@ public class EmergencyAlertService extends Service {
     
     private void makeVoiceCallsToTopContacts(List<EmergencyContact> contacts) {
         int maxCalls = Math.min(3, contacts.size());
+        boolean callAnswered = false;
         
-        for (int i = 0; i < maxCalls; i++) {
+        for (int i = 0; i < maxCalls && !callAnswered; i++) {
             EmergencyContact contact = contacts.get(i);
             try {
                 Log.d(TAG, "Making voice call to: " + contact.getName() + " (" + contact.getPhone() + ")");
                 
                 // Make actual voice call
-                boolean callAnswered = makeVoiceCall(contact);
+                callAnswered = makeVoiceCall(contact);
                 
                 if (callAnswered) {
                     Log.d(TAG, "Call answered by " + contact.getName() + ", stopping sequential calls");
@@ -264,6 +308,12 @@ public class EmergencyAlertService extends Service {
                 // Continue to next contact even if this one fails
             }
         }
+        
+        if (callAnswered) {
+            Log.d(TAG, "Emergency call sequence completed - someone answered");
+        } else {
+            Log.d(TAG, "Emergency call sequence completed - no one answered");
+        }
     }
     
     private boolean makeVoiceCall(EmergencyContact contact) {
@@ -275,6 +325,12 @@ public class EmergencyAlertService extends Service {
                 return false;
             }
             
+            Log.d(TAG, "Initiating call to " + contact.getName() + " (" + contact.getPhone() + ")");
+            
+            // Reset call state
+            callAnswered = false;
+            isCallActive = false;
+            
             // Create intent to make phone call
             Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setData(Uri.parse("tel:" + contact.getPhone()));
@@ -283,13 +339,31 @@ public class EmergencyAlertService extends Service {
             // Start the call
             startActivity(callIntent);
             
-            // In a real implementation, you would need to monitor call state
-            // to determine if the call was answered. For now, we'll simulate
-            // by waiting a short time and assuming it wasn't answered
-            Thread.sleep(5000); // Wait 5 seconds to simulate call attempt
+            Log.d(TAG, "Call initiated to " + contact.getName() + ". Monitoring call state...");
             
-            // For demonstration, we'll return false to continue to next contact
-            // In a real app, you'd use TelecomManager to monitor call state
+            // Wait for call to be answered or timeout (30 seconds)
+            long startTime = System.currentTimeMillis();
+            long timeout = 30000; // 30 seconds
+            
+            while (System.currentTimeMillis() - startTime < timeout) {
+                if (callAnswered) {
+                    Log.d(TAG, "Call answered by " + contact.getName() + "!");
+                    return true;
+                }
+                
+                // Check if call is still active
+                if (!isCallActive && System.currentTimeMillis() - startTime > 5000) {
+                    // Call ended without being answered
+                    Log.d(TAG, "Call to " + contact.getName() + " ended without being answered");
+                    return false;
+                }
+                
+                // Sleep for 1 second before checking again
+                Thread.sleep(1000);
+            }
+            
+            // Timeout reached
+            Log.d(TAG, "Call to " + contact.getName() + " timed out after 30 seconds");
             return false;
             
         } catch (Exception e) {
@@ -424,6 +498,11 @@ public class EmergencyAlertService extends Service {
     @Override
     public void onDestroy() {
         Log.d(TAG, "EmergencyAlertService destroyed");
+        
+        // Clean up phone state listener
+        if (telephonyManager != null && phoneStateListener != null) {
+            telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+        }
         
         if (executorService != null) {
             executorService.shutdown();
