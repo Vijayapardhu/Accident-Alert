@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -186,6 +187,21 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
     private void testEmergencyAlert() {
         updateStatus("Testing emergency alert service...");
         
+        // Check permissions first
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) 
+                != PackageManager.PERMISSION_GRANTED) {
+            updateStatus("SMS permission not granted - cannot test emergency alerts");
+            Toast.makeText(this, "SMS permission required for emergency alerts", Toast.LENGTH_LONG).show();
+            return;
+        }
+        
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) 
+                != PackageManager.PERMISSION_GRANTED) {
+            updateStatus("Call permission not granted - cannot test emergency calls");
+            Toast.makeText(this, "Call permission required for emergency calls", Toast.LENGTH_LONG).show();
+            return;
+        }
+        
         // Start emergency alert service with test data
         Intent serviceIntent = new Intent(this, EmergencyAlertService.class);
         serviceIntent.putExtra("latitude", 28.6139);
@@ -196,7 +212,33 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
         startService(serviceIntent);
         
         updateStatus("Emergency alert service started - check logs for details");
-        Toast.makeText(this, "Emergency alert service started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Emergency alert service started - check logs", Toast.LENGTH_SHORT).show();
+        
+        // Also test SMS directly
+        testSMSSending();
+    }
+    
+    private void testSMSSending() {
+        try {
+            String testMessage = "🚨 TEST EMERGENCY ALERT 🚨\n\n" +
+                    "This is a test message from Crash Alert Safety App.\n" +
+                    "Location: 28.6139, 77.2090 (New Delhi)\n" +
+                    "Google Maps: https://www.google.com/maps?q=28.6139,77.2090\n\n" +
+                    "If this was a real emergency, help would be on the way!";
+            
+            // Test SMS to a dummy number (won't actually send)
+            updateStatus("Testing SMS functionality...");
+            Log.d("TestEmergency", "Test SMS message: " + testMessage);
+            
+            // You can replace this with a real test number
+            String testNumber = "1234567890"; // Replace with your test number
+            
+            Toast.makeText(this, "SMS test message prepared - check logs", Toast.LENGTH_LONG).show();
+            
+        } catch (Exception e) {
+            Log.e("TestEmergency", "SMS test failed", e);
+            updateStatus("SMS test failed: " + e.getMessage());
+        }
     }
     
     private void updateStatus(String message) {

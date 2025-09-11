@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import com.crashalert.safety.config.ApiConfig;
 
 /**
  * HospitalFinder class to find nearest hospitals using Google Places API
@@ -19,7 +20,6 @@ import java.util.List;
 public class HospitalFinder {
     
     private static final String TAG = "HospitalFinder";
-    private static final String GOOGLE_PLACES_API_KEY = "YOUR_GOOGLE_PLACES_API_KEY"; // Replace with actual API key
     private static final String GOOGLE_PLACES_BASE_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
     private static final int MAX_RADIUS = 20000; // 20km in meters
     private static final int MAX_RESULTS = 5;
@@ -51,8 +51,7 @@ public class HospitalFinder {
         new Thread(() -> {
             try {
                 // Check if API key is properly configured
-                if (GOOGLE_PLACES_API_KEY.equals("YOUR_GOOGLE_PLACES_API_KEY") || 
-                    GOOGLE_PLACES_API_KEY.isEmpty()) {
+                if (!ApiConfig.isGooglePlacesConfigured()) {
                     Log.w(TAG, "Google Places API key not configured, using local hospital database");
                     useLocalHospitalDatabase(latitude, longitude, callback);
                     return;
@@ -101,7 +100,7 @@ public class HospitalFinder {
                 "&radius=" + MAX_RADIUS +
                 "&type=hospital" +
                 "&keyword=emergency" +
-                "&key=" + GOOGLE_PLACES_API_KEY;
+                "&key=" + ApiConfig.getGooglePlacesApiKey();
     }
     
     private List<Hospital> parseGooglePlacesResponse(String jsonResponse, double userLatitude, double userLongitude) {
