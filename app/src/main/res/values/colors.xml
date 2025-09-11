@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary_color">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    
+    <!-- Secondary Colors -->
+    <color name="secondary_color">#FF9800</color>
+    <color name="secondary_dark">#F57C00</color>
+    <color name="secondary_light">#FFE0B2</color>
+    
+    <!-- Emergency Colors -->
+    <color name="emergency_color">#F44336</color>
+    <color name="emergency_dark">#D32F2F</color>
+    <color name="emergency_light">#FFCDD2</color>
+    
+    <!-- Status Colors -->
+    <color name="success_color">#4CAF50</color>
+    <color name="warning_color">#FF9800</color>
+    <color name="error_color">#F44336</color>
+    <color name="info_color">#2196F3</color>
+    
+    <!-- Background Colors -->
+    <color name="background_color">#FAFAFA</color>
+    <color name="surface_color">#FFFFFF</color>
+    <color name="emergency_background">#FFF3E0</color>
+    
+    <!-- Text Colors -->
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="hint_text">#BDBDBD</color>
+    <color name="disabled_text">#E0E0E0</color>
+    
+    <!-- Divider Colors -->
+    <color name="divider_color">#E0E0E0</color>
+    
+    <!-- Transparent Colors -->
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent_black">#80000000</color>
+    <color name="semi_transparent_white">#80FFFFFF</color>
+    
+    <!-- Material Design Colors -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
