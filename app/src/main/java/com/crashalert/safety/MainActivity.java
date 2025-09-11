@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Button emergencyContactsBtn;
     private Button settingsBtn;
     private Button testSmsBtn;
+    private Button testHospitalBtn;
     private TextView statusText;
     private DatabaseHelper databaseHelper;
     
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         emergencyContactsBtn = findViewById(R.id.emergency_contacts_btn);
         settingsBtn = findViewById(R.id.settings_btn);
         testSmsBtn = findViewById(R.id.test_sms_btn);
+        testHospitalBtn = findViewById(R.id.test_hospital_btn);
         statusText = findViewById(R.id.status_text);
         
         drivingModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -76,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
         });
         
         testSmsBtn.setOnClickListener(v -> testSMSFunctionality());
+        
+        testHospitalBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, TestHospitalCallingActivity.class);
+            startActivity(intent);
+        });
     }
     
     private void initializeDatabase() {

@@ -17,6 +17,7 @@ import com.crashalert.safety.R;
 import com.crashalert.safety.sensors.CrashDetectionManager;
 import com.crashalert.safety.location.CrashLocationManager;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.database.DatabaseHelper;
 
 public class DrivingModeService extends Service implements 
         CrashDetectionManager.CrashDetectionCallback, CrashLocationManager.LocationCallback {
@@ -161,16 +162,30 @@ public class DrivingModeService extends Service implements
     public void onCrashDetected(double gForce, double latitude, double longitude) {
         Log.w(TAG, "Crash detected! G-Force: " + gForce + " at " + latitude + ", " + longitude);
         
+        // Log crash event in database
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        long eventId = databaseHelper.logCrashEvent(latitude, longitude, gForce);
+        databaseHelper.close();
+        
         // Launch emergency confirmation activity
         Intent emergencyIntent = new Intent(this, com.crashalert.safety.EmergencyConfirmationActivity.class);
         emergencyIntent.putExtra("latitude", latitude);
         emergencyIntent.putExtra("longitude", longitude);
         emergencyIntent.putExtra("g_force", gForce);
+        emergencyIntent.putExtra("event_id", eventId);
         emergencyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | 
                                Intent.FLAG_ACTIVITY_CLEAR_TOP |
                                Intent.FLAG_ACTIVITY_SINGLE_TOP);
         
         startActivity(emergencyIntent);
+        
+        // Start emergency alert service (will wait for user confirmation)
+        Intent alertServiceIntent = new Intent(this, EmergencyAlertService.class);
+        alertServiceIntent.putExtra("latitude", latitude);
+        alertServiceIntent.putExtra("longitude", longitude);
+        alertServiceIntent.putExtra("g_force", gForce);
+        alertServiceIntent.putExtra("confirmed", false); // Will be set to true if user confirms
+        startService(alertServiceIntent);
     }
     
     @Override

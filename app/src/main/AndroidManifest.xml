@@ -24,6 +24,8 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -68,6 +70,13 @@
             android:name=".SettingsActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
+
+        <!-- Test Hospital Calling Activity -->
+        <activity
+            android:name=".TestHospitalCallingActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:label="Test Hospital Calling" />
 
         <!-- Driving Mode Service -->
         <service

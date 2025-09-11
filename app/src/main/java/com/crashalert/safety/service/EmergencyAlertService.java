@@ -27,6 +27,9 @@ import com.crashalert.safety.R;
 import com.crashalert.safety.database.DatabaseHelper;
 import com.crashalert.safety.model.EmergencyContact;
 import com.crashalert.safety.location.CrashLocationManager;
+import com.crashalert.safety.hospital.HospitalFinder;
+import com.crashalert.safety.hospital.HospitalCaller;
+import com.crashalert.safety.hospital.Hospital;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,8 @@ public class EmergencyAlertService extends Service {
     private ExecutorService executorService;
     private SmsManager smsManager;
     private TelephonyManager telephonyManager;
+    private HospitalFinder hospitalFinder;
+    private HospitalCaller hospitalCaller;
     
     private double crashLatitude;
     private double crashLongitude;
@@ -126,6 +131,8 @@ public class EmergencyAlertService extends Service {
         executorService = Executors.newFixedThreadPool(3);
         smsManager = SmsManager.getDefault();
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        hospitalFinder = new HospitalFinder(this);
+        hospitalCaller = new HospitalCaller(this);
         
         // Initialize phone state listener for call monitoring
         initializePhoneStateListener();
@@ -455,15 +462,132 @@ public class EmergencyAlertService extends Service {
     
     private void contactNearestHospitals() {
         try {
-            // In a real implementation, you would:
-            // 1. Use Google Places API to find nearest hospitals
-            // 2. Call their emergency numbers
-            // 3. Send them the crash details
+            Log.d(TAG, "Searching for nearest hospitals at location: " + crashLatitude + ", " + crashLongitude);
             
-            Log.d(TAG, "Would contact nearest hospitals at location: " + crashLatitude + ", " + crashLongitude);
+            // Find nearby hospitals
+            hospitalFinder.findNearbyHospitals(crashLatitude, crashLongitude, new HospitalFinder.HospitalSearchCallback() {
+                @Override
+                public void onHospitalsFound(List<Hospital> hospitals) {
+                    Log.d(TAG, "Found " + hospitals.size() + " hospitals");
+                    
+                    if (!hospitals.isEmpty()) {
+                        // Get crash location details
+                        String crashLocation = String.format("%.6f, %.6f", crashLatitude, crashLongitude);
+                        String googleMapsLink = "https://www.google.com/maps?q=" + crashLatitude + "," + crashLongitude;
+                        
+                        // Start calling hospitals
+                        hospitalCaller.callHospitals(hospitals, crashLocation, googleMapsLink, 
+                            new HospitalCaller.HospitalCallCallback() {
+                                @Override
+                                public void onCallInitiated(Hospital hospital) {
+                                    Log.d(TAG, "Call initiated to hospital: " + hospital.getName());
+                                    
+                                    // Send SMS to hospital with crash details
+                                    sendSMSToHospital(hospital, crashLocation, googleMapsLink);
+                                }
+                                
+                                @Override
+                                public void onCallCompleted(Hospital hospital, boolean success) {
+                                    Log.d(TAG, "Call to hospital " + hospital.getName() + " completed: " + success);
+                                }
+                                
+                                @Override
+                                public void onAllCallsFailed() {
+                                    Log.w(TAG, "All hospital calls failed, emergency services may not be notified");
+                                }
+                            });
+                    } else {
+                        Log.w(TAG, "No hospitals found nearby, using emergency numbers");
+                        // Fallback to emergency numbers
+                        useEmergencyNumbers();
+                    }
+                }
+                
+                @Override
+                public void onError(String error) {
+                    Log.e(TAG, "Error finding hospitals: " + error);
+                    // Fallback to emergency numbers
+                    useEmergencyNumbers();
+                }
+            });
             
         } catch (Exception e) {
             Log.e(TAG, "Failed to contact hospitals", e);
+            // Fallback to emergency numbers
+            useEmergencyNumbers();
+        }
+    }
+    
+    private void sendSMSToHospital(Hospital hospital, String crashLocation, String googleMapsLink) {
+        try {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) 
+                    != PackageManager.PERMISSION_GRANTED) {
+                Log.e(TAG, "SMS permission not granted, cannot send SMS to hospital");
+                return;
+            }
+            
+            String message = hospitalCaller.getSMSMessage();
+            Log.d(TAG, "Sending SMS to hospital: " + hospital.getName() + " (" + hospital.getPhoneNumber() + ")");
+            Log.d(TAG, "Hospital SMS message: " + message);
+            
+            // Send SMS to hospital
+            boolean smsSent = sendSMS(hospital.getPhoneNumber(), message);
+            if (smsSent) {
+                Log.d(TAG, "SMS sent successfully to hospital: " + hospital.getName());
+            } else {
+                Log.e(TAG, "Failed to send SMS to hospital: " + hospital.getName());
+            }
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Error sending SMS to hospital", e);
+        }
+    }
+    
+    private void useEmergencyNumbers() {
+        try {
+            Log.d(TAG, "Using emergency numbers as fallback");
+            
+            // Create emergency hospital entries
+            List<Hospital> emergencyHospitals = new ArrayList<>();
+            
+            Hospital emergency108 = new Hospital();
+            emergency108.setName("Emergency Services (108)");
+            emergency108.setPhoneNumber("108");
+            emergency108.setAddress("India Emergency Services");
+            emergency108.setEmergencyNumber(true);
+            emergencyHospitals.add(emergency108);
+            
+            Hospital emergency911 = new Hospital();
+            emergency911.setName("Emergency Services (911)");
+            emergency911.setPhoneNumber("911");
+            emergency911.setAddress("US Emergency Services");
+            emergency911.setEmergencyNumber(true);
+            emergencyHospitals.add(emergency911);
+            
+            // Call emergency numbers
+            String crashLocation = String.format("%.6f, %.6f", crashLatitude, crashLongitude);
+            String googleMapsLink = "https://www.google.com/maps?q=" + crashLatitude + "," + crashLongitude;
+            
+            hospitalCaller.callHospitals(emergencyHospitals, crashLocation, googleMapsLink,
+                new HospitalCaller.HospitalCallCallback() {
+                    @Override
+                    public void onCallInitiated(Hospital hospital) {
+                        Log.d(TAG, "Emergency call initiated to: " + hospital.getName());
+                    }
+                    
+                    @Override
+                    public void onCallCompleted(Hospital hospital, boolean success) {
+                        Log.d(TAG, "Emergency call to " + hospital.getName() + " completed: " + success);
+                    }
+                    
+                    @Override
+                    public void onAllCallsFailed() {
+                        Log.e(TAG, "All emergency calls failed!");
+                    }
+                });
+                
+        } catch (Exception e) {
+            Log.e(TAG, "Error using emergency numbers", e);
         }
     }
     
@@ -502,6 +626,11 @@ public class EmergencyAlertService extends Service {
         // Clean up phone state listener
         if (telephonyManager != null && phoneStateListener != null) {
             telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+        }
+        
+        // Clean up hospital services
+        if (hospitalCaller != null) {
+            hospitalCaller.destroy();
         }
         
         if (executorService != null) {
