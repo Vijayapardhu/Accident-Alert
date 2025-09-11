@@ -3,7 +3,9 @@ package com.crashalert.safety;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +42,8 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
     private HospitalFinder hospitalFinder;
     private HospitalCaller hospitalCaller;
     private List<Hospital> foundHospitals;
+    private TextToSpeech textToSpeech;
+    private AudioManager audioManager;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,23 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
     private void initializeServices() {
         hospitalFinder = new HospitalFinder(this);
         hospitalCaller = new HospitalCaller(this);
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        initializeTextToSpeech();
+    }
+    
+    private void initializeTextToSpeech() {
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    Log.d("TestTTS", "Text-to-Speech initialized successfully");
+                    textToSpeech.setSpeechRate(0.7f);
+                    textToSpeech.setPitch(1.0f);
+                } else {
+                    Log.e("TestTTS", "Text-to-Speech initialization failed");
+                }
+            }
+        });
     }
     
     private void checkPermissions() {
@@ -281,7 +302,21 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
             return;
         }
         
-        // Show what the voice message will sound like
+        // Test TTS directly
+        if (textToSpeech == null) {
+            updateStatus("TTS not initialized - cannot test voice");
+            Toast.makeText(this, "TTS not ready - please wait and try again", Toast.LENGTH_LONG).show();
+            return;
+        }
+        
+        // Configure audio for testing
+        if (audioManager != null) {
+            audioManager.setMode(AudioManager.MODE_NORMAL);
+            audioManager.setSpeakerphoneOn(true); // Use speaker for testing
+            Log.d("TestVoiceCalling", "Audio configured for testing");
+        }
+        
+        // Create and speak the test message
         String voiceMessage = "Emergency Alert. A vehicle crash has been detected. " +
                 "Time: " + java.text.DateFormat.getTimeInstance().format(new java.util.Date()) + ". " +
                 "G-Force: 4.5 G. " +
@@ -292,13 +327,31 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
                 "This is an automated emergency alert from Crash Alert Safety app. " +
                 "Please respond immediately.";
         
-        Log.d("TestVoiceCalling", "Voice message: " + voiceMessage);
-        updateStatus("Voice calling test prepared - check logs for message content");
-        Toast.makeText(this, "Voice message logged - check Android logs", Toast.LENGTH_LONG).show();
+        Log.d("TestVoiceCalling", "Speaking test message: " + voiceMessage);
+        updateStatus("Speaking emergency message now...");
         
-        // Note: In a real test, this would make an actual call
-        // For safety, we're just showing the message that would be spoken
-        updateStatus("Voice calling test completed - message content logged");
+        // Test both TTS and audio file generation
+        textToSpeech.speak(voiceMessage, TextToSpeech.QUEUE_FLUSH, null, "test_emergency_alert");
+        
+        // Also test audio file generation
+        testAudioFileGeneration(voiceMessage);
+        
+        Toast.makeText(this, "Emergency message is being spoken now - listen carefully!", Toast.LENGTH_LONG).show();
+        updateStatus("Voice test completed - emergency message spoken");
+    }
+    
+    private void testAudioFileGeneration(String message) {
+        try {
+            String audioFile = getFilesDir().getAbsolutePath() + "/test_emergency_message.wav";
+            Log.d("TestVoiceCalling", "Generating test audio file: " + audioFile);
+            
+            if (textToSpeech != null) {
+                textToSpeech.synthesizeToFile(message, null, new java.io.File(audioFile), "test_audio_file");
+                Log.d("TestVoiceCalling", "Test audio file generation started");
+            }
+        } catch (Exception e) {
+            Log.e("TestVoiceCalling", "Error generating test audio file", e);
+        }
     }
     
     private void updateStatus(String message) {
@@ -311,6 +364,11 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
         
         if (hospitalCaller != null) {
             hospitalCaller.destroy();
+        }
+        
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
         }
     }
 }

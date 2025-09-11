@@ -11,9 +11,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.media.AudioAttributes;
+import android.media.AudioFocusRequest;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.telephony.PhoneStateListener;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
@@ -53,6 +59,10 @@ public class EmergencyAlertService extends Service {
     private HospitalFinder hospitalFinder;
     private HospitalCaller hospitalCaller;
     private TextToSpeech textToSpeech;
+    private AudioManager audioManager;
+    private AudioFocusRequest audioFocusRequest;
+    private MediaPlayer mediaPlayer;
+    private String emergencyAudioFile;
     
     private double crashLatitude;
     private double crashLongitude;
@@ -133,6 +143,7 @@ public class EmergencyAlertService extends Service {
         executorService = Executors.newFixedThreadPool(3);
         smsManager = SmsManager.getDefault();
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         hospitalFinder = new HospitalFinder(this);
         hospitalCaller = new HospitalCaller(this);
         
@@ -149,14 +160,68 @@ public class EmergencyAlertService extends Service {
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
                     Log.d(TAG, "Text-to-Speech initialized successfully");
+                    
+                    // Configure TTS for creating audio files
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_MEDIA)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                                .build();
+                        textToSpeech.setAudioAttributes(audioAttributes);
+                    }
+                    
                     // Set speech rate and pitch for emergency messages
-                    textToSpeech.setSpeechRate(0.8f); // Slightly slower for clarity
+                    textToSpeech.setSpeechRate(0.7f); // Slower for clarity
                     textToSpeech.setPitch(1.0f); // Normal pitch
+                    
+                    // Set up utterance progress listener
+                    textToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                        @Override
+                        public void onStart(String utteranceId) {
+                            Log.d(TAG, "TTS started: " + utteranceId);
+                        }
+                        
+                        @Override
+                        public void onDone(String utteranceId) {
+                            Log.d(TAG, "TTS completed: " + utteranceId);
+                            if ("emergency_audio_file".equals(utteranceId)) {
+                                // Audio file is ready, now we can play it during calls
+                                Log.d(TAG, "Emergency audio file created successfully");
+                            }
+                        }
+                        
+                        @Override
+                        public void onError(String utteranceId) {
+                            Log.e(TAG, "TTS error: " + utteranceId);
+                        }
+                    });
+                    
+                    // Pre-generate emergency audio file
+                    generateEmergencyAudioFile();
+                    
+                    Log.d(TAG, "TTS configured for audio file generation");
                 } else {
                     Log.e(TAG, "Text-to-Speech initialization failed");
                 }
             }
         });
+    }
+    
+    private void generateEmergencyAudioFile() {
+        try {
+            // Create emergency audio file path
+            emergencyAudioFile = getFilesDir().getAbsolutePath() + "/emergency_message.wav";
+            
+            // Generate the audio file
+            String voiceMessage = createVoiceMessage();
+            Log.d(TAG, "Generating emergency audio file: " + emergencyAudioFile);
+            
+            if (textToSpeech != null) {
+                textToSpeech.synthesizeToFile(voiceMessage, null, new java.io.File(emergencyAudioFile), "emergency_audio_file");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error generating emergency audio file", e);
+        }
     }
     
     private void initializePhoneStateListener() {
@@ -621,15 +686,127 @@ public class EmergencyAlertService extends Service {
     }
     
     private void speakEmergencyMessage() {
-        if (textToSpeech != null && textToSpeech.isSpeaking()) {
-            textToSpeech.stop();
+        Log.d(TAG, "Attempting to play emergency message during call");
+        
+        // Stop any existing audio
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
         
-        String voiceMessage = createVoiceMessage();
-        Log.d(TAG, "Speaking emergency message: " + voiceMessage);
+        // Request audio focus for voice communication
+        requestAudioFocus();
         
-        if (textToSpeech != null) {
-            textToSpeech.speak(voiceMessage, TextToSpeech.QUEUE_FLUSH, null, "emergency_alert");
+        // Configure audio for phone call
+        if (audioManager != null) {
+            audioManager.setMode(AudioManager.MODE_IN_CALL);
+            audioManager.setSpeakerphoneOn(false); // Use earpiece for call audio
+            Log.d(TAG, "Audio mode set to IN_CALL for emergency message");
+        }
+        
+        // Play the pre-generated emergency audio file
+        playEmergencyAudioFile();
+    }
+    
+    private void playEmergencyAudioFile() {
+        try {
+            if (emergencyAudioFile == null || !new java.io.File(emergencyAudioFile).exists()) {
+                Log.w(TAG, "Emergency audio file not found, generating new one");
+                generateEmergencyAudioFile();
+                // Wait a bit for file generation
+                new android.os.Handler().postDelayed(this::playEmergencyAudioFile, 3000);
+                return;
+            }
+            
+            Log.d(TAG, "Playing emergency audio file: " + emergencyAudioFile);
+            
+            mediaPlayer = new MediaPlayer();
+            
+            // Configure MediaPlayer for phone call audio
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                        .build();
+                mediaPlayer.setAudioAttributes(audioAttributes);
+            } else {
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+            }
+            
+            mediaPlayer.setDataSource(emergencyAudioFile);
+            mediaPlayer.prepare();
+            
+            // Set completion listener
+            mediaPlayer.setOnCompletionListener(mp -> {
+                Log.d(TAG, "Emergency message playback completed");
+                if (mediaPlayer != null) {
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                }
+            });
+            
+            // Set error listener
+            mediaPlayer.setOnErrorListener((mp, what, extra) -> {
+                Log.e(TAG, "MediaPlayer error: " + what + ", " + extra);
+                if (mediaPlayer != null) {
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                }
+                return true;
+            });
+            
+            // Start playback with a delay to ensure call is established
+            new android.os.Handler().postDelayed(() -> {
+                if (mediaPlayer != null) {
+                    try {
+                        mediaPlayer.start();
+                        Log.d(TAG, "Emergency message playback started");
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error starting emergency message playback", e);
+                    }
+                }
+            }, 3000); // 3 second delay to ensure call is answered
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Error playing emergency audio file", e);
+        }
+    }
+    
+    private void requestAudioFocus() {
+        if (audioManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                        .build();
+                
+                audioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                        .setAudioAttributes(audioAttributes)
+                        .setAcceptsDelayedFocusGain(true)
+                        .setOnAudioFocusChangeListener(new AudioManager.OnAudioFocusChangeListener() {
+                            @Override
+                            public void onAudioFocusChange(int focusChange) {
+                                Log.d(TAG, "Audio focus changed: " + focusChange);
+                            }
+                        })
+                        .build();
+                
+                int result = audioManager.requestAudioFocus(audioFocusRequest);
+                Log.d(TAG, "Audio focus request result: " + result);
+            } else {
+                int result = audioManager.requestAudioFocus(
+                        new AudioManager.OnAudioFocusChangeListener() {
+                            @Override
+                            public void onAudioFocusChange(int focusChange) {
+                                Log.d(TAG, "Audio focus changed: " + focusChange);
+                            }
+                        },
+                        AudioManager.STREAM_VOICE_CALL,
+                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
+                );
+                Log.d(TAG, "Audio focus request result: " + result);
+            }
         }
     }
     
@@ -699,6 +876,24 @@ public class EmergencyAlertService extends Service {
         if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
+        }
+        
+        // Clean up MediaPlayer
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+            }
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        
+        // Release audio focus
+        if (audioManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && audioFocusRequest != null) {
+                audioManager.abandonAudioFocusRequest(audioFocusRequest);
+            } else {
+                audioManager.abandonAudioFocus(null);
+            }
         }
         
         // Clean up hospital services

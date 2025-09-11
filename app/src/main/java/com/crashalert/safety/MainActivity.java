@@ -21,6 +21,7 @@ import com.crashalert.safety.database.DatabaseHelper;
 import com.crashalert.safety.service.DrivingModeService;
 import com.crashalert.safety.utils.PermissionUtils;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.widget.DrivingModeWidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -219,6 +220,26 @@ public class MainActivity extends AppCompatActivity {
         // Update emergency contacts button text
         int contactCount = databaseHelper.getEmergencyContactsCount();
         emergencyContactsBtn.setText("Emergency Contacts (" + contactCount + ")");
+        
+        // Refresh widgets to reflect current state
+        refreshWidgets();
+    }
+    
+    private void refreshWidgets() {
+        try {
+            android.appwidget.AppWidgetManager appWidgetManager = android.appwidget.AppWidgetManager.getInstance(this);
+            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
+                    new android.content.ComponentName(this, DrivingModeWidget.class));
+            
+            if (appWidgetIds.length > 0) {
+                Intent intent = new Intent(this, DrivingModeWidget.class);
+                intent.setAction(android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                intent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+                sendBroadcast(intent);
+            }
+        } catch (Exception e) {
+            // Widget refresh failed, but app should continue working
+        }
     }
     
     @Override
