@@ -50,6 +50,14 @@ public class HospitalFinder {
     private void searchHospitalsWithGooglePlaces(double latitude, double longitude, HospitalSearchCallback callback) {
         new Thread(() -> {
             try {
+                // Check if API key is properly configured
+                if (GOOGLE_PLACES_API_KEY.equals("YOUR_GOOGLE_PLACES_API_KEY") || 
+                    GOOGLE_PLACES_API_KEY.isEmpty()) {
+                    Log.w(TAG, "Google Places API key not configured, using local hospital database");
+                    useLocalHospitalDatabase(latitude, longitude, callback);
+                    return;
+                }
+                
                 String urlString = buildGooglePlacesUrl(latitude, longitude);
                 URL url = new URL(urlString);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -76,13 +84,13 @@ public class HospitalFinder {
                     }
                 }
                 
-                // Fallback to emergency numbers if API fails
-                Log.w(TAG, "Google Places API failed, using emergency numbers");
-                useEmergencyNumbers(callback);
+                // Fallback to local database if API fails
+                Log.w(TAG, "Google Places API failed, using local hospital database");
+                useLocalHospitalDatabase(latitude, longitude, callback);
                 
             } catch (Exception e) {
                 Log.e(TAG, "Error searching hospitals with Google Places", e);
-                useEmergencyNumbers(callback);
+                useLocalHospitalDatabase(latitude, longitude, callback);
             }
         }).start();
     }
@@ -141,6 +149,39 @@ public class HospitalFinder {
         return hospitals;
     }
     
+    private void useLocalHospitalDatabase(double latitude, double longitude, HospitalSearchCallback callback) {
+        List<Hospital> hospitals = new ArrayList<>();
+        
+        // Add some major hospitals in different regions
+        // This is a simplified database - in a real app, you'd have a more comprehensive list
+        
+        // India hospitals
+        hospitals.add(createHospital("Apollo Hospitals", "+91-11-26925858", "New Delhi", 28.6139, 77.2090, latitude, longitude));
+        hospitals.add(createHospital("AIIMS Delhi", "+91-11-26588500", "New Delhi", 28.5673, 77.2100, latitude, longitude));
+        hospitals.add(createHospital("Fortis Healthcare", "+91-11-42776200", "New Delhi", 28.6000, 77.2000, latitude, longitude));
+        
+        // Mumbai hospitals
+        hospitals.add(createHospital("Kokilaben Hospital", "+91-22-30999999", "Mumbai", 19.0760, 72.8777, latitude, longitude));
+        hospitals.add(createHospital("Lilavati Hospital", "+91-22-26751000", "Mumbai", 19.0596, 72.8295, latitude, longitude));
+        
+        // Bangalore hospitals
+        hospitals.add(createHospital("Narayana Health", "+91-80-22277777", "Bangalore", 12.9716, 77.5946, latitude, longitude));
+        hospitals.add(createHospital("Manipal Hospital", "+91-80-25024000", "Bangalore", 12.9352, 77.6245, latitude, longitude));
+        
+        // Chennai hospitals
+        hospitals.add(createHospital("Apollo Chennai", "+91-44-28290200", "Chennai", 13.0827, 80.2707, latitude, longitude));
+        hospitals.add(createHospital("Fortis Chennai", "+91-44-42000000", "Chennai", 13.0067, 80.2206, latitude, longitude));
+        
+        // Sort by distance
+        hospitals.sort((h1, h2) -> Double.compare(h1.getDistance(), h2.getDistance()));
+        
+        // Take only the closest 5 hospitals
+        List<Hospital> nearbyHospitals = hospitals.subList(0, Math.min(5, hospitals.size()));
+        
+        this.nearbyHospitals = nearbyHospitals;
+        callback.onHospitalsFound(nearbyHospitals);
+    }
+    
     private void useEmergencyNumbers(HospitalSearchCallback callback) {
         List<Hospital> emergencyHospitals = new ArrayList<>();
         
@@ -152,6 +193,19 @@ public class HospitalFinder {
         
         nearbyHospitals = emergencyHospitals;
         callback.onHospitalsFound(emergencyHospitals);
+    }
+    
+    private Hospital createHospital(String name, String phone, String address, 
+                                  double hospitalLat, double hospitalLon, 
+                                  double userLat, double userLon) {
+        Hospital hospital = new Hospital();
+        hospital.setName(name);
+        hospital.setPhoneNumber(phone);
+        hospital.setAddress(address);
+        hospital.setLatitude(hospitalLat);
+        hospital.setLongitude(hospitalLon);
+        hospital.setDistance(calculateDistance(userLat, userLon, hospitalLat, hospitalLon));
+        return hospital;
     }
     
     private Hospital createEmergencyHospital(String name, String phone, String address) {
