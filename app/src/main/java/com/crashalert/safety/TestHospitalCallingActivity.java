@@ -34,6 +34,7 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
     private Button testHospitalCallBtn;
     private Button testEmergencyAlertBtn;
     private Button testEmergencyContactsBtn;
+    private Button testVoiceCallBtn;
     private TextView statusText;
     
     private HospitalFinder hospitalFinder;
@@ -55,12 +56,14 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
         testHospitalCallBtn = findViewById(R.id.test_hospital_call_btn);
         testEmergencyAlertBtn = findViewById(R.id.test_emergency_alert_btn);
         testEmergencyContactsBtn = findViewById(R.id.test_emergency_contacts_btn);
+        testVoiceCallBtn = findViewById(R.id.test_voice_call_btn);
         statusText = findViewById(R.id.status_text);
         
         testHospitalSearchBtn.setOnClickListener(v -> testHospitalSearch());
         testHospitalCallBtn.setOnClickListener(v -> testHospitalCalling());
         testEmergencyAlertBtn.setOnClickListener(v -> testEmergencyAlert());
         testEmergencyContactsBtn.setOnClickListener(v -> testEmergencyContacts());
+        testVoiceCallBtn.setOnClickListener(v -> testVoiceCalling());
         
         updateStatus("Ready to test hospital calling functionality");
     }
@@ -265,6 +268,37 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
         
         Log.d("TestEmergencyContacts", "Emergency message preview: " + testMessage);
         updateStatus("Emergency message preview logged - check Android logs for full message");
+    }
+    
+    private void testVoiceCalling() {
+        updateStatus("Testing voice calling with automatic speech...");
+        
+        // Check permissions first
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) 
+                != PackageManager.PERMISSION_GRANTED) {
+            updateStatus("Call permission not granted - cannot test voice calling");
+            Toast.makeText(this, "Call permission required for voice calling", Toast.LENGTH_LONG).show();
+            return;
+        }
+        
+        // Show what the voice message will sound like
+        String voiceMessage = "Emergency Alert. A vehicle crash has been detected. " +
+                "Time: " + java.text.DateFormat.getTimeInstance().format(new java.util.Date()) + ". " +
+                "G-Force: 4.5 G. " +
+                "Location coordinates: 28.6139, 77.2090. " +
+                "Medical services and hospitals have been automatically notified. " +
+                "Please check on the person immediately. " +
+                "The driver may be injured and needs urgent medical attention. " +
+                "This is an automated emergency alert from Crash Alert Safety app. " +
+                "Please respond immediately.";
+        
+        Log.d("TestVoiceCalling", "Voice message: " + voiceMessage);
+        updateStatus("Voice calling test prepared - check logs for message content");
+        Toast.makeText(this, "Voice message logged - check Android logs", Toast.LENGTH_LONG).show();
+        
+        // Note: In a real test, this would make an actual call
+        // For safety, we're just showing the message that would be spoken
+        updateStatus("Voice calling test completed - message content logged");
     }
     
     private void updateStatus(String message) {

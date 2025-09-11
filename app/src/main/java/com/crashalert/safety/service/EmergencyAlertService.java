@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.IBinder;
+import android.speech.tts.TextToSpeech;
 import android.telephony.PhoneStateListener;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
@@ -51,6 +52,7 @@ public class EmergencyAlertService extends Service {
     private TelephonyManager telephonyManager;
     private HospitalFinder hospitalFinder;
     private HospitalCaller hospitalCaller;
+    private TextToSpeech textToSpeech;
     
     private double crashLatitude;
     private double crashLongitude;
@@ -134,8 +136,27 @@ public class EmergencyAlertService extends Service {
         hospitalFinder = new HospitalFinder(this);
         hospitalCaller = new HospitalCaller(this);
         
+        // Initialize Text-to-Speech
+        initializeTextToSpeech();
+        
         // Initialize phone state listener for call monitoring
         initializePhoneStateListener();
+    }
+    
+    private void initializeTextToSpeech() {
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    Log.d(TAG, "Text-to-Speech initialized successfully");
+                    // Set speech rate and pitch for emergency messages
+                    textToSpeech.setSpeechRate(0.8f); // Slightly slower for clarity
+                    textToSpeech.setPitch(1.0f); // Normal pitch
+                } else {
+                    Log.e(TAG, "Text-to-Speech initialization failed");
+                }
+            }
+        });
     }
     
     private void initializePhoneStateListener() {
@@ -158,6 +179,9 @@ public class EmergencyAlertService extends Service {
                         Log.d(TAG, "Call state: OFFHOOK - Call answered!");
                         isCallActive = true;
                         callAnswered = true;
+                        
+                        // Automatically speak emergency message when call is answered
+                        speakEmergencyMessage();
                         break;
                 }
             }
@@ -591,6 +615,34 @@ public class EmergencyAlertService extends Service {
         }
     }
     
+    private void speakEmergencyMessage() {
+        if (textToSpeech != null && textToSpeech.isSpeaking()) {
+            textToSpeech.stop();
+        }
+        
+        String voiceMessage = createVoiceMessage();
+        Log.d(TAG, "Speaking emergency message: " + voiceMessage);
+        
+        if (textToSpeech != null) {
+            textToSpeech.speak(voiceMessage, TextToSpeech.QUEUE_FLUSH, null, "emergency_alert");
+        }
+    }
+    
+    private String createVoiceMessage() {
+        String timeStamp = java.text.DateFormat.getTimeInstance().format(new java.util.Date());
+        String locationText = String.format("%.4f, %.4f", crashLatitude, crashLongitude);
+        
+        return "Emergency Alert. A vehicle crash has been detected. " +
+               "Time: " + timeStamp + ". " +
+               "G-Force: " + String.format("%.1f", gForce) + " G. " +
+               "Location coordinates: " + locationText + ". " +
+               "Medical services and hospitals have been automatically notified. " +
+               "Please check on the person immediately. " +
+               "The driver may be injured and needs urgent medical attention. " +
+               "This is an automated emergency alert from Crash Alert Safety app. " +
+               "Please respond immediately.";
+    }
+    
     private String createEmergencyMessage() {
         String locationText = String.format("%.6f, %.6f", crashLatitude, crashLongitude);
         String mapsLink = "https://www.google.com/maps?q=" + crashLatitude + "," + crashLongitude;
@@ -634,6 +686,12 @@ public class EmergencyAlertService extends Service {
         // Clean up phone state listener
         if (telephonyManager != null && phoneStateListener != null) {
             telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+        }
+        
+        // Clean up Text-to-Speech
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
         }
         
         // Clean up hospital services

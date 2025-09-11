@@ -51,8 +51,17 @@
         android:layout_height="wrap_content"
         android:text="Test Emergency Contacts Notification"
         android:textSize="16sp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="@color/primary_color" />
+
+    <Button
+        android:id="@+id/test_voice_call_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Voice Call with Auto Speech"
+        android:textSize="16sp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/secondary_color" />
 
     <ScrollView
         android:layout_width="match_parent"
