@@ -24,6 +24,7 @@ import com.crashalert.safety.database.DatabaseHelper;
 import com.crashalert.safety.model.EmergencyContact;
 import com.crashalert.safety.location.CrashLocationManager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -193,9 +194,18 @@ public class EmergencyAlertService extends Service {
             return;
         }
         
+        // Check if SMS is available on device
+        if (smsManager == null) {
+            Log.e(TAG, "SMS manager is null - SMS not available on this device");
+            return;
+        }
+        
         String message = createEmergencyMessage();
         Log.d(TAG, "Sending SMS to " + contacts.size() + " contacts");
         Log.d(TAG, "SMS message: " + message);
+        
+        int successCount = 0;
+        int failCount = 0;
         
         for (EmergencyContact contact : contacts) {
             try {
@@ -204,6 +214,7 @@ public class EmergencyAlertService extends Service {
                 // Validate phone number
                 if (contact.getPhone() == null || contact.getPhone().trim().isEmpty()) {
                     Log.e(TAG, "Invalid phone number for contact: " + contact.getName());
+                    failCount++;
                     continue;
                 }
                 
@@ -211,8 +222,10 @@ public class EmergencyAlertService extends Service {
                 boolean smsSent = sendSMS(contact.getPhone(), message);
                 if (smsSent) {
                     Log.d(TAG, "SMS sent successfully to: " + contact.getName() + " (" + contact.getPhone() + ")");
+                    successCount++;
                 } else {
                     Log.e(TAG, "Failed to send SMS to: " + contact.getName() + " (" + contact.getPhone() + ")");
+                    failCount++;
                 }
                 
                 // Add delay between SMS to avoid rate limiting
@@ -220,8 +233,11 @@ public class EmergencyAlertService extends Service {
                 
             } catch (Exception e) {
                 Log.e(TAG, "Failed to send SMS to " + contact.getName() + " (" + contact.getPhone() + ")", e);
+                failCount++;
             }
         }
+        
+        Log.d(TAG, "SMS sending completed - Success: " + successCount + ", Failed: " + failCount);
     }
     
     private void makeVoiceCallsToTopContacts(List<EmergencyContact> contacts) {
@@ -284,44 +300,81 @@ public class EmergencyAlertService extends Service {
     
     private boolean sendSMS(String phoneNumber, String message) {
         try {
-            // Method 1: Try SmsManager.getDefault()
-            try {
-                smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                Log.d(TAG, "SMS sent using SmsManager.getDefault()");
-                return true;
-            } catch (Exception e) {
-                Log.w(TAG, "SmsManager.getDefault() failed: " + e.getMessage());
+            Log.d(TAG, "Attempting to send SMS to: " + phoneNumber);
+            Log.d(TAG, "SMS message length: " + message.length());
+            
+            // Clean phone number
+            String cleanPhone = phoneNumber.replaceAll("[^\\d+]", "");
+            if (cleanPhone.startsWith("+")) {
+                cleanPhone = cleanPhone.substring(1);
             }
             
-            // Method 2: Try using Intent to open SMS app
+            // Method 1: Try SmsManager.getDefault() with proper error handling
             try {
+                Log.d(TAG, "Trying SmsManager.getDefault() method");
+                
+                // Check if message is too long and split if necessary
+                if (message.length() > 160) {
+                    Log.d(TAG, "Message too long, splitting into parts");
+                    ArrayList<String> parts = smsManager.divideMessage(message);
+                    smsManager.sendMultipartTextMessage(cleanPhone, null, parts, null, null);
+                    Log.d(TAG, "SMS sent using sendMultipartTextMessage with " + parts.size() + " parts");
+                } else {
+                    smsManager.sendTextMessage(cleanPhone, null, message, null, null);
+                    Log.d(TAG, "SMS sent using sendTextMessage");
+                }
+                
+                Log.d(TAG, "SMS sent successfully using SmsManager.getDefault()");
+                return true;
+                
+            } catch (Exception e) {
+                Log.e(TAG, "SmsManager.getDefault() failed: " + e.getMessage(), e);
+            }
+            
+            // Method 2: Try using Intent to open SMS app as fallback
+            try {
+                Log.d(TAG, "Trying SMS Intent method as fallback");
                 Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
-                smsIntent.setData(Uri.parse("smsto:" + phoneNumber));
+                smsIntent.setData(Uri.parse("smsto:" + cleanPhone));
                 smsIntent.putExtra("sms_body", message);
                 smsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(smsIntent);
-                Log.d(TAG, "SMS intent sent to SMS app");
-                return true;
-            } catch (Exception e) {
-                Log.w(TAG, "SMS intent failed: " + e.getMessage());
-            }
-            
-            // Method 3: Try using TelephonyManager (if available)
-            try {
-                if (telephonyManager != null) {
-                    // This is a fallback - some devices might support this
-                    Log.d(TAG, "Attempting alternative SMS method");
-                    // Note: This might not work on all devices
-                    return false;
+                
+                // Check if there's an app that can handle this intent
+                if (smsIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(smsIntent);
+                    Log.d(TAG, "SMS intent sent to SMS app");
+                    return true;
+                } else {
+                    Log.w(TAG, "No SMS app available to handle intent");
                 }
+                
             } catch (Exception e) {
-                Log.w(TAG, "TelephonyManager SMS failed: " + e.getMessage());
+                Log.e(TAG, "SMS intent failed: " + e.getMessage(), e);
             }
             
+            // Method 3: Try alternative SMS sending
+            try {
+                Log.d(TAG, "Trying alternative SMS method");
+                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                sendIntent.setData(Uri.parse("sms:" + cleanPhone));
+                sendIntent.putExtra("sms_body", message);
+                sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
+                if (sendIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(sendIntent);
+                    Log.d(TAG, "Alternative SMS method sent");
+                    return true;
+                }
+                
+            } catch (Exception e) {
+                Log.e(TAG, "Alternative SMS method failed: " + e.getMessage(), e);
+            }
+            
+            Log.e(TAG, "All SMS methods failed for phone: " + phoneNumber);
             return false;
             
         } catch (Exception e) {
-            Log.e(TAG, "All SMS methods failed", e);
+            Log.e(TAG, "Critical error in sendSMS: " + e.getMessage(), e);
             return false;
         }
     }
