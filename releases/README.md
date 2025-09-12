@@ -3,10 +3,28 @@
 ## 📱 App Information
 - **App Name:** Crash Alert Safety
 - **Version:** 1.0
-- **Build Type:** Debug
 - **Target SDK:** 34 (Android 14)
 - **Min SDK:** 24 (Android 7.0)
-- **File Size:** ~17.9 MB
+
+## 📦 Available Builds
+
+### Signed Release Build (Recommended)
+- **File:** `CrashAlertSafety-v1.0-signed.apk`
+- **Size:** ~16.1 MB
+- **Type:** Signed Release (Production Ready & Signed)
+- **Features:** All features, optimized performance, digitally signed
+
+### Unsigned Release Build
+- **File:** `CrashAlertSafety-v1.0-release.apk`
+- **Size:** ~16.1 MB
+- **Type:** Release (Optimized but Unsigned)
+- **Features:** All features, optimized performance, requires manual signing
+
+### Debug Build (Development)
+- **File:** `CrashAlertSafety-v1.0-debug.apk`
+- **Size:** ~17.9 MB
+- **Type:** Debug (Development & Testing)
+- **Features:** All features, debug logging enabled
 
 ## 🚀 Features
 - **Real-time Crash Detection** using accelerometer and gyroscope sensors
@@ -29,7 +47,10 @@
 - Enable "Unknown Sources" or "Install from Unknown Sources" in device settings
 
 ### Installation Steps
-1. Download the APK file: `CrashAlertSafety-v1.0-debug.apk`
+1. **Download the APK file:**
+   - **Recommended:** `CrashAlertSafety-v1.0-signed.apk` (Production ready & signed)
+   - **Alternative:** `CrashAlertSafety-v1.0-release.apk` (Unsigned release)
+   - **Development:** `CrashAlertSafety-v1.0-debug.apk` (For testing)
 2. Transfer the APK to your Android device
 3. Open the APK file on your device
 4. Follow the installation prompts
