@@ -18,8 +18,6 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
 import android.telephony.PhoneStateListener;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
@@ -58,11 +56,9 @@ public class EmergencyAlertService extends Service {
     private TelephonyManager telephonyManager;
     private HospitalFinder hospitalFinder;
     private HospitalCaller hospitalCaller;
-    private TextToSpeech textToSpeech;
     private AudioManager audioManager;
     private AudioFocusRequest audioFocusRequest;
     private MediaPlayer mediaPlayer;
-    private String emergencyAudioFile;
     
     private double crashLatitude;
     private double crashLongitude;
@@ -147,82 +143,12 @@ public class EmergencyAlertService extends Service {
         hospitalFinder = new HospitalFinder(this);
         hospitalCaller = new HospitalCaller(this);
         
-        // Initialize Text-to-Speech
-        initializeTextToSpeech();
         
         // Initialize phone state listener for call monitoring
         initializePhoneStateListener();
     }
     
-    private void initializeTextToSpeech() {
-        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    Log.d(TAG, "Text-to-Speech initialized successfully");
-                    
-                    // Configure TTS for creating audio files
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_MEDIA)
-                                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                                .build();
-                        textToSpeech.setAudioAttributes(audioAttributes);
-                    }
-                    
-                    // Set speech rate and pitch for emergency messages
-                    textToSpeech.setSpeechRate(0.7f); // Slower for clarity
-                    textToSpeech.setPitch(1.0f); // Normal pitch
-                    
-                    // Set up utterance progress listener
-                    textToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-                        @Override
-                        public void onStart(String utteranceId) {
-                            Log.d(TAG, "TTS started: " + utteranceId);
-                        }
-                        
-                        @Override
-                        public void onDone(String utteranceId) {
-                            Log.d(TAG, "TTS completed: " + utteranceId);
-                            if ("emergency_audio_file".equals(utteranceId)) {
-                                // Audio file is ready, now we can play it during calls
-                                Log.d(TAG, "Emergency audio file created successfully");
-                            }
-                        }
-                        
-                        @Override
-                        public void onError(String utteranceId) {
-                            Log.e(TAG, "TTS error: " + utteranceId);
-                        }
-                    });
-                    
-                    // Pre-generate emergency audio file
-                    generateEmergencyAudioFile();
-                    
-                    Log.d(TAG, "TTS configured for audio file generation");
-                } else {
-                    Log.e(TAG, "Text-to-Speech initialization failed");
-                }
-            }
-        });
-    }
     
-    private void generateEmergencyAudioFile() {
-        try {
-            // Create emergency audio file path
-            emergencyAudioFile = getFilesDir().getAbsolutePath() + "/emergency_message.wav";
-            
-            // Generate the audio file
-            String voiceMessage = createVoiceMessage();
-            Log.d(TAG, "Generating emergency audio file: " + emergencyAudioFile);
-            
-            if (textToSpeech != null) {
-                textToSpeech.synthesizeToFile(voiceMessage, null, new java.io.File(emergencyAudioFile), "emergency_audio_file");
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error generating emergency audio file", e);
-        }
-    }
     
     private void initializePhoneStateListener() {
         phoneStateListener = new PhoneStateListener() {
@@ -245,8 +171,7 @@ public class EmergencyAlertService extends Service {
                         isCallActive = true;
                         callAnswered = true;
                         
-                        // Automatically speak emergency message when call is answered
-                        speakEmergencyMessage();
+                        // Call answered - emergency message will be sent via SMS only
                         break;
                 }
             }
@@ -362,15 +287,10 @@ public class EmergencyAlertService extends Service {
                     continue;
                 }
                 
-                // Send SMS using multiple methods for better compatibility
-                boolean smsSent = sendSMS(contact.getPhone(), message);
-                if (smsSent) {
-                    Log.d(TAG, "SMS sent successfully to: " + contact.getName() + " (" + contact.getPhone() + ")");
-                    successCount++;
-                } else {
-                    Log.e(TAG, "Failed to send SMS to: " + contact.getName() + " (" + contact.getPhone() + ")");
-                    failCount++;
-                }
+                // Send multiple SMS messages for better visibility
+                sendMultipleSMSMessages(contact, message);
+                successCount++;
+                Log.d(TAG, "Multiple SMS messages sent to: " + contact.getName() + " (" + contact.getPhone() + ")");
                 
                 // Add delay between SMS to avoid rate limiting
                 Thread.sleep(1000);
@@ -382,6 +302,33 @@ public class EmergencyAlertService extends Service {
         }
         
         Log.d(TAG, "SMS sending completed - Success: " + successCount + ", Failed: " + failCount);
+    }
+    
+    private void sendMultipleSMSMessages(EmergencyContact contact, String fullMessage) {
+        try {
+            // Send immediate alert SMS
+            String immediateAlert = "🚨 EMERGENCY ALERT 🚨\n" +
+                    "Vehicle crash detected!\n" +
+                    "Location: " + String.format("%.4f, %.4f", crashLatitude, crashLongitude) + "\n" +
+                    "Time: " + java.text.DateFormat.getTimeInstance().format(new java.util.Date()) + "\n" +
+                    "Please respond immediately!";
+            
+            sendSMS(contact.getPhone(), immediateAlert);
+            Log.d(TAG, "Immediate alert SMS sent to " + contact.getName());
+            
+            // Wait a bit then send detailed message
+            new android.os.Handler().postDelayed(() -> {
+                try {
+                    sendSMS(contact.getPhone(), fullMessage);
+                    Log.d(TAG, "Detailed SMS sent to " + contact.getName());
+                } catch (Exception e) {
+                    Log.e(TAG, "Error sending detailed SMS to " + contact.getName(), e);
+                }
+            }, 2000);
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Error sending multiple SMS to " + contact.getName(), e);
+        }
     }
     
     private void makeVoiceCallsToTopContacts(List<EmergencyContact> contacts) {
@@ -685,93 +632,8 @@ public class EmergencyAlertService extends Service {
         }
     }
     
-    private void speakEmergencyMessage() {
-        Log.d(TAG, "Attempting to play emergency message during call");
-        
-        // Stop any existing audio
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-        
-        // Request audio focus for voice communication
-        requestAudioFocus();
-        
-        // Configure audio for phone call
-        if (audioManager != null) {
-            audioManager.setMode(AudioManager.MODE_IN_CALL);
-            audioManager.setSpeakerphoneOn(false); // Use earpiece for call audio
-            Log.d(TAG, "Audio mode set to IN_CALL for emergency message");
-        }
-        
-        // Play the pre-generated emergency audio file
-        playEmergencyAudioFile();
-    }
     
-    private void playEmergencyAudioFile() {
-        try {
-            if (emergencyAudioFile == null || !new java.io.File(emergencyAudioFile).exists()) {
-                Log.w(TAG, "Emergency audio file not found, generating new one");
-                generateEmergencyAudioFile();
-                // Wait a bit for file generation
-                new android.os.Handler().postDelayed(this::playEmergencyAudioFile, 3000);
-                return;
-            }
-            
-            Log.d(TAG, "Playing emergency audio file: " + emergencyAudioFile);
-            
-            mediaPlayer = new MediaPlayer();
-            
-            // Configure MediaPlayer for phone call audio
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                        .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                        .build();
-                mediaPlayer.setAudioAttributes(audioAttributes);
-            } else {
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
-            }
-            
-            mediaPlayer.setDataSource(emergencyAudioFile);
-            mediaPlayer.prepare();
-            
-            // Set completion listener
-            mediaPlayer.setOnCompletionListener(mp -> {
-                Log.d(TAG, "Emergency message playback completed");
-                if (mediaPlayer != null) {
-                    mediaPlayer.release();
-                    mediaPlayer = null;
-                }
-            });
-            
-            // Set error listener
-            mediaPlayer.setOnErrorListener((mp, what, extra) -> {
-                Log.e(TAG, "MediaPlayer error: " + what + ", " + extra);
-                if (mediaPlayer != null) {
-                    mediaPlayer.release();
-                    mediaPlayer = null;
-                }
-                return true;
-            });
-            
-            // Start playback with a delay to ensure call is established
-            new android.os.Handler().postDelayed(() -> {
-                if (mediaPlayer != null) {
-                    try {
-                        mediaPlayer.start();
-                        Log.d(TAG, "Emergency message playback started");
-                    } catch (Exception e) {
-                        Log.e(TAG, "Error starting emergency message playback", e);
-                    }
-                }
-            }, 3000); // 3 second delay to ensure call is answered
-            
-        } catch (Exception e) {
-            Log.e(TAG, "Error playing emergency audio file", e);
-        }
-    }
+    
     
     private void requestAudioFocus() {
         if (audioManager != null) {
@@ -810,20 +672,6 @@ public class EmergencyAlertService extends Service {
         }
     }
     
-    private String createVoiceMessage() {
-        String timeStamp = java.text.DateFormat.getTimeInstance().format(new java.util.Date());
-        String locationText = String.format("%.4f, %.4f", crashLatitude, crashLongitude);
-        
-        return "Emergency Alert. A vehicle crash has been detected. " +
-               "Time: " + timeStamp + ". " +
-               "G-Force: " + String.format("%.1f", gForce) + " G. " +
-               "Location coordinates: " + locationText + ". " +
-               "Medical services and hospitals have been automatically notified. " +
-               "Please check on the person immediately. " +
-               "The driver may be injured and needs urgent medical attention. " +
-               "This is an automated emergency alert from Crash Alert Safety app. " +
-               "Please respond immediately.";
-    }
     
     private String createEmergencyMessage() {
         String locationText = String.format("%.6f, %.6f", crashLatitude, crashLongitude);
@@ -843,6 +691,12 @@ public class EmergencyAlertService extends Service {
                "• Call emergency services if not already contacted\n" +
                "• Use the Google Maps link to locate the crash site\n" +
                "• The driver may be injured and needs urgent medical attention\n\n" +
+               "📞 VOICE MESSAGE INSTRUCTIONS:\n" +
+               "• If you can hear this call, the driver may be unconscious\n" +
+               "• Please speak clearly: 'EMERGENCY - CRASH DETECTED'\n" +
+               "• Repeat the location coordinates: " + locationText + "\n" +
+               "• Ask for immediate medical assistance\n" +
+               "• The driver needs urgent help at the location above\n\n" +
                "This is an automated emergency alert from Crash Alert Safety app.\n" +
                "Please respond immediately!";
     }
@@ -872,11 +726,6 @@ public class EmergencyAlertService extends Service {
             telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
         }
         
-        // Clean up Text-to-Speech
-        if (textToSpeech != null) {
-            textToSpeech.stop();
-            textToSpeech.shutdown();
-        }
         
         // Clean up MediaPlayer
         if (mediaPlayer != null) {
