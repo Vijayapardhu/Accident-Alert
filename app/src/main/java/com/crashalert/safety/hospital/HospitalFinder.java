@@ -9,20 +9,23 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import com.crashalert.safety.config.ApiConfig;
 
 /**
- * HospitalFinder class to find nearest hospitals using Google Places API
+ * HospitalFinder class to find nearest hospitals using OpenStreetMap Nominatim API
  * Falls back to hardcoded emergency numbers if API is unavailable
  */
 public class HospitalFinder {
     
     private static final String TAG = "HospitalFinder";
-    private static final String GOOGLE_PLACES_BASE_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
+    private static final String NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search";
+    private static final String USER_AGENT = "CrashAlertSafety/1.0";
     private static final int MAX_RADIUS = 20000; // 20km in meters
     private static final int MAX_RESULTS = 5;
+    private static final int TIMEOUT_MS = 10000; // 10 seconds
     
     private Context context;
     private List<Hospital> nearbyHospitals;
@@ -38,45 +41,31 @@ public class HospitalFinder {
     }
     
     /**
-     * Find nearest hospitals to the given location
+     * Find nearest hospitals to the given location using OpenStreetMap Nominatim
      */
     public void findNearbyHospitals(double latitude, double longitude, HospitalSearchCallback callback) {
         Log.d(TAG, "Searching for hospitals near: " + latitude + ", " + longitude);
         
-        // Try Google Places API first
-        searchHospitalsWithGooglePlaces(latitude, longitude, callback);
+        // Use OpenStreetMap Nominatim API
+        searchHospitalsWithNominatim(latitude, longitude, callback);
     }
     
-    private void searchHospitalsWithGooglePlaces(double latitude, double longitude, HospitalSearchCallback callback) {
+    private void searchHospitalsWithNominatim(double latitude, double longitude, HospitalSearchCallback callback) {
         new Thread(() -> {
             try {
-                // Check if API key is properly configured
-                if (!ApiConfig.isGooglePlacesConfigured()) {
-                    Log.w(TAG, "Google Places API key not configured, using local hospital database");
-                    useLocalHospitalDatabase(latitude, longitude, callback);
-                    return;
-                }
+                String query = "hospital emergency medical";
+                String url = NOMINATIM_BASE_URL + "?format=json&q=" + URLEncoder.encode(query, "UTF-8") +
+                           "&lat=" + latitude + "&lon=" + longitude + "&radius=" + (MAX_RADIUS / 1000) +
+                           "&limit=" + MAX_RESULTS + "&addressdetails=1&extratags=1";
                 
-                String urlString = buildGooglePlacesUrl(latitude, longitude);
-                URL url = new URL(urlString);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setConnectTimeout(10000);
-                connection.setReadTimeout(15000);
+                Log.d(TAG, "Making request to OpenStreetMap Nominatim API");
+                String response = makeHttpRequest(url);
                 
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String line;
+                if (response != null) {
+                    List<Hospital> hospitals = parseNominatimResults(response, latitude, longitude);
                     
-                    while ((line = reader.readLine()) != null) {
-                        response.append(line);
-                    }
-                    reader.close();
-                    
-                    List<Hospital> hospitals = parseGooglePlacesResponse(response.toString(), latitude, longitude);
                     if (!hospitals.isEmpty()) {
+                        Log.d(TAG, "Found " + hospitals.size() + " hospitals via Nominatim");
                         nearbyHospitals = hospitals;
                         callback.onHospitalsFound(hospitals);
                         return;
@@ -84,65 +73,84 @@ public class HospitalFinder {
                 }
                 
                 // Fallback to local database if API fails
-                Log.w(TAG, "Google Places API failed, using local hospital database");
+                Log.w(TAG, "Nominatim API failed, using local hospital database");
                 useLocalHospitalDatabase(latitude, longitude, callback);
                 
             } catch (Exception e) {
-                Log.e(TAG, "Error searching hospitals with Google Places", e);
+                Log.e(TAG, "Error searching hospitals with Nominatim", e);
                 useLocalHospitalDatabase(latitude, longitude, callback);
             }
         }).start();
     }
     
-    private String buildGooglePlacesUrl(double latitude, double longitude) {
-        return GOOGLE_PLACES_BASE_URL + "?" +
-                "location=" + latitude + "," + longitude +
-                "&radius=" + MAX_RADIUS +
-                "&type=hospital" +
-                "&keyword=emergency" +
-                "&key=" + ApiConfig.getGooglePlacesApiKey();
+    private String makeHttpRequest(String urlString) {
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("User-Agent", USER_AGENT);
+            connection.setConnectTimeout(TIMEOUT_MS);
+            connection.setReadTimeout(TIMEOUT_MS);
+            
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+                
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+                
+                return response.toString();
+            } else {
+                Log.e(TAG, "HTTP error: " + responseCode);
+                return null;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error making HTTP request", e);
+            return null;
+        }
     }
     
-    private List<Hospital> parseGooglePlacesResponse(String jsonResponse, double userLatitude, double userLongitude) {
+    private List<Hospital> parseNominatimResults(String jsonResponse, double userLatitude, double userLongitude) {
         List<Hospital> hospitals = new ArrayList<>();
         
         try {
-            JSONObject jsonObject = new JSONObject(jsonResponse);
-            JSONArray results = jsonObject.getJSONArray("results");
+            JSONArray results = new JSONArray(jsonResponse);
             
             for (int i = 0; i < Math.min(results.length(), MAX_RESULTS); i++) {
                 JSONObject place = results.getJSONObject(i);
                 
                 Hospital hospital = new Hospital();
-                hospital.setName(place.getString("name"));
-                hospital.setPlaceId(place.getString("place_id"));
+                hospital.setName(place.optString("display_name", "Unknown Hospital"));
+                hospital.setAddress(place.optString("display_name", ""));
                 
                 // Get location
-                JSONObject location = place.getJSONObject("geometry").getJSONObject("location");
-                hospital.setLatitude(location.getDouble("lat"));
-                hospital.setLongitude(location.getDouble("lng"));
+                hospital.setLatitude(place.getDouble("lat"));
+                hospital.setLongitude(place.getDouble("lon"));
                 
                 // Get phone number if available
-                if (place.has("formatted_phone_number")) {
-                    hospital.setPhoneNumber(place.getString("formatted_phone_number"));
-                } else {
-                    hospital.setPhoneNumber(getEmergencyNumber());
+                String phone = "";
+                if (place.has("extratags")) {
+                    JSONObject extratags = place.getJSONObject("extratags");
+                    phone = extratags.optString("phone", "");
                 }
+                hospital.setPhoneNumber(phone.isEmpty() ? getEmergencyNumber() : phone);
                 
-                // Get address
-                if (place.has("vicinity")) {
-                    hospital.setAddress(place.getString("vicinity"));
-                }
-                
-                // Calculate distance (simplified)
+                // Calculate distance
                 hospital.setDistance(calculateDistance(userLatitude, userLongitude, 
                     hospital.getLatitude(), hospital.getLongitude()));
                 
                 hospitals.add(hospital);
             }
             
+            // Sort by distance
+            hospitals.sort((h1, h2) -> Double.compare(h1.getDistance(), h2.getDistance()));
+            
         } catch (Exception e) {
-            Log.e(TAG, "Error parsing Google Places response", e);
+            Log.e(TAG, "Error parsing Nominatim response", e);
         }
         
         return hospitals;

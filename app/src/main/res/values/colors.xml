@@ -28,7 +28,9 @@
     
     <!-- Background Colors -->
     <color name="background_color">#FAFAFA</color>
+    <color name="background_light">#FAFAFA</color>
     <color name="surface_color">#FFFFFF</color>
+    <color name="surface_light">#F5F5F5</color>
     <color name="emergency_background">#FFF3E0</color>
     <color name="card_background">#FFFFFF</color>
     

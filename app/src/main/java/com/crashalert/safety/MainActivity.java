@@ -21,6 +21,7 @@ import com.crashalert.safety.database.DatabaseHelper;
 import com.crashalert.safety.service.DrivingModeService;
 import com.crashalert.safety.utils.PermissionUtils;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.utils.BatteryOptimizationUtils;
 import com.crashalert.safety.widget.DrivingModeWidget;
 
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private Button emergencyContactsBtn;
     private Button settingsBtn;
     private Button testHospitalBtn;
+    private Button testCrashBtn;
+    private Button crashHistoryBtn;
     private TextView statusText;
     private DatabaseHelper databaseHelper;
     
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         initializeViews();
         initializeDatabase();
         checkPermissions();
+        checkBatteryOptimization();
         updateUI();
     }
     
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         emergencyContactsBtn = findViewById(R.id.emergency_contacts_btn);
         settingsBtn = findViewById(R.id.settings_btn);
         testHospitalBtn = findViewById(R.id.test_hospital_btn);
+        testCrashBtn = findViewById(R.id.test_crash_btn);
+        crashHistoryBtn = findViewById(R.id.crash_history_btn);
         statusText = findViewById(R.id.status_text);
         
         drivingModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -78,6 +84,16 @@ public class MainActivity extends AppCompatActivity {
         
         testHospitalBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, TestHospitalCallingActivity.class);
+            startActivity(intent);
+        });
+        
+        testCrashBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, TestCrashDetectionActivity.class);
+            startActivity(intent);
+        });
+        
+        crashHistoryBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CrashHistoryActivity.class);
             startActivity(intent);
         });
     }
@@ -129,10 +145,8 @@ public class MainActivity extends AppCompatActivity {
     }
     
     private void checkBatteryOptimization() {
-        if (!Settings.System.canWrite(this)) {
-            Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-            intent.setData(android.net.Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, BATTERY_OPTIMIZATION_REQUEST_CODE);
+        if (!BatteryOptimizationUtils.isBatteryOptimizationDisabled(this)) {
+            BatteryOptimizationUtils.showBatteryOptimizationDialog(this, BATTERY_OPTIMIZATION_REQUEST_CODE);
         }
     }
     

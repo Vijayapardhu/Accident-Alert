@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.crashalert.safety.model.CrashEvent;
 import com.crashalert.safety.model.EmergencyContact;
 import com.crashalert.safety.utils.EncryptionUtils;
 
@@ -35,6 +36,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_LATITUDE = "latitude";
     private static final String COLUMN_LONGITUDE = "longitude";
     private static final String COLUMN_G_FORCE = "g_force";
+    private static final String COLUMN_ADDRESS = "address";
+    private static final String COLUMN_IS_CONFIRMED = "is_confirmed";
+    private static final String COLUMN_NOTES = "notes";
     private static final String COLUMN_IS_FALSE_POSITIVE = "is_false_positive";
     private static final String COLUMN_ALERT_SENT = "alert_sent";
     
@@ -288,5 +292,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         
         db.close();
         return rowsAffected > 0;
+    }
+    
+    // Crash Event Operations
+    public List<CrashEvent> getAllCrashEvents() {
+        List<CrashEvent> crashEvents = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        
+        String query = "SELECT * FROM " + TABLE_CRASH_EVENTS + 
+                      " ORDER BY " + COLUMN_TIMESTAMP + " DESC";
+        Cursor cursor = db.rawQuery(query, null);
+        
+        if (cursor.moveToFirst()) {
+            do {
+                CrashEvent event = new CrashEvent();
+                event.setId(cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_EVENT_ID)));
+                event.setTimestamp(cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_TIMESTAMP)));
+                event.setLatitude(cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_LATITUDE)));
+                event.setLongitude(cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_LONGITUDE)));
+                event.setGForce(cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_G_FORCE)));
+                event.setAddress(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ADDRESS)));
+                event.setConfirmed(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_CONFIRMED)) == 1);
+                event.setNotes(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTES)));
+                
+                crashEvents.add(event);
+            } while (cursor.moveToNext());
+        }
+        
+        cursor.close();
+        db.close();
+        return crashEvents;
+    }
+    
+    public void clearCrashHistory() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CRASH_EVENTS, null, null);
+        db.close();
     }
 }

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.crashalert.safety.service.EmergencyAlertService;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.map.CrashMapActivity;
 
 public class EmergencyConfirmationActivity extends AppCompatActivity {
     
@@ -24,6 +25,7 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
     private TextView emergencyMessage;
     private Button imOkButton;
     private Button emergencyButton;
+    private Button mapButton;
     
     private CountDownTimer countDownTimer;
     private ToneGenerator toneGenerator;
@@ -33,6 +35,7 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
     private double crashLongitude;
     private double gForce;
     private boolean isEmergencyConfirmed = false;
+    private boolean isAutoTriggered = false;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,20 +70,23 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
         emergencyMessage = findViewById(R.id.emergency_message);
         imOkButton = findViewById(R.id.im_ok_button);
         emergencyButton = findViewById(R.id.emergency_button);
+        mapButton = findViewById(R.id.map_button);
         
         // Set emergency message
         String message = "CRASH DETECTED!\n\n" +
                 "G-Force: " + String.format("%.2f", gForce) + "g\n" +
                 "Location: " + String.format("%.6f", crashLatitude) + ", " + 
                 String.format("%.6f", crashLongitude) + "\n\n" +
-                "If you're OK, tap 'I'M OK' button.\n" +
-                "If you need help, tap 'EMERGENCY' button.";
+                "⚠️ EMERGENCY ALERTS WILL BE SENT AUTOMATICALLY IN " + CONFIRMATION_TIMEOUT_SECONDS + " SECONDS!\n\n" +
+                "If you're OK, tap 'I'M OK' button NOW.\n" +
+                "If you need help, tap 'EMERGENCY' button NOW.";
         
         emergencyMessage.setText(message);
         
         // Set button listeners
         imOkButton.setOnClickListener(v -> confirmImOk());
         emergencyButton.setOnClickListener(v -> confirmEmergency());
+        mapButton.setOnClickListener(v -> openMap());
     }
     
     private void initializeAudioAndVibration() {
@@ -140,9 +146,10 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
             
             @Override
             public void onFinish() {
-                // Time's up - automatically trigger emergency
+                // Time's up - automatically trigger emergency without confirmation dialog
                 if (!isEmergencyConfirmed) {
-                    confirmEmergency();
+                    isAutoTriggered = true;
+                    autoTriggerEmergency();
                 }
             }
         };
@@ -180,6 +187,33 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
                 })
                 .setCancelable(false)
                 .show();
+    }
+    
+    private void autoTriggerEmergency() {
+        isEmergencyConfirmed = true;
+        
+        // Stop timer
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        
+        stopAlarmSound();
+        stopVibration();
+        
+        // Update UI to show emergency was auto-triggered
+        countdownText.setText("⏰ TIME EXPIRED - EMERGENCY ALERTS SENT!");
+        countdownText.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+        
+        // Start emergency alert service immediately
+        Intent serviceIntent = new Intent(this, EmergencyAlertService.class);
+        serviceIntent.putExtra("latitude", crashLatitude);
+        serviceIntent.putExtra("longitude", crashLongitude);
+        serviceIntent.putExtra("g_force", gForce);
+        serviceIntent.putExtra("confirmed", true);
+        startService(serviceIntent);
+        
+        // Show auto-triggered message
+        showMessageAndClose("⏰ TIME EXPIRED!\n\nEmergency alerts have been automatically sent!\n\nHelp is on the way!");
     }
     
     private void confirmEmergency() {
@@ -234,6 +268,15 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
         if (vibrator != null) {
             vibrator.cancel();
         }
+    }
+    
+    private void openMap() {
+        Intent mapIntent = new Intent(this, CrashMapActivity.class);
+        mapIntent.putExtra("latitude", crashLatitude);
+        mapIntent.putExtra("longitude", crashLongitude);
+        mapIntent.putExtra("g_force", gForce);
+        mapIntent.putExtra("address", "Crash Location"); // Could be enhanced to get actual address
+        startActivity(mapIntent);
     }
     
     private void showMessageAndClose(String message) {

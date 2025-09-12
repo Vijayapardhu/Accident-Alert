@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Crash Alert Safety</string>
+    <string name="widget_description">Quick access to driving mode toggle</string>
     
     <!-- Main Activity -->
     <string name="driving_mode">Driving Mode</string>

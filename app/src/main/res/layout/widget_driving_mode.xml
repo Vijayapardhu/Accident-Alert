@@ -1,68 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_background_enhanced"
-    android:gravity="center"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:gravity="center"
+    android:padding="8dp"
+    android:background="@drawable/widget_background">
 
-    <!-- App Icon and Title -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
+    <ImageView
+        android:id="@+id/widget_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_driving_inactive"
+        android:contentDescription="Driving Mode Icon" />
 
-        <ImageView
-            android:id="@+id/widget_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_driving_mode"
-            android:tint="@android:color/white"
-            android:layout_marginEnd="6dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Crash Alert"
-            android:textColor="@android:color/white"
-            android:textSize="10sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <!-- Status Indicator -->
-    <View
-        android:id="@+id/widget_status_indicator"
-        android:layout_width="8dp"
-        android:layout_height="8dp"
-        android:background="@drawable/widget_status_indicator"
-        android:layout_marginBottom="6dp" />
-
-    <!-- Main Toggle Button -->
-    <Button
-        android:id="@+id/widget_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/widget_button_background_enhanced"
-        android:text="START\nDRIVING"
-        android:textColor="@android:color/white"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        android:minHeight="36dp"
-        android:gravity="center" />
-
-    <!-- Status Text -->
     <TextView
-        android:id="@+id/widget_status_text"
+        android:id="@+id/widget_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ready"
-        android:textColor="@android:color/white"
-        android:textSize="8sp"
         android:layout_marginTop="4dp"
-        android:alpha="0.8" />
+        android:text="Driving Mode\nINACTIVE"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:lineSpacingExtra="2dp" />
 
 </LinearLayout>

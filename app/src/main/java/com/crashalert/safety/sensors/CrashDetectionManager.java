@@ -270,6 +270,10 @@ public class CrashDetectionManager implements SensorEventListener {
         this.callback = callback;
     }
     
+    public CrashDetectionCallback getCallback() {
+        return callback;
+    }
+    
     public boolean isMonitoring() {
         return isMonitoring;
     }

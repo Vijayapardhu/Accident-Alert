@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="24dp"
-            android:text="CRASH DETECTED!\n\nG-Force: 3.5g\nLocation: 40.7128, -74.0060\n\nIf you're OK, tap 'I'M OK' button.\nIf you need help, tap 'EMERGENCY' button."
+            android:text="CRASH DETECTED!\n\nG-Force: 3.5g\nLocation: 40.7128, -74.0060\n\n⚠️ EMERGENCY ALERTS WILL BE SENT AUTOMATICALLY IN 15 SECONDS!\n\nIf you're OK, tap 'I'M OK' button NOW.\nIf you need help, tap 'EMERGENCY' button NOW."
             android:textColor="@color/primary_text"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -109,6 +109,7 @@
             android:id="@+id/emergency_button"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/emergency_color"
             android:text="EMERGENCY - SEND HELP"
             android:textColor="@android:color/white"
@@ -119,6 +120,22 @@
             app:iconGravity="textStart"
             app:iconPadding="12dp"
             app:iconSize="32dp" />
+
+        <!-- Map Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/map_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/primary_color"
+            android:text="🗺️ VIEW LOCATION ON MAP"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/ic_emergency"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconSize="24dp" />
 
     </LinearLayout>
 

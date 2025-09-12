@@ -233,6 +233,16 @@ public class CrashLocationManager implements LocationListener {
         return PreferenceUtils.getLastKnownAddress(context);
     }
     
+    public String generateOpenStreetMapLink(double latitude, double longitude) {
+        return "https://www.openstreetmap.org/?mlat=" + latitude + "&mlon=" + longitude + 
+               "&zoom=15&layers=M";
+    }
+    
+    public String generateOpenStreetMapLink() {
+        return generateOpenStreetMapLink(getCurrentLatitude(), getCurrentLongitude());
+    }
+    
+    // Keep Google Maps for backward compatibility
     public String generateGoogleMapsLink(double latitude, double longitude) {
         return "https://www.google.com/maps?q=" + latitude + "," + longitude;
     }

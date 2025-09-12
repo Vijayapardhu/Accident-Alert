@@ -12,6 +12,7 @@ public class PreferenceUtils {
     private static final String KEY_LAST_KNOWN_LATITUDE = "last_known_latitude";
     private static final String KEY_LAST_KNOWN_LONGITUDE = "last_known_longitude";
     private static final String KEY_LAST_KNOWN_ADDRESS = "last_known_address";
+    private static final String KEY_G_FORCE_THRESHOLD = "g_force_threshold";
     private static final String KEY_CRASH_DETECTION_ENABLED = "crash_detection_enabled";
     private static final String KEY_EMERGENCY_ALERTS_ENABLED = "emergency_alerts_enabled";
     private static final String KEY_VOICE_FEEDBACK_ENABLED = "voice_feedback_enabled";
@@ -87,6 +88,12 @@ public class PreferenceUtils {
     public static void setLastKnownAddress(Context context, String address) {
         getSharedPreferences(context).edit()
                 .putString(KEY_LAST_KNOWN_ADDRESS, address)
+                .apply();
+    }
+    
+    public static void setGForceThreshold(Context context, float threshold) {
+        getSharedPreferences(context).edit()
+                .putFloat(KEY_G_FORCE_THRESHOLD, threshold)
                 .apply();
     }
     

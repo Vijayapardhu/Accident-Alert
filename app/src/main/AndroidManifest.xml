@@ -26,6 +26,10 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    
+    <!-- OpenStreetMap permissions -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -36,7 +40,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CrashAlertSafety"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        tools:replace="android:allowBackup">
         
         <!-- Main Activity -->
         <activity
@@ -78,6 +83,29 @@
             android:parentActivityName=".MainActivity"
             android:label="Test Hospital Calling" />
 
+        <!-- OpenStreetMap Crash Location Activity -->
+        <activity
+            android:name=".map.CrashMapActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:label="Crash Location Map"
+            android:screenOrientation="portrait" />
+
+        <!-- Test Crash Detection Activity -->
+        <activity
+            android:name=".TestCrashDetectionActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:label="Test Crash Detection"
+            android:screenOrientation="portrait" />
+
+        <!-- Crash History Activity -->
+        <activity
+            android:name=".CrashHistoryActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:label="Crash History" />
+
         <!-- Driving Mode Service -->
         <service
             android:name=".service.DrivingModeService"
@@ -85,11 +113,6 @@
             android:exported="false"
             android:foregroundServiceType="location" />
 
-        <!-- Crash Detection Service -->
-        <service
-            android:name=".service.CrashDetectionService"
-            android:enabled="true"
-            android:exported="false" />
 
         <!-- Emergency Alert Service -->
         <service
@@ -98,12 +121,6 @@
             android:exported="false"
             android:foregroundServiceType="specialUse" />
 
-        <!-- Location Tracking Service -->
-        <service
-            android:name=".service.LocationTrackingService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="location" />
 
         <!-- Home Screen Widget -->
         <receiver

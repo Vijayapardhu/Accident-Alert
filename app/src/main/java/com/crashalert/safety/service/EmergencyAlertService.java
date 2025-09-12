@@ -35,6 +35,7 @@ import com.crashalert.safety.location.CrashLocationManager;
 import com.crashalert.safety.hospital.HospitalFinder;
 import com.crashalert.safety.hospital.HospitalCaller;
 import com.crashalert.safety.hospital.Hospital;
+import com.crashalert.safety.map.OpenStreetMapManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class EmergencyAlertService extends Service {
     private TelephonyManager telephonyManager;
     private HospitalFinder hospitalFinder;
     private HospitalCaller hospitalCaller;
+    private OpenStreetMapManager osmManager;
     private AudioManager audioManager;
     private AudioFocusRequest audioFocusRequest;
     private MediaPlayer mediaPlayer;
@@ -142,6 +144,7 @@ public class EmergencyAlertService extends Service {
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         hospitalFinder = new HospitalFinder(this);
         hospitalCaller = new HospitalCaller(this);
+        osmManager = new OpenStreetMapManager(this);
         
         
         // Initialize phone state listener for call monitoring
@@ -310,6 +313,7 @@ public class EmergencyAlertService extends Service {
             String immediateAlert = "🚨 EMERGENCY ALERT 🚨\n" +
                     "Vehicle crash detected!\n" +
                     "Location: " + String.format("%.4f, %.4f", crashLatitude, crashLongitude) + "\n" +
+                    "Google Maps: https://www.google.com/maps?q=" + crashLatitude + "," + crashLongitude + "\n" +
                     "Time: " + java.text.DateFormat.getTimeInstance().format(new java.util.Date()) + "\n" +
                     "Please respond immediately!";
             
