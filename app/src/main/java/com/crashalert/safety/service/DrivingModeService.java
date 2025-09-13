@@ -84,6 +84,9 @@ public class DrivingModeService extends Service implements
         
         locationManager = new CrashLocationManager(this);
         locationManager.setLocationCallback(this);
+        
+        // Pass location manager to crash detection manager
+        crashDetectionManager.setLocationManager(locationManager);
     }
     
     private void startDrivingMode() {

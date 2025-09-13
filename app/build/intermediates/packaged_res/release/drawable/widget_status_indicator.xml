@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Active State (Driving Mode ON) -->
+    <item android:state_selected="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/emergency_color" />
+            <size
+                android:width="8dp"
+                android:height="8dp" />
+        </shape>
+    </item>
+    
+    <!-- Inactive State (Driving Mode OFF) -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/success_color" />
+            <size
+                android:width="8dp"
+                android:height="8dp" />
+        </shape>
+    </item>
+    
+</selector>

@@ -219,18 +219,40 @@ public class CrashLocationManager implements LocationListener {
         if (lastKnownLocation != null) {
             return lastKnownLocation.getLatitude();
         }
-        return PreferenceUtils.getLastKnownLatitude(context);
+        
+        double storedLat = PreferenceUtils.getLastKnownLatitude(context);
+        // Check if stored location is valid (not 0,0 which is in Atlantic Ocean)
+        if (storedLat != 0.0) {
+            return storedLat;
+        }
+        
+        // Return null/invalid location to indicate no valid location available
+        return Double.NaN;
     }
     
     public double getCurrentLongitude() {
         if (lastKnownLocation != null) {
             return lastKnownLocation.getLongitude();
         }
-        return PreferenceUtils.getLastKnownLongitude(context);
+        
+        double storedLng = PreferenceUtils.getLastKnownLongitude(context);
+        // Check if stored location is valid (not 0,0 which is in Atlantic Ocean)
+        if (storedLng != 0.0) {
+            return storedLng;
+        }
+        
+        // Return null/invalid location to indicate no valid location available
+        return Double.NaN;
     }
     
     public String getCurrentAddress() {
         return PreferenceUtils.getLastKnownAddress(context);
+    }
+    
+    public boolean hasValidLocation() {
+        double lat = getCurrentLatitude();
+        double lng = getCurrentLongitude();
+        return !Double.isNaN(lat) && !Double.isNaN(lng) && lat != 0.0 && lng != 0.0;
     }
     
     public String generateOpenStreetMapLink(double latitude, double longitude) {

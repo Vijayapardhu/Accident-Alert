@@ -73,10 +73,17 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
         mapButton = findViewById(R.id.map_button);
         
         // Set emergency message
+        String locationText;
+        if (crashLatitude == 0.0 && crashLongitude == 0.0) {
+            locationText = "Location: Unknown (GPS not available)";
+        } else {
+            locationText = "Location: " + String.format("%.6f", crashLatitude) + ", " + 
+                          String.format("%.6f", crashLongitude);
+        }
+        
         String message = "CRASH DETECTED!\n\n" +
                 "G-Force: " + String.format("%.2f", gForce) + "g\n" +
-                "Location: " + String.format("%.6f", crashLatitude) + ", " + 
-                String.format("%.6f", crashLongitude) + "\n\n" +
+                locationText + "\n\n" +
                 "⚠️ EMERGENCY ALERTS WILL BE SENT AUTOMATICALLY IN " + CONFIRMATION_TIMEOUT_SECONDS + " SECONDS!\n\n" +
                 "If you're OK, tap 'I'M OK' button NOW.\n" +
                 "If you need help, tap 'EMERGENCY' button NOW.";
@@ -168,25 +175,13 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
         stopAlarmSound();
         stopVibration();
         
-        // Show confirmation dialog
-        new AlertDialog.Builder(this)
-                .setTitle("Are you sure you're OK?")
-                .setMessage("This will cancel the emergency alert. Are you certain you don't need help?")
-                .setPositiveButton("Yes, I'm OK", (dialog, which) -> {
-                    // Cancel emergency alerts
-                    Intent serviceIntent = new Intent(this, EmergencyAlertService.class);
-                    serviceIntent.setAction("CANCEL_EMERGENCY");
-                    startService(serviceIntent);
-                    
-                    // Show success message and close
-                    showMessageAndClose("Emergency alert cancelled. Stay safe!");
-                })
-                .setNegativeButton("No, I need help", (dialog, which) -> {
-                    // Continue with emergency
-                    confirmEmergency();
-                })
-                .setCancelable(false)
-                .show();
+        // Cancel emergency alerts immediately
+        Intent serviceIntent = new Intent(this, EmergencyAlertService.class);
+        serviceIntent.setAction("CANCEL_EMERGENCY");
+        startService(serviceIntent);
+        
+        // Show success message and close
+        showMessageAndClose("Emergency alert cancelled. Stay safe!");
     }
     
     private void autoTriggerEmergency() {
@@ -227,24 +222,15 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
         stopAlarmSound();
         stopVibration();
         
-        // Show emergency confirmation
-        new AlertDialog.Builder(this)
-                .setTitle("EMERGENCY ALERT CONFIRMED")
-                .setMessage("Emergency contacts and medical services are being notified. " +
-                           "Help is on the way!")
-                .setPositiveButton("OK", (dialog, which) -> {
-                    // Start emergency alert service
-                    Intent serviceIntent = new Intent(this, EmergencyAlertService.class);
-                    serviceIntent.putExtra("latitude", crashLatitude);
-                    serviceIntent.putExtra("longitude", crashLongitude);
-                    serviceIntent.putExtra("g_force", gForce);
-                    serviceIntent.putExtra("confirmed", true);
-                    startService(serviceIntent);
-                    
-                    showMessageAndClose("Emergency alerts sent! Help is on the way!");
-                })
-                .setCancelable(false)
-                .show();
+        // Start emergency alert service immediately
+        Intent serviceIntent = new Intent(this, EmergencyAlertService.class);
+        serviceIntent.putExtra("latitude", crashLatitude);
+        serviceIntent.putExtra("longitude", crashLongitude);
+        serviceIntent.putExtra("g_force", gForce);
+        serviceIntent.putExtra("confirmed", true);
+        startService(serviceIntent);
+        
+        showMessageAndClose("Emergency alerts sent! Help is on the way!");
     }
     
     private void startEmergencyAlerts() {
@@ -280,13 +266,13 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
     }
     
     private void showMessageAndClose(String message) {
-        new AlertDialog.Builder(this)
-                .setMessage(message)
-                .setPositiveButton("OK", (dialog, which) -> {
-                    finish();
-                })
-                .setCancelable(false)
-                .show();
+        // Show message briefly then close automatically
+        emergencyMessage.setText(message);
+        
+        // Close after 3 seconds
+        new android.os.Handler().postDelayed(() -> {
+            finish();
+        }, 3000);
     }
     
     @Override

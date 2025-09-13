@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.crashalert.safety.database.DatabaseHelper;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.location.CrashLocationManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class CrashDetectionManager implements SensorEventListener {
     private Sensor accelerometer;
     private Sensor gyroscope;
     private DatabaseHelper databaseHelper;
+    private CrashLocationManager crashLocationManager;
     
     // Sensor data buffers
     private List<SensorData> accelerometerData;
@@ -213,9 +215,22 @@ public class CrashDetectionManager implements SensorEventListener {
             if (validateCrashDetection()) {
                 isCrashDetected = true;
                 
-                // Log crash event
-                double latitude = PreferenceUtils.getLastKnownLatitude(context);
-                double longitude = PreferenceUtils.getLastKnownLongitude(context);
+                // Get current location - use crash location manager if available
+                double latitude, longitude;
+                if (crashLocationManager != null && crashLocationManager.hasValidLocation()) {
+                    latitude = crashLocationManager.getCurrentLatitude();
+                    longitude = crashLocationManager.getCurrentLongitude();
+                } else {
+                    // Fallback to stored location, but check if valid
+                    latitude = PreferenceUtils.getLastKnownLatitude(context);
+                    longitude = PreferenceUtils.getLastKnownLongitude(context);
+                    
+                    // If no valid location, use 0,0 but log warning
+                    if (latitude == 0.0 && longitude == 0.0) {
+                        Log.w(TAG, "No valid location available for crash detection - using 0,0");
+                    }
+                }
+                
                 long eventId = databaseHelper.logCrashEvent(latitude, longitude, maxGForce);
                 
                 Log.w(TAG, "CRASH DETECTED! G-Force: " + String.format("%.2f", maxGForce) + 
@@ -268,6 +283,10 @@ public class CrashDetectionManager implements SensorEventListener {
     
     public void setCrashDetectionCallback(CrashDetectionCallback callback) {
         this.callback = callback;
+    }
+    
+    public void setLocationManager(CrashLocationManager locationManager) {
+        this.crashLocationManager = locationManager;
     }
     
     public CrashDetectionCallback getCallback() {

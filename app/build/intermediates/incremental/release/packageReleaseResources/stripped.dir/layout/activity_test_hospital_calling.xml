@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/background_color">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hospital Calling Test"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_color"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/test_hospital_search_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Hospital Search"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/primary_color" />
+
+    <Button
+        android:id="@+id/test_hospital_call_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Hospital Calling"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:enabled="false"
+        android:backgroundTint="@color/accent_color" />
+
+    <Button
+        android:id="@+id/test_emergency_alert_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Emergency Alert Service"
+        android:textSize="16sp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/emergency_color" />
+
+    <Button
+        android:id="@+id/test_emergency_contacts_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Emergency Contacts Notification"
+        android:textSize="16sp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/primary_color" />
+
+    <Button
+        android:id="@+id/test_voice_call_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Voice Call with Auto Speech"
+        android:textSize="16sp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/secondary_color" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ready to test hospital calling functionality"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:background="@color/card_background"
+            android:padding="16dp"
+            android:minHeight="200dp" />
+
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Note: This is a test activity. Make sure you have the necessary permissions granted."
+        android:textSize="12sp"
+        android:textColor="@color/text_secondary"
+        android:gravity="center"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
