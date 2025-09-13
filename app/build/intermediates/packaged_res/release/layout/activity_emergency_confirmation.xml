@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="24dp"
-            android:text="CRASH DETECTED!\n\nG-Force: 3.5g\nLocation: 40.7128, -74.0060\n\n⚠️ EMERGENCY ALERTS WILL BE SENT AUTOMATICALLY IN 15 SECONDS!\n\nIf you're OK, tap 'I'M OK' button NOW.\nIf you need help, tap 'EMERGENCY' button NOW."
+            android:text="CRASH DETECTED!\n\nG-Force: 3.5g\nLocation: Getting GPS...\n\n⚠️ EMERGENCY ALERTS WILL BE SENT AUTOMATICALLY IN 15 SECONDS!\n\nIf you're OK, tap 'I'M OK' button NOW.\nIf you need help, tap 'EMERGENCY' button NOW."
             android:textColor="@color/primary_text"
             android:textSize="16sp"
             android:textStyle="bold" />

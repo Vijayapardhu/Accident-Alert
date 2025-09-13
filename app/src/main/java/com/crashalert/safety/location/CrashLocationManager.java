@@ -60,6 +60,9 @@ public class CrashLocationManager implements LocationListener {
         }
         
         try {
+            // Clear any existing location data first
+            lastKnownLocation = null;
+            
             // Try GPS first
             if (locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
                 locationManager.requestLocationUpdates(
@@ -69,6 +72,13 @@ public class CrashLocationManager implements LocationListener {
                     this
                 );
                 Log.d(TAG, "GPS location tracking started");
+                
+                // Force immediate location request
+                Location gpsLocation = locationManager.getLastKnownLocation(android.location.LocationManager.GPS_PROVIDER);
+                if (gpsLocation != null) {
+                    Log.d(TAG, "Got immediate GPS location: " + gpsLocation.getLatitude() + ", " + gpsLocation.getLongitude());
+                    onLocationChanged(gpsLocation);
+                }
             }
             
             // Also try network provider as backup
@@ -80,15 +90,17 @@ public class CrashLocationManager implements LocationListener {
                     this
                 );
                 Log.d(TAG, "Network location tracking started");
-            }
-            
-            // Get last known location immediately
-            Location lastLocation = getLastKnownLocation();
-            if (lastLocation != null) {
-                onLocationChanged(lastLocation);
+                
+                // Force immediate network location request
+                Location networkLocation = locationManager.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER);
+                if (networkLocation != null) {
+                    Log.d(TAG, "Got immediate network location: " + networkLocation.getLatitude() + ", " + networkLocation.getLongitude());
+                    onLocationChanged(networkLocation);
+                }
             }
             
             isTracking = true;
+            Log.d(TAG, "Location tracking started successfully");
             
         } catch (SecurityException e) {
             Log.e(TAG, "Security exception starting location tracking", e);
@@ -291,6 +303,38 @@ public class CrashLocationManager implements LocationListener {
     
     public void setLocationCallback(LocationCallback callback) {
         this.callback = callback;
+    }
+    
+    public void forceLocationUpdate() {
+        if (!hasLocationPermission()) {
+            Log.w(TAG, "Cannot force location update - no permission");
+            return;
+        }
+        
+        try {
+            // Clear current location to force fresh request
+            lastKnownLocation = null;
+            
+            // Request fresh location from GPS
+            if (locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
+                Location gpsLocation = locationManager.getLastKnownLocation(android.location.LocationManager.GPS_PROVIDER);
+                if (gpsLocation != null) {
+                    Log.d(TAG, "Forced GPS location update: " + gpsLocation.getLatitude() + ", " + gpsLocation.getLongitude());
+                    onLocationChanged(gpsLocation);
+                }
+            }
+            
+            // Also try network location
+            if (locationManager.isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER)) {
+                Location networkLocation = locationManager.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER);
+                if (networkLocation != null) {
+                    Log.d(TAG, "Forced network location update: " + networkLocation.getLatitude() + ", " + networkLocation.getLongitude());
+                    onLocationChanged(networkLocation);
+                }
+            }
+        } catch (SecurityException e) {
+            Log.e(TAG, "Security exception forcing location update", e);
+        }
     }
     
     public void destroy() {

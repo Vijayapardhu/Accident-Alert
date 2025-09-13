@@ -106,7 +106,10 @@ public class DrivingModeService extends Service implements
         
         // Start location tracking
         locationManager.startLocationTracking();
-        Log.d(TAG, "Location tracking started");
+        
+        // Force a fresh location update
+        locationManager.forceLocationUpdate();
+        Log.d(TAG, "Location tracking started and forced update");
         
         isServiceRunning = true;
         PreferenceUtils.setDrivingModeActive(this, true);

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.crashalert.safety.sensors.CrashDetectionManager;
 import com.crashalert.safety.sensors.SensorData;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.location.CrashLocationManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class TestCrashDetectionActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     
     private CrashDetectionManager crashDetectionManager;
+    private CrashLocationManager crashLocationManager;
     private boolean isTestRunning = false;
     private List<SensorData> testData = new ArrayList<>();
     
@@ -93,6 +95,9 @@ public class TestCrashDetectionActivity extends AppCompatActivity {
     
     private void setupCrashDetection() {
         crashDetectionManager = new CrashDetectionManager(this);
+        crashLocationManager = new CrashLocationManager(this);
+        crashDetectionManager.setLocationManager(crashLocationManager);
+        
         crashDetectionManager.setCrashDetectionCallback(new CrashDetectionManager.CrashDetectionCallback() {
             @Override
             public void onCrashDetected(double gForce, double latitude, double longitude) {
@@ -199,7 +204,10 @@ public class TestCrashDetectionActivity extends AppCompatActivity {
                 });
                 
                 // Trigger the callback directly
-                crashDetectionManager.getCallback().onCrashDetected(simulatedGForce, 40.7128, -74.0060);
+                // Use current location or default to 0,0 if not available
+                double lat = crashLocationManager != null ? crashLocationManager.getCurrentLatitude() : 0.0;
+                double lng = crashLocationManager != null ? crashLocationManager.getCurrentLongitude() : 0.0;
+                crashDetectionManager.getCallback().onCrashDetected(simulatedGForce, lat, lng);
             }
         }, 100);
     }
@@ -207,8 +215,11 @@ public class TestCrashDetectionActivity extends AppCompatActivity {
     private void testEmergencyFlow() {
         // Test the emergency confirmation flow without real crash detection
         Intent intent = new Intent(this, EmergencyConfirmationActivity.class);
-        intent.putExtra("latitude", 40.7128);
-        intent.putExtra("longitude", -74.0060);
+        // Use current location or default to 0,0 if not available
+        double lat = crashLocationManager != null ? crashLocationManager.getCurrentLatitude() : 0.0;
+        double lng = crashLocationManager != null ? crashLocationManager.getCurrentLongitude() : 0.0;
+        intent.putExtra("latitude", lat);
+        intent.putExtra("longitude", lng);
         intent.putExtra("g_force", 3.5);
         startActivity(intent);
     }

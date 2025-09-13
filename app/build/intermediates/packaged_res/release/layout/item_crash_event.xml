@@ -91,7 +91,7 @@
                     android:id="@+id/crash_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="40.7128, -74.0060"
+                    android:text="Loading location..."
                     android:textSize="14sp"
                     android:textColor="@color/primary_text" />
 
