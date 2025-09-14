@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:2:1-183:12
-INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:2:1-183:12
-INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:2:1-183:12
-INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:2:1-183:12
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:2:1-207:12
+INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:2:1-207:12
+INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:2:1-207:12
+INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:2:1-207:12
 MERGED from [androidx.databinding:viewbinding:8.1.4] C:\Users\PARDHU\.gradle\caches\transforms-3\e842a70c0cbda1ec8e5878658956b274\transformed\jetified-viewbinding-8.1.4\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.9.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9d2e5d677a91ccd9dbd00cfe30113072\transformed\material-1.9.0\AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\PARDHU\.gradle\caches\transforms-3\cb18eaec7a5810faf7aebcde5b32381b\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
@@ -199,17 +199,31 @@ uses-permission#android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND
 ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:33:5-100
 	android:name
 		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:33:22-97
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:34:5-81
+MERGED from [androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:25:5-81
+MERGED from [androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:25:5-81
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:34:22-78
+uses-permission#android.permission.DISABLE_KEYGUARD
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:35:5-75
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:35:22-72
+uses-permission#android.permission.TURN_SCREEN_ON
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:36:5-73
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:36:22-70
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:36:5-81
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:39:5-81
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:36:22-78
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:39:22-78
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:37:5-80
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:40:5-80
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:37:22-77
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:40:22-77
 application
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:39:5-181:19
-INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:39:5-181:19
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:42:5-205:19
+INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:42:5-205:19
 MERGED from [com.google.android.material:material:1.9.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9d2e5d677a91ccd9dbd00cfe30113072\transformed\material-1.9.0\AndroidManifest.xml:24:5-20
 MERGED from [com.google.android.material:material:1.9.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9d2e5d677a91ccd9dbd00cfe30113072\transformed\material-1.9.0\AndroidManifest.xml:24:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\PARDHU\.gradle\caches\transforms-3\cb18eaec7a5810faf7aebcde5b32381b\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -247,235 +261,255 @@ MERGED from [mil.nga:sqlite-android:3390300] C:\Users\PARDHU\.gradle\caches\tran
 	android:extractNativeLibs
 		INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml
 	android:roundIcon
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:45:9-54
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:48:9-54
 	android:icon
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:43:9-43
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:46:9-43
 	android:fullBackupOnly
 		ADDED from [mil.nga.geopackage:geopackage-android:6.6.0] C:\Users\PARDHU\.gradle\caches\transforms-3\8b564157f223a71d588c8a675aac4f6c\transformed\jetified-geopackage-android-6.6.0\AndroidManifest.xml:12:9-39
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:46:9-35
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:49:9-35
 	android:label
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:44:9-41
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:47:9-41
 	android:fullBackupContent
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:42:9-54
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:45:9-54
 	tools:targetApi
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:48:9-29
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:51:9-29
 	android:allowBackup
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:40:9-35
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:43:9-35
 		REJECTED from [mil.nga.geopackage:geopackage-android:6.6.0] C:\Users\PARDHU\.gradle\caches\transforms-3\8b564157f223a71d588c8a675aac4f6c\transformed\jetified-geopackage-android-6.6.0\AndroidManifest.xml:11:9-36
 		REJECTED from [mil.nga:sqlite-android:3390300] C:\Users\PARDHU\.gradle\caches\transforms-3\c9938509631ea6941e5c2b25ac7acddd\transformed\jetified-sqlite-android-3390300\AndroidManifest.xml:12:9-35
 	android:theme
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:47:9-54
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:50:9-54
 	android:dataExtractionRules
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:41:9-65
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:44:9-65
 	tools:replace
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:49:9-44
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:52:9-44
 	android:usesCleartextTraffic
 		ADDED from [mil.nga.geopackage:geopackage-android:6.6.0] C:\Users\PARDHU\.gradle\caches\transforms-3\8b564157f223a71d588c8a675aac4f6c\transformed\jetified-geopackage-android-6.6.0\AndroidManifest.xml:14:9-44
 activity#com.crashalert.safety.MainActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:52:9-61:20
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:55:9-64:20
 	android:screenOrientation
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:55:13-49
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:58:13-49
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:54:13-36
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:57:13-36
 	android:theme
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:56:13-58
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:59:13-58
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:53:13-41
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:56:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:57:13-60:29
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:60:13-63:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:58:17-69
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:61:17-69
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:58:25-66
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:61:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:59:17-77
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:62:17-77
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:59:27-74
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:62:27-74
 activity#com.crashalert.safety.EmergencyConfirmationActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:64:9-70:49
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:67:9-73:49
 	android:screenOrientation
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:67:13-49
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:70:13-49
 	android:excludeFromRecents
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:70:13-46
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:73:13-46
 	android:launchMode
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:69:13-43
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:72:13-43
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:66:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:69:13-37
 	android:theme
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:68:13-68
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:71:13-68
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:65:13-58
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:68:13-58
 activity#com.crashalert.safety.EmergencyContactsActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:73:9-76:58
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:76:9-79:58
 	android:parentActivityName
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:76:13-55
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:79:13-55
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:75:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:78:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:74:13-54
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:77:13-54
 activity#com.crashalert.safety.SettingsActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:79:9-82:58
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:82:9-85:58
 	android:parentActivityName
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:82:13-55
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:85:13-55
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:81:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:84:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:80:13-45
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:83:13-45
 activity#com.crashalert.safety.TestHospitalCallingActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:85:9-89:53
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:88:9-92:53
 	android:parentActivityName
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:88:13-55
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:91:13-55
 	android:label
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:89:13-50
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:92:13-50
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:87:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:90:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:86:13-56
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:89:13-56
 activity#com.crashalert.safety.BackgroundServiceTestActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:91:9-95:55
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:94:9-98:55
 	android:parentActivityName
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:94:13-55
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:97:13-55
 	android:label
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:95:13-52
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:98:13-52
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:93:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:96:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:92:13-58
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:95:13-58
 activity#com.crashalert.safety.TestEmergencyCallingActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:97:9-101:54
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:100:9-104:54
 	android:parentActivityName
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:100:13-55
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:103:13-55
 	android:label
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:101:13-51
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:104:13-51
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:99:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:102:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:98:13-57
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:101:13-57
 activity#com.crashalert.safety.map.CrashMapActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:104:9-109:52
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:107:9-112:52
 	android:screenOrientation
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:109:13-49
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:112:13-49
 	android:parentActivityName
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:107:13-55
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:110:13-55
 	android:label
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:108:13-47
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:111:13-47
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:106:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:109:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:105:13-49
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:108:13-49
 activity#com.crashalert.safety.TestCrashDetectionActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:112:9-117:52
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:115:9-120:52
 	android:screenOrientation
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:117:13-49
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:120:13-49
 	android:parentActivityName
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:115:13-55
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:118:13-55
 	android:label
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:116:13-49
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:119:13-49
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:114:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:117:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:113:13-55
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:116:13-55
 activity#com.crashalert.safety.CrashHistoryActivity
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:120:9-124:45
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:123:9-127:45
 	android:parentActivityName
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:123:13-55
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:126:13-55
 	android:label
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:124:13-42
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:127:13-42
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:122:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:125:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:121:13-49
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:124:13-49
 service#com.crashalert.safety.service.DrivingModeService
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:127:9-133:55
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:130:9-137:39
 	android:process
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:133:13-52
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:136:13-52
 	android:enabled
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:129:13-35
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:132:13-35
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:130:13-37
-	android:stopWithTask
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:132:13-41
-	android:foregroundServiceType
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:131:13-64
-	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:128:13-55
-service#com.crashalert.safety.service.EmergencyAlertService
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:136:9-141:44
-	android:enabled
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:138:13-35
-	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:139:13-37
-	android:stopWithTask
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:141:13-41
-	android:foregroundServiceType
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:140:13-55
-	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:137:13-58
-receiver#com.crashalert.safety.widget.DrivingModeWidget
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:145:9-154:20
-	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:147:13-36
-	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:146:13-53
-intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:148:13-150:29
-action#android.appwidget.action.APPWIDGET_UPDATE
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:149:17-84
-	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:149:25-81
-meta-data#android.appwidget.provider
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:151:13-153:68
-	android:resource
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:153:17-65
-	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:152:17-58
-receiver#com.crashalert.safety.receiver.BootReceiver
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:157:9-167:20
-	android:enabled
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:159:13-35
-	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:160:13-36
-	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:158:13-50
-intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED+action:name:android.intent.action.PACKAGE_REPLACED+data:scheme:package
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:161:13-166:29
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:133:13-37
 	android:priority
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:161:28-51
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:137:13-36
+	android:stopWithTask
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:135:13-41
+	android:foregroundServiceType
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:134:13-64
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:131:13-55
+service#com.crashalert.safety.service.EmergencyAlertService
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:140:9-146:39
+	android:enabled
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:142:13-35
+	android:exported
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:143:13-37
+	android:priority
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:146:13-36
+	android:stopWithTask
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:145:13-41
+	android:foregroundServiceType
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:144:13-55
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:141:13-58
+receiver#com.crashalert.safety.widget.DrivingModeWidget
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:150:9-159:20
+	android:exported
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:152:13-36
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:151:13-53
+intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:153:13-155:29
+action#android.appwidget.action.APPWIDGET_UPDATE
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:154:17-84
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:154:25-81
+meta-data#android.appwidget.provider
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:156:13-158:68
+	android:resource
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:158:17-65
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:157:17-58
+receiver#com.crashalert.safety.receiver.BootReceiver
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:162:9-172:20
+	android:enabled
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:164:13-35
+	android:exported
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:165:13-36
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:163:13-50
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED+action:name:android.intent.action.PACKAGE_REPLACED+data:scheme:package
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:166:13-171:29
+	android:priority
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:166:28-51
 action#android.intent.action.BOOT_COMPLETED
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:162:17-79
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:167:17-79
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:162:25-76
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:167:25-76
 action#android.intent.action.MY_PACKAGE_REPLACED
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:163:17-84
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:168:17-84
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:163:25-81
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:168:25-81
 action#android.intent.action.PACKAGE_REPLACED
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:164:17-81
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:169:17-81
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:164:25-78
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:169:25-78
 data
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:165:17-50
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:170:17-50
 	android:scheme
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:165:23-47
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:170:23-47
 receiver#com.crashalert.safety.receiver.EmergencyAlertReceiver
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:170:9-173:40
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:175:9-178:40
 	android:enabled
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:172:13-35
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:177:13-35
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:173:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:178:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:171:13-60
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:176:13-60
 receiver#com.crashalert.safety.utils.ServiceKeepAliveManager$ServiceKeepAliveReceiver
-ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:176:9-179:40
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:181:9-184:40
 	android:enabled
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:178:13-35
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:183:13-35
 	android:exported
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:179:13-37
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:184:13-37
 	android:name
-		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:177:13-83
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:182:13-83
+receiver#com.crashalert.safety.BootReceiver
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:187:9-197:20
+	android:enabled
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:189:13-35
+	android:exported
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:190:13-37
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:188:13-41
+receiver#com.crashalert.safety.utils.ServicePersistenceEnhancer$ServiceRestartReceiver
+ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:200:9-203:40
+	android:enabled
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:202:13-35
+	android:exported
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:203:13-37
+	android:name
+		ADDED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:201:13-84
 uses-sdk
 INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml
@@ -626,10 +660,6 @@ uses-permission#android.permission.USE_FINGERPRINT
 ADDED from [androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:27:5-74
 	android:name
 		ADDED from [androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:27:22-71
-uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from [androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:25:5-81
-	android:name
-		ADDED from [androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:25:22-78
 provider#androidx.startup.InitializationProvider
 ADDED from [androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:29:9-37:20
 MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\PARDHU\.gradle\caches\transforms-3\7e018ad17737e3bbff7428485e891d69\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20

@@ -148,6 +148,7 @@ id test_hospital_btn
 id test_hospital_call_btn
 id test_hospital_call_button
 id test_hospital_search_btn
+id test_location_button
 id test_sms_button
 id test_voice_call_btn
 id vibration_switch

@@ -31,6 +31,9 @@
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.REQUEST_COMPANION_START_FOREGROUND_SERVICES_FROM_BACKGROUND" />
     <uses-permission android:name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.TURN_SCREEN_ON" />
     
     <!-- OpenStreetMap permissions -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -130,7 +133,8 @@
             android:exported="false"
             android:foregroundServiceType="location|specialUse"
             android:stopWithTask="false"
-            android:process=":driving_mode_service" />
+            android:process=":driving_mode_service"
+            android:priority="1000" />
 
         <!-- Emergency Alert Service -->
         <service
@@ -138,7 +142,8 @@
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="specialUse"
-            android:stopWithTask="false" />
+            android:stopWithTask="false"
+            android:priority="1000" />
 
 
         <!-- Home Screen Widget -->
@@ -175,6 +180,25 @@
         <!-- Service Keep-Alive Receiver -->
         <receiver
             android:name=".utils.ServiceKeepAliveManager$ServiceKeepAliveReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- Boot Receiver -->
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Service Restart Receiver -->
+        <receiver
+            android:name=".utils.ServicePersistenceEnhancer$ServiceRestartReceiver"
             android:enabled="true"
             android:exported="false" />
 

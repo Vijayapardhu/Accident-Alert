@@ -93,615 +93,663 @@
 39    <uses-permission android:name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND" />
 39-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:33:5-100
 39-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:33:22-97
-40
-41    <!-- OpenStreetMap permissions -->
-42    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-42-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:36:5-81
-42-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:36:22-78
-43    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-43-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:37:5-80
-43-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:37:22-77
-44    <uses-permission android:name="android.permission.USE_BIOMETRIC" /> <!-- suppress DeprecatedClassUsageInspection -->
-44-->[androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:24:5-72
-44-->[androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:24:22-69
-45    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
-45-->[androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:27:5-74
-45-->[androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:27:22-71
-46    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-46-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:25:5-81
-46-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:25:22-78
-47
-48    <permission
-48-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
-49        android:name="com.crashalert.safety.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-49-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:23:9-81
-50        android:protectionLevel="signature" />
-50-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:24:9-44
-51
-52    <uses-permission android:name="com.crashalert.safety.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-52-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:26:5-97
-52-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:26:22-94
+40    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+40-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:34:5-81
+40-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:34:22-78
+41    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+41-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:35:5-75
+41-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:35:22-72
+42    <uses-permission android:name="android.permission.TURN_SCREEN_ON" />
+42-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:36:5-73
+42-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:36:22-70
+43
+44    <!-- OpenStreetMap permissions -->
+45    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+45-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:39:5-81
+45-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:39:22-78
+46    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+46-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:40:5-80
+46-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:40:22-77
+47    <uses-permission android:name="android.permission.USE_BIOMETRIC" /> <!-- suppress DeprecatedClassUsageInspection -->
+47-->[androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:24:5-72
+47-->[androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:24:22-69
+48    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+48-->[androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:27:5-74
+48-->[androidx.biometric:biometric:1.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\AndroidManifest.xml:27:22-71
+49
+50    <permission
+50-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
+51        android:name="com.crashalert.safety.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+51-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:23:9-81
+52        android:protectionLevel="signature" />
+52-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:24:9-44
 53
-54    <supports-screens
-54-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:9:5-12:40
-55        android:anyDensity="true"
-55-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:10:9-34
-56        android:largeScreens="true"
-56-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:11:9-36
-57        android:normalScreens="true" />
-57-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:12:9-37
-58
-59    <uses-feature
-59-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:14:5-16:36
-60        android:name="android.hardware.location.network"
-60-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:15:9-57
-61        android:required="false" />
-61-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:16:9-33
-62    <uses-feature
-62-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:17:5-19:36
-63        android:name="android.hardware.location.gps"
-63-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:18:9-53
-64        android:required="false" />
-64-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:19:9-33
-65    <uses-feature
-65-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:20:5-22:36
-66        android:name="android.hardware.telephony"
-66-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:21:9-50
-67        android:required="false" />
-67-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:22:9-33
-68    <uses-feature
-68-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:23:5-25:36
-69        android:name="android.hardware.wifi"
-69-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:24:9-45
-70        android:required="false" />
-70-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:25:9-33
-71
-72    <application
-72-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:39:5-181:19
-73        android:allowBackup="true"
-73-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:40:9-35
-74        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-74-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
-75        android:dataExtractionRules="@xml/data_extraction_rules"
-75-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:41:9-65
-76        android:extractNativeLibs="false"
-77        android:fullBackupContent="@xml/backup_rules"
-77-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:42:9-54
-78        android:fullBackupOnly="false"
-78-->[mil.nga.geopackage:geopackage-android:6.6.0] C:\Users\PARDHU\.gradle\caches\transforms-3\8b564157f223a71d588c8a675aac4f6c\transformed\jetified-geopackage-android-6.6.0\AndroidManifest.xml:12:9-39
-79        android:icon="@mipmap/ic_launcher"
-79-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:43:9-43
-80        android:label="@string/app_name"
-80-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:44:9-41
-81        android:roundIcon="@mipmap/ic_launcher_round"
-81-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:45:9-54
-82        android:supportsRtl="true"
-82-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:46:9-35
-83        android:theme="@style/Theme.CrashAlertSafety"
-83-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:47:9-54
-84        android:usesCleartextTraffic="true" >
-84-->[mil.nga.geopackage:geopackage-android:6.6.0] C:\Users\PARDHU\.gradle\caches\transforms-3\8b564157f223a71d588c8a675aac4f6c\transformed\jetified-geopackage-android-6.6.0\AndroidManifest.xml:14:9-44
-85
-86        <!-- Main Activity -->
-87        <activity
-87-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:52:9-61:20
-88            android:name="com.crashalert.safety.MainActivity"
-88-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:53:13-41
-89            android:exported="true"
-89-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:54:13-36
-90            android:screenOrientation="portrait"
-90-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:55:13-49
-91            android:theme="@style/Theme.CrashAlertSafety" >
-91-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:56:13-58
-92            <intent-filter>
-92-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:57:13-60:29
-93                <action android:name="android.intent.action.MAIN" />
-93-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:58:17-69
-93-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:58:25-66
-94
-95                <category android:name="android.intent.category.LAUNCHER" />
-95-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:59:17-77
-95-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:59:27-74
-96            </intent-filter>
-97        </activity>
-98
-99        <!-- Emergency Confirmation Activity -->
-100        <activity
-100-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:64:9-70:49
-101            android:name="com.crashalert.safety.EmergencyConfirmationActivity"
-101-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:65:13-58
-102            android:excludeFromRecents="true"
-102-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:70:13-46
-103            android:exported="false"
-103-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:66:13-37
-104            android:launchMode="singleTop"
-104-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:69:13-43
-105            android:screenOrientation="portrait"
-105-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:67:13-49
-106            android:theme="@style/Theme.CrashAlertSafety.Emergency" />
-106-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:68:13-68
-107
-108        <!-- Emergency Contacts Management Activity -->
-109        <activity
-109-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:73:9-76:58
-110            android:name="com.crashalert.safety.EmergencyContactsActivity"
-110-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:74:13-54
-111            android:exported="false"
-111-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:75:13-37
-112            android:parentActivityName="com.crashalert.safety.MainActivity" />
-112-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:76:13-55
-113
-114        <!-- Settings Activity -->
-115        <activity
-115-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:79:9-82:58
-116            android:name="com.crashalert.safety.SettingsActivity"
-116-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:80:13-45
-117            android:exported="false"
-117-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:81:13-37
-118            android:parentActivityName="com.crashalert.safety.MainActivity" />
-118-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:82:13-55
-119
-120        <!-- Test Hospital Calling Activity -->
-121        <activity
-121-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:85:9-89:53
-122            android:name="com.crashalert.safety.TestHospitalCallingActivity"
-122-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:86:13-56
-123            android:exported="false"
-123-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:87:13-37
-124            android:label="Test Hospital Calling"
-124-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:89:13-50
-125            android:parentActivityName="com.crashalert.safety.MainActivity" />
-125-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:88:13-55
-126        <activity
-126-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:91:9-95:55
-127            android:name="com.crashalert.safety.BackgroundServiceTestActivity"
-127-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:92:13-58
-128            android:exported="false"
-128-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:93:13-37
-129            android:label="Background Service Test"
-129-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:95:13-52
-130            android:parentActivityName="com.crashalert.safety.MainActivity" />
-130-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:94:13-55
-131        <activity
-131-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:97:9-101:54
-132            android:name="com.crashalert.safety.TestEmergencyCallingActivity"
-132-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:98:13-57
-133            android:exported="false"
-133-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:99:13-37
-134            android:label="Test Emergency Calling"
-134-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:101:13-51
-135            android:parentActivityName="com.crashalert.safety.MainActivity" />
-135-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:100:13-55
-136
-137        <!-- OpenStreetMap Crash Location Activity -->
-138        <activity
-138-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:104:9-109:52
-139            android:name="com.crashalert.safety.map.CrashMapActivity"
-139-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:105:13-49
-140            android:exported="false"
-140-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:106:13-37
-141            android:label="Crash Location Map"
-141-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:108:13-47
-142            android:parentActivityName="com.crashalert.safety.MainActivity"
-142-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:107:13-55
-143            android:screenOrientation="portrait" />
-143-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:109:13-49
-144
-145        <!-- Test Crash Detection Activity -->
-146        <activity
-146-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:112:9-117:52
-147            android:name="com.crashalert.safety.TestCrashDetectionActivity"
-147-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:113:13-55
-148            android:exported="false"
-148-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:114:13-37
-149            android:label="Test Crash Detection"
-149-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:116:13-49
-150            android:parentActivityName="com.crashalert.safety.MainActivity"
-150-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:115:13-55
-151            android:screenOrientation="portrait" />
-151-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:117:13-49
-152
-153        <!-- Crash History Activity -->
-154        <activity
-154-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:120:9-124:45
-155            android:name="com.crashalert.safety.CrashHistoryActivity"
-155-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:121:13-49
-156            android:exported="false"
-156-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:122:13-37
-157            android:label="Crash History"
-157-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:124:13-42
-158            android:parentActivityName="com.crashalert.safety.MainActivity" />
-158-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:123:13-55
-159
-160        <!-- Driving Mode Service -->
-161        <service
-161-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:127:9-133:55
-162            android:name="com.crashalert.safety.service.DrivingModeService"
-162-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:128:13-55
-163            android:enabled="true"
-163-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:129:13-35
-164            android:exported="false"
-164-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:130:13-37
-165            android:foregroundServiceType="location|specialUse"
-165-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:131:13-64
-166            android:process=":driving_mode_service"
-166-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:133:13-52
-167            android:stopWithTask="false" />
-167-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:132:13-41
-168
-169        <!-- Emergency Alert Service -->
-170        <service
-170-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:136:9-141:44
-171            android:name="com.crashalert.safety.service.EmergencyAlertService"
-171-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:137:13-58
-172            android:enabled="true"
-172-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:138:13-35
-173            android:exported="false"
-173-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:139:13-37
-174            android:foregroundServiceType="specialUse"
-174-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:140:13-55
-175            android:stopWithTask="false" />
-175-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:141:13-41
-176
-177        <!-- Home Screen Widget -->
-178        <receiver
-178-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:145:9-154:20
-179            android:name="com.crashalert.safety.widget.DrivingModeWidget"
-179-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:146:13-53
-180            android:exported="true" >
-180-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:147:13-36
-181            <intent-filter>
-181-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:148:13-150:29
-182                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-182-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:149:17-84
-182-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:149:25-81
-183            </intent-filter>
-184
-185            <meta-data
-185-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:151:13-153:68
-186                android:name="android.appwidget.provider"
-186-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:152:17-58
-187                android:resource="@xml/driving_mode_widget_info" />
-187-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:153:17-65
-188        </receiver>
-189
-190        <!-- Boot Receiver -->
-191        <receiver
-191-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:157:9-167:20
-192            android:name="com.crashalert.safety.receiver.BootReceiver"
-192-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:158:13-50
-193            android:enabled="true"
-193-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:159:13-35
-194            android:exported="true" >
-194-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:160:13-36
-195            <intent-filter android:priority="1000" >
-195-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:161:13-166:29
-195-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:161:28-51
-196                <action android:name="android.intent.action.BOOT_COMPLETED" />
-196-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:162:17-79
-196-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:162:25-76
-197                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-197-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:163:17-84
-197-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:163:25-81
-198                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-198-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:164:17-81
-198-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:164:25-78
-199
-200                <data android:scheme="package" />
-200-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:165:17-50
-200-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:165:23-47
-201            </intent-filter>
-202        </receiver>
+54    <uses-permission android:name="com.crashalert.safety.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+54-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:26:5-97
+54-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:26:22-94
+55
+56    <supports-screens
+56-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:9:5-12:40
+57        android:anyDensity="true"
+57-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:10:9-34
+58        android:largeScreens="true"
+58-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:11:9-36
+59        android:normalScreens="true" />
+59-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:12:9-37
+60
+61    <uses-feature
+61-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:14:5-16:36
+62        android:name="android.hardware.location.network"
+62-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:15:9-57
+63        android:required="false" />
+63-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:16:9-33
+64    <uses-feature
+64-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:17:5-19:36
+65        android:name="android.hardware.location.gps"
+65-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:18:9-53
+66        android:required="false" />
+66-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:19:9-33
+67    <uses-feature
+67-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:20:5-22:36
+68        android:name="android.hardware.telephony"
+68-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:21:9-50
+69        android:required="false" />
+69-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:22:9-33
+70    <uses-feature
+70-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:23:5-25:36
+71        android:name="android.hardware.wifi"
+71-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:24:9-45
+72        android:required="false" />
+72-->[org.osmdroid:osmdroid-android:6.1.17] C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\AndroidManifest.xml:25:9-33
+73
+74    <application
+74-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:42:5-205:19
+75        android:allowBackup="true"
+75-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:43:9-35
+76        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+76-->[androidx.core:core:1.10.1] C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
+77        android:dataExtractionRules="@xml/data_extraction_rules"
+77-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:44:9-65
+78        android:extractNativeLibs="false"
+79        android:fullBackupContent="@xml/backup_rules"
+79-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:45:9-54
+80        android:fullBackupOnly="false"
+80-->[mil.nga.geopackage:geopackage-android:6.6.0] C:\Users\PARDHU\.gradle\caches\transforms-3\8b564157f223a71d588c8a675aac4f6c\transformed\jetified-geopackage-android-6.6.0\AndroidManifest.xml:12:9-39
+81        android:icon="@mipmap/ic_launcher"
+81-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:46:9-43
+82        android:label="@string/app_name"
+82-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:47:9-41
+83        android:roundIcon="@mipmap/ic_launcher_round"
+83-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:48:9-54
+84        android:supportsRtl="true"
+84-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:49:9-35
+85        android:theme="@style/Theme.CrashAlertSafety"
+85-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:50:9-54
+86        android:usesCleartextTraffic="true" >
+86-->[mil.nga.geopackage:geopackage-android:6.6.0] C:\Users\PARDHU\.gradle\caches\transforms-3\8b564157f223a71d588c8a675aac4f6c\transformed\jetified-geopackage-android-6.6.0\AndroidManifest.xml:14:9-44
+87
+88        <!-- Main Activity -->
+89        <activity
+89-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:55:9-64:20
+90            android:name="com.crashalert.safety.MainActivity"
+90-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:56:13-41
+91            android:exported="true"
+91-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:57:13-36
+92            android:screenOrientation="portrait"
+92-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:58:13-49
+93            android:theme="@style/Theme.CrashAlertSafety" >
+93-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:59:13-58
+94            <intent-filter>
+94-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:60:13-63:29
+95                <action android:name="android.intent.action.MAIN" />
+95-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:61:17-69
+95-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:61:25-66
+96
+97                <category android:name="android.intent.category.LAUNCHER" />
+97-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:62:17-77
+97-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:62:27-74
+98            </intent-filter>
+99        </activity>
+100
+101        <!-- Emergency Confirmation Activity -->
+102        <activity
+102-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:67:9-73:49
+103            android:name="com.crashalert.safety.EmergencyConfirmationActivity"
+103-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:68:13-58
+104            android:excludeFromRecents="true"
+104-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:73:13-46
+105            android:exported="false"
+105-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:69:13-37
+106            android:launchMode="singleTop"
+106-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:72:13-43
+107            android:screenOrientation="portrait"
+107-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:70:13-49
+108            android:theme="@style/Theme.CrashAlertSafety.Emergency" />
+108-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:71:13-68
+109
+110        <!-- Emergency Contacts Management Activity -->
+111        <activity
+111-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:76:9-79:58
+112            android:name="com.crashalert.safety.EmergencyContactsActivity"
+112-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:77:13-54
+113            android:exported="false"
+113-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:78:13-37
+114            android:parentActivityName="com.crashalert.safety.MainActivity" />
+114-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:79:13-55
+115
+116        <!-- Settings Activity -->
+117        <activity
+117-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:82:9-85:58
+118            android:name="com.crashalert.safety.SettingsActivity"
+118-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:83:13-45
+119            android:exported="false"
+119-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:84:13-37
+120            android:parentActivityName="com.crashalert.safety.MainActivity" />
+120-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:85:13-55
+121
+122        <!-- Test Hospital Calling Activity -->
+123        <activity
+123-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:88:9-92:53
+124            android:name="com.crashalert.safety.TestHospitalCallingActivity"
+124-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:89:13-56
+125            android:exported="false"
+125-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:90:13-37
+126            android:label="Test Hospital Calling"
+126-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:92:13-50
+127            android:parentActivityName="com.crashalert.safety.MainActivity" />
+127-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:91:13-55
+128        <activity
+128-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:94:9-98:55
+129            android:name="com.crashalert.safety.BackgroundServiceTestActivity"
+129-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:95:13-58
+130            android:exported="false"
+130-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:96:13-37
+131            android:label="Background Service Test"
+131-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:98:13-52
+132            android:parentActivityName="com.crashalert.safety.MainActivity" />
+132-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:97:13-55
+133        <activity
+133-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:100:9-104:54
+134            android:name="com.crashalert.safety.TestEmergencyCallingActivity"
+134-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:101:13-57
+135            android:exported="false"
+135-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:102:13-37
+136            android:label="Test Emergency Calling"
+136-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:104:13-51
+137            android:parentActivityName="com.crashalert.safety.MainActivity" />
+137-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:103:13-55
+138
+139        <!-- OpenStreetMap Crash Location Activity -->
+140        <activity
+140-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:107:9-112:52
+141            android:name="com.crashalert.safety.map.CrashMapActivity"
+141-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:108:13-49
+142            android:exported="false"
+142-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:109:13-37
+143            android:label="Crash Location Map"
+143-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:111:13-47
+144            android:parentActivityName="com.crashalert.safety.MainActivity"
+144-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:110:13-55
+145            android:screenOrientation="portrait" />
+145-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:112:13-49
+146
+147        <!-- Test Crash Detection Activity -->
+148        <activity
+148-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:115:9-120:52
+149            android:name="com.crashalert.safety.TestCrashDetectionActivity"
+149-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:116:13-55
+150            android:exported="false"
+150-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:117:13-37
+151            android:label="Test Crash Detection"
+151-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:119:13-49
+152            android:parentActivityName="com.crashalert.safety.MainActivity"
+152-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:118:13-55
+153            android:screenOrientation="portrait" />
+153-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:120:13-49
+154
+155        <!-- Crash History Activity -->
+156        <activity
+156-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:123:9-127:45
+157            android:name="com.crashalert.safety.CrashHistoryActivity"
+157-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:124:13-49
+158            android:exported="false"
+158-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:125:13-37
+159            android:label="Crash History"
+159-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:127:13-42
+160            android:parentActivityName="com.crashalert.safety.MainActivity" />
+160-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:126:13-55
+161
+162        <!-- Driving Mode Service -->
+163        <service
+163-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:130:9-137:39
+164            android:name="com.crashalert.safety.service.DrivingModeService"
+164-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:131:13-55
+165            android:enabled="true"
+165-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:132:13-35
+166            android:exported="false"
+166-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:133:13-37
+167            android:foregroundServiceType="location|specialUse"
+167-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:134:13-64
+168            android:priority="1000"
+168-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:137:13-36
+169            android:process=":driving_mode_service"
+169-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:136:13-52
+170            android:stopWithTask="false" />
+170-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:135:13-41
+171
+172        <!-- Emergency Alert Service -->
+173        <service
+173-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:140:9-146:39
+174            android:name="com.crashalert.safety.service.EmergencyAlertService"
+174-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:141:13-58
+175            android:enabled="true"
+175-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:142:13-35
+176            android:exported="false"
+176-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:143:13-37
+177            android:foregroundServiceType="specialUse"
+177-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:144:13-55
+178            android:priority="1000"
+178-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:146:13-36
+179            android:stopWithTask="false" />
+179-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:145:13-41
+180
+181        <!-- Home Screen Widget -->
+182        <receiver
+182-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:150:9-159:20
+183            android:name="com.crashalert.safety.widget.DrivingModeWidget"
+183-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:151:13-53
+184            android:exported="true" >
+184-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:152:13-36
+185            <intent-filter>
+185-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:153:13-155:29
+186                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+186-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:154:17-84
+186-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:154:25-81
+187            </intent-filter>
+188
+189            <meta-data
+189-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:156:13-158:68
+190                android:name="android.appwidget.provider"
+190-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:157:17-58
+191                android:resource="@xml/driving_mode_widget_info" />
+191-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:158:17-65
+192        </receiver>
+193
+194        <!-- Boot Receiver -->
+195        <receiver
+195-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:162:9-172:20
+196            android:name="com.crashalert.safety.receiver.BootReceiver"
+196-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:163:13-50
+197            android:enabled="true"
+197-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:164:13-35
+198            android:exported="true" >
+198-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:165:13-36
+199            <intent-filter android:priority="1000" >
+199-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:166:13-171:29
+199-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:166:28-51
+200                <action android:name="android.intent.action.BOOT_COMPLETED" />
+200-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:167:17-79
+200-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:167:25-76
+201                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+201-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:168:17-84
+201-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:168:25-81
+202                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+202-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:169:17-81
+202-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:169:25-78
 203
-204        <!-- Emergency Alert Receiver -->
-205        <receiver
-205-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:170:9-173:40
-206            android:name="com.crashalert.safety.receiver.EmergencyAlertReceiver"
-206-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:171:13-60
-207            android:enabled="true"
-207-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:172:13-35
-208            android:exported="false" />
-208-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:173:13-37
-209
-210        <!-- Service Keep-Alive Receiver -->
-211        <receiver
-211-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:176:9-179:40
-212            android:name="com.crashalert.safety.utils.ServiceKeepAliveManager$ServiceKeepAliveReceiver"
-212-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:177:13-83
-213            android:enabled="true"
-213-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:178:13-35
-214            android:exported="false" />
-214-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:179:13-37
-215
-216        <provider
-216-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:29:9-37:20
-217            android:name="androidx.startup.InitializationProvider"
-217-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:30:13-67
-218            android:authorities="com.crashalert.safety.androidx-startup"
-218-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:31:13-68
-219            android:exported="false" >
-219-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:32:13-37
-220            <meta-data
-220-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:34:13-36:52
-221                android:name="androidx.work.WorkManagerInitializer"
-221-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:35:17-68
-222                android:value="androidx.startup" />
-222-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:36:17-49
-223            <meta-data
-223-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PARDHU\.gradle\caches\transforms-3\7e018ad17737e3bbff7428485e891d69\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-224                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-224-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PARDHU\.gradle\caches\transforms-3\7e018ad17737e3bbff7428485e891d69\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
-225                android:value="androidx.startup" />
-225-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PARDHU\.gradle\caches\transforms-3\7e018ad17737e3bbff7428485e891d69\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
-226            <meta-data
-226-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\PARDHU\.gradle\caches\transforms-3\71ebe3137e8152bf99755c3b0c94f78e\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
-227                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-227-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\PARDHU\.gradle\caches\transforms-3\71ebe3137e8152bf99755c3b0c94f78e\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
-228                android:value="androidx.startup" />
-228-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\PARDHU\.gradle\caches\transforms-3\71ebe3137e8152bf99755c3b0c94f78e\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
-229            <meta-data
-229-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
-230                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-230-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
-231                android:value="androidx.startup" />
-231-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
-232        </provider>
+204                <data android:scheme="package" />
+204-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:170:17-50
+204-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:170:23-47
+205            </intent-filter>
+206        </receiver>
+207
+208        <!-- Emergency Alert Receiver -->
+209        <receiver
+209-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:175:9-178:40
+210            android:name="com.crashalert.safety.receiver.EmergencyAlertReceiver"
+210-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:176:13-60
+211            android:enabled="true"
+211-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:177:13-35
+212            android:exported="false" />
+212-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:178:13-37
+213
+214        <!-- Service Keep-Alive Receiver -->
+215        <receiver
+215-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:181:9-184:40
+216            android:name="com.crashalert.safety.utils.ServiceKeepAliveManager$ServiceKeepAliveReceiver"
+216-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:182:13-83
+217            android:enabled="true"
+217-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:183:13-35
+218            android:exported="false" />
+218-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:184:13-37
+219
+220        <!-- Boot Receiver -->
+221        <receiver
+221-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:187:9-197:20
+222            android:name="com.crashalert.safety.BootReceiver"
+222-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:188:13-41
+223            android:enabled="true"
+223-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:189:13-35
+224            android:exported="false" >
+224-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:190:13-37
+225            <intent-filter android:priority="1000" >
+225-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:166:13-171:29
+225-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:166:28-51
+226                <action android:name="android.intent.action.BOOT_COMPLETED" />
+226-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:167:17-79
+226-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:167:25-76
+227                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+227-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:168:17-84
+227-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:168:25-81
+228                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+228-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:169:17-81
+228-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:169:25-78
+229
+230                <data android:scheme="package" />
+230-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:170:17-50
+230-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:170:23-47
+231            </intent-filter>
+232        </receiver>
 233
-234        <service
-234-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:39:9-45:35
-235            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
-235-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:40:13-88
-236            android:directBootAware="false"
-236-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:41:13-44
-237            android:enabled="@bool/enable_system_alarm_service_default"
-237-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:42:13-72
+234        <!-- Service Restart Receiver -->
+235        <receiver
+235-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:200:9-203:40
+236            android:name="com.crashalert.safety.utils.ServicePersistenceEnhancer$ServiceRestartReceiver"
+236-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:201:13-84
+237            android:enabled="true"
+237-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:202:13-35
 238            android:exported="false" />
-238-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:43:13-37
-239        <service
-239-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:46:9-52:35
-240            android:name="androidx.work.impl.background.systemjob.SystemJobService"
-240-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:47:13-84
-241            android:directBootAware="false"
-241-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:48:13-44
-242            android:enabled="@bool/enable_system_job_service_default"
-242-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:49:13-70
-243            android:exported="true"
-243-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:50:13-36
-244            android:permission="android.permission.BIND_JOB_SERVICE" />
-244-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:51:13-69
-245        <service
-245-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:53:9-59:35
-246            android:name="androidx.work.impl.foreground.SystemForegroundService"
-246-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:54:13-81
-247            android:directBootAware="false"
-247-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:55:13-44
-248            android:enabled="@bool/enable_system_foreground_service_default"
-248-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:56:13-77
-249            android:exported="false" />
-249-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:57:13-37
-250
-251        <receiver
-251-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:61:9-66:35
-252            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
-252-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:62:13-88
-253            android:directBootAware="false"
-253-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:63:13-44
-254            android:enabled="true"
-254-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:64:13-35
-255            android:exported="false" />
-255-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:65:13-37
-256        <receiver
-256-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:67:9-77:20
-257            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
-257-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:68:13-106
-258            android:directBootAware="false"
-258-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:69:13-44
-259            android:enabled="false"
-259-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:70:13-36
-260            android:exported="false" >
-260-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:71:13-37
-261            <intent-filter>
-261-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:73:13-76:29
-262                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-262-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:74:17-87
-262-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:74:25-84
-263                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-263-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:75:17-90
-263-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:75:25-87
-264            </intent-filter>
-265        </receiver>
-266        <receiver
-266-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:78:9-88:20
-267            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
-267-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:79:13-104
-268            android:directBootAware="false"
-268-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:80:13-44
-269            android:enabled="false"
-269-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:81:13-36
-270            android:exported="false" >
-270-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:82:13-37
-271            <intent-filter>
-271-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:84:13-87:29
-272                <action android:name="android.intent.action.BATTERY_OKAY" />
-272-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:85:17-77
-272-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:85:25-74
-273                <action android:name="android.intent.action.BATTERY_LOW" />
-273-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:86:17-76
-273-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:86:25-73
-274            </intent-filter>
-275        </receiver>
-276        <receiver
-276-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:89:9-99:20
-277            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
-277-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:90:13-104
-278            android:directBootAware="false"
-278-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:91:13-44
-279            android:enabled="false"
-279-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:92:13-36
-280            android:exported="false" >
-280-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:93:13-37
-281            <intent-filter>
-281-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:95:13-98:29
-282                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
-282-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:96:17-83
-282-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:96:25-80
-283                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
-283-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:97:17-82
-283-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:97:25-79
-284            </intent-filter>
-285        </receiver>
-286        <receiver
-286-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:100:9-109:20
-287            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
-287-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:101:13-103
-288            android:directBootAware="false"
-288-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:102:13-44
-289            android:enabled="false"
-289-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:103:13-36
-290            android:exported="false" >
-290-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:104:13-37
-291            <intent-filter>
-291-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:106:13-108:29
-292                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-292-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:107:17-79
-292-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:107:25-76
-293            </intent-filter>
-294        </receiver>
-295        <receiver
-295-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:110:9-121:20
-296            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
-296-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:111:13-88
-297            android:directBootAware="false"
-297-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:112:13-44
-298            android:enabled="false"
-298-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:113:13-36
-299            android:exported="false" >
-299-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:114:13-37
-300            <intent-filter>
-300-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:116:13-120:29
-301                <action android:name="android.intent.action.BOOT_COMPLETED" />
-301-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:162:17-79
-301-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:162:25-76
-302                <action android:name="android.intent.action.TIME_SET" />
-302-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:118:17-73
-302-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:118:25-70
-303                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-303-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:119:17-81
-303-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:119:25-78
-304            </intent-filter>
-305        </receiver>
-306        <receiver
-306-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:122:9-131:20
-307            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
-307-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:123:13-99
-308            android:directBootAware="false"
-308-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:124:13-44
-309            android:enabled="@bool/enable_system_alarm_service_default"
-309-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:125:13-72
-310            android:exported="false" >
-310-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:126:13-37
-311            <intent-filter>
-311-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:128:13-130:29
-312                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
-312-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:129:17-98
-312-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:129:25-95
-313            </intent-filter>
-314        </receiver>
-315        <receiver
-315-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:132:9-142:20
-316            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
-316-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:133:13-78
-317            android:directBootAware="false"
-317-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:134:13-44
-318            android:enabled="true"
-318-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:135:13-35
-319            android:exported="true"
-319-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:136:13-36
-320            android:permission="android.permission.DUMP" >
-320-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:137:13-57
-321            <intent-filter>
-321-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:139:13-141:29
-322                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
-322-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:140:17-88
-322-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:140:25-85
-323            </intent-filter>
-324        </receiver>
-325
-326        <activity
-326-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\550f97feb966acf1d1b38c30c403cf3a\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
-327            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-327-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\550f97feb966acf1d1b38c30c403cf3a\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
-328            android:exported="false"
-328-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\550f97feb966acf1d1b38c30c403cf3a\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
-329            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-329-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\550f97feb966acf1d1b38c30c403cf3a\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
-330
-331        <meta-data
-331-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\4960d96c561e6858a06c7c4ebe9984d1\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
-332            android:name="com.google.android.gms.version"
-332-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\4960d96c561e6858a06c7c4ebe9984d1\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
-333            android:value="@integer/google_play_services_version" />
-333-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\4960d96c561e6858a06c7c4ebe9984d1\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
-334
-335        <uses-library
-335-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
-336            android:name="androidx.window.extensions"
-336-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
-337            android:required="false" />
-337-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
-338        <uses-library
-338-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
-339            android:name="androidx.window.sidecar"
-339-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
-340            android:required="false" />
-340-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
-341
-342        <service
-342-->[androidx.room:room-runtime:2.5.0] C:\Users\PARDHU\.gradle\caches\transforms-3\593bec6ae634d2061d769b64fd2ab48a\transformed\room-runtime-2.5.0\AndroidManifest.xml:24:9-28:63
-343            android:name="androidx.room.MultiInstanceInvalidationService"
-343-->[androidx.room:room-runtime:2.5.0] C:\Users\PARDHU\.gradle\caches\transforms-3\593bec6ae634d2061d769b64fd2ab48a\transformed\room-runtime-2.5.0\AndroidManifest.xml:25:13-74
-344            android:directBootAware="true"
-344-->[androidx.room:room-runtime:2.5.0] C:\Users\PARDHU\.gradle\caches\transforms-3\593bec6ae634d2061d769b64fd2ab48a\transformed\room-runtime-2.5.0\AndroidManifest.xml:26:13-43
-345            android:exported="false" />
-345-->[androidx.room:room-runtime:2.5.0] C:\Users\PARDHU\.gradle\caches\transforms-3\593bec6ae634d2061d769b64fd2ab48a\transformed\room-runtime-2.5.0\AndroidManifest.xml:27:13-37
-346
-347        <receiver
-347-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
-348            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-348-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
-349            android:directBootAware="false"
-349-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
-350            android:enabled="true"
-350-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
-351            android:exported="true"
-351-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
-352            android:permission="android.permission.DUMP" >
-352-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
-353            <intent-filter>
-353-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
-354                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-354-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
-354-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
-355            </intent-filter>
-356            <intent-filter>
-356-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
-357                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-357-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
-357-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
-358            </intent-filter>
-359            <intent-filter>
-359-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
-360                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-360-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
-360-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
-361            </intent-filter>
-362            <intent-filter>
-362-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
-363                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-363-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
-363-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
-364            </intent-filter>
-365        </receiver>
-366    </application>
-367
-368</manifest>
+238-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:203:13-37
+239
+240        <provider
+240-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:29:9-37:20
+241            android:name="androidx.startup.InitializationProvider"
+241-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:30:13-67
+242            android:authorities="com.crashalert.safety.androidx-startup"
+242-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:31:13-68
+243            android:exported="false" >
+243-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:32:13-37
+244            <meta-data
+244-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:34:13-36:52
+245                android:name="androidx.work.WorkManagerInitializer"
+245-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:35:17-68
+246                android:value="androidx.startup" />
+246-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:36:17-49
+247            <meta-data
+247-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PARDHU\.gradle\caches\transforms-3\7e018ad17737e3bbff7428485e891d69\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+248                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+248-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PARDHU\.gradle\caches\transforms-3\7e018ad17737e3bbff7428485e891d69\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+249                android:value="androidx.startup" />
+249-->[androidx.emoji2:emoji2:1.2.0] C:\Users\PARDHU\.gradle\caches\transforms-3\7e018ad17737e3bbff7428485e891d69\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+250            <meta-data
+250-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\PARDHU\.gradle\caches\transforms-3\71ebe3137e8152bf99755c3b0c94f78e\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
+251                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+251-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\PARDHU\.gradle\caches\transforms-3\71ebe3137e8152bf99755c3b0c94f78e\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
+252                android:value="androidx.startup" />
+252-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\PARDHU\.gradle\caches\transforms-3\71ebe3137e8152bf99755c3b0c94f78e\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
+253            <meta-data
+253-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+254                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+254-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+255                android:value="androidx.startup" />
+255-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+256        </provider>
+257
+258        <service
+258-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:39:9-45:35
+259            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+259-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:40:13-88
+260            android:directBootAware="false"
+260-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:41:13-44
+261            android:enabled="@bool/enable_system_alarm_service_default"
+261-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:42:13-72
+262            android:exported="false" />
+262-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:43:13-37
+263        <service
+263-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:46:9-52:35
+264            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+264-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:47:13-84
+265            android:directBootAware="false"
+265-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:48:13-44
+266            android:enabled="@bool/enable_system_job_service_default"
+266-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:49:13-70
+267            android:exported="true"
+267-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:50:13-36
+268            android:permission="android.permission.BIND_JOB_SERVICE" />
+268-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:51:13-69
+269        <service
+269-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:53:9-59:35
+270            android:name="androidx.work.impl.foreground.SystemForegroundService"
+270-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:54:13-81
+271            android:directBootAware="false"
+271-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:55:13-44
+272            android:enabled="@bool/enable_system_foreground_service_default"
+272-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:56:13-77
+273            android:exported="false" />
+273-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:57:13-37
+274
+275        <receiver
+275-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:61:9-66:35
+276            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+276-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:62:13-88
+277            android:directBootAware="false"
+277-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:63:13-44
+278            android:enabled="true"
+278-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:64:13-35
+279            android:exported="false" />
+279-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:65:13-37
+280        <receiver
+280-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:67:9-77:20
+281            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+281-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:68:13-106
+282            android:directBootAware="false"
+282-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:69:13-44
+283            android:enabled="false"
+283-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:70:13-36
+284            android:exported="false" >
+284-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:71:13-37
+285            <intent-filter>
+285-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:73:13-76:29
+286                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+286-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:74:17-87
+286-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:74:25-84
+287                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+287-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:75:17-90
+287-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:75:25-87
+288            </intent-filter>
+289        </receiver>
+290        <receiver
+290-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:78:9-88:20
+291            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+291-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:79:13-104
+292            android:directBootAware="false"
+292-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:80:13-44
+293            android:enabled="false"
+293-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:81:13-36
+294            android:exported="false" >
+294-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:82:13-37
+295            <intent-filter>
+295-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:84:13-87:29
+296                <action android:name="android.intent.action.BATTERY_OKAY" />
+296-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:85:17-77
+296-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:85:25-74
+297                <action android:name="android.intent.action.BATTERY_LOW" />
+297-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:86:17-76
+297-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:86:25-73
+298            </intent-filter>
+299        </receiver>
+300        <receiver
+300-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:89:9-99:20
+301            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+301-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:90:13-104
+302            android:directBootAware="false"
+302-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:91:13-44
+303            android:enabled="false"
+303-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:92:13-36
+304            android:exported="false" >
+304-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:93:13-37
+305            <intent-filter>
+305-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:95:13-98:29
+306                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+306-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:96:17-83
+306-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:96:25-80
+307                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+307-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:97:17-82
+307-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:97:25-79
+308            </intent-filter>
+309        </receiver>
+310        <receiver
+310-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:100:9-109:20
+311            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+311-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:101:13-103
+312            android:directBootAware="false"
+312-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:102:13-44
+313            android:enabled="false"
+313-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:103:13-36
+314            android:exported="false" >
+314-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:104:13-37
+315            <intent-filter>
+315-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:106:13-108:29
+316                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+316-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:107:17-79
+316-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:107:25-76
+317            </intent-filter>
+318        </receiver>
+319        <receiver
+319-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:110:9-121:20
+320            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+320-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:111:13-88
+321            android:directBootAware="false"
+321-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:112:13-44
+322            android:enabled="false"
+322-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:113:13-36
+323            android:exported="false" >
+323-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:114:13-37
+324            <intent-filter>
+324-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:116:13-120:29
+325                <action android:name="android.intent.action.BOOT_COMPLETED" />
+325-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:167:17-79
+325-->C:\Users\PARDHU\Desktop\alert app\app\src\main\AndroidManifest.xml:167:25-76
+326                <action android:name="android.intent.action.TIME_SET" />
+326-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:118:17-73
+326-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:118:25-70
+327                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+327-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:119:17-81
+327-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:119:25-78
+328            </intent-filter>
+329        </receiver>
+330        <receiver
+330-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:122:9-131:20
+331            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+331-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:123:13-99
+332            android:directBootAware="false"
+332-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:124:13-44
+333            android:enabled="@bool/enable_system_alarm_service_default"
+333-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:125:13-72
+334            android:exported="false" >
+334-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:126:13-37
+335            <intent-filter>
+335-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:128:13-130:29
+336                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+336-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:129:17-98
+336-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:129:25-95
+337            </intent-filter>
+338        </receiver>
+339        <receiver
+339-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:132:9-142:20
+340            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+340-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:133:13-78
+341            android:directBootAware="false"
+341-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:134:13-44
+342            android:enabled="true"
+342-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:135:13-35
+343            android:exported="true"
+343-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:136:13-36
+344            android:permission="android.permission.DUMP" >
+344-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:137:13-57
+345            <intent-filter>
+345-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:139:13-141:29
+346                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+346-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:140:17-88
+346-->[androidx.work:work-runtime:2.8.1] C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\AndroidManifest.xml:140:25-85
+347            </intent-filter>
+348        </receiver>
+349
+350        <activity
+350-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\550f97feb966acf1d1b38c30c403cf3a\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+351            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+351-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\550f97feb966acf1d1b38c30c403cf3a\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+352            android:exported="false"
+352-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\550f97feb966acf1d1b38c30c403cf3a\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+353            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+353-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\550f97feb966acf1d1b38c30c403cf3a\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+354
+355        <meta-data
+355-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\4960d96c561e6858a06c7c4ebe9984d1\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+356            android:name="com.google.android.gms.version"
+356-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\4960d96c561e6858a06c7c4ebe9984d1\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+357            android:value="@integer/google_play_services_version" />
+357-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\PARDHU\.gradle\caches\transforms-3\4960d96c561e6858a06c7c4ebe9984d1\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+358
+359        <uses-library
+359-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+360            android:name="androidx.window.extensions"
+360-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+361            android:required="false" />
+361-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+362        <uses-library
+362-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+363            android:name="androidx.window.sidecar"
+363-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+364            android:required="false" />
+364-->[androidx.window:window:1.0.0] C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+365
+366        <service
+366-->[androidx.room:room-runtime:2.5.0] C:\Users\PARDHU\.gradle\caches\transforms-3\593bec6ae634d2061d769b64fd2ab48a\transformed\room-runtime-2.5.0\AndroidManifest.xml:24:9-28:63
+367            android:name="androidx.room.MultiInstanceInvalidationService"
+367-->[androidx.room:room-runtime:2.5.0] C:\Users\PARDHU\.gradle\caches\transforms-3\593bec6ae634d2061d769b64fd2ab48a\transformed\room-runtime-2.5.0\AndroidManifest.xml:25:13-74
+368            android:directBootAware="true"
+368-->[androidx.room:room-runtime:2.5.0] C:\Users\PARDHU\.gradle\caches\transforms-3\593bec6ae634d2061d769b64fd2ab48a\transformed\room-runtime-2.5.0\AndroidManifest.xml:26:13-43
+369            android:exported="false" />
+369-->[androidx.room:room-runtime:2.5.0] C:\Users\PARDHU\.gradle\caches\transforms-3\593bec6ae634d2061d769b64fd2ab48a\transformed\room-runtime-2.5.0\AndroidManifest.xml:27:13-37
+370
+371        <receiver
+371-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+372            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+372-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+373            android:directBootAware="false"
+373-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+374            android:enabled="true"
+374-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+375            android:exported="true"
+375-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+376            android:permission="android.permission.DUMP" >
+376-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+377            <intent-filter>
+377-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+378                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+378-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+378-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+379            </intent-filter>
+380            <intent-filter>
+380-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+381                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+381-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+381-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+382            </intent-filter>
+383            <intent-filter>
+383-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+384                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+384-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+384-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+385            </intent-filter>
+386            <intent-filter>
+386-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+387                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+387-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+387-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+388            </intent-filter>
+389        </receiver>
+390    </application>
+391
+392</manifest>

@@ -58,7 +58,7 @@ public class DrivingModeService extends Service implements
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "DrivingModeService started with intent: " + (intent != null ? intent.getAction() : "null"));
-        
+
         if (intent != null) {
             String action = intent.getAction();
             if ("START_DRIVING_MODE".equals(action) || action == null) {
@@ -78,9 +78,9 @@ public class DrivingModeService extends Service implements
                 stopSelf();
             }
         }
-        
-        // Use START_REDELIVER_INTENT for better reliability
-        return START_REDELIVER_INTENT;
+
+        // Use START_STICKY for maximum persistence
+        return START_STICKY;
     }
     
     @Override
@@ -92,10 +92,13 @@ public class DrivingModeService extends Service implements
         NotificationChannel channel = new NotificationChannel(
                 CHANNEL_ID,
                 "Driving Mode",
-                NotificationManager.IMPORTANCE_LOW
+                NotificationManager.IMPORTANCE_HIGH
         );
         channel.setDescription("Notification for driving mode monitoring");
-        channel.setShowBadge(false);
+        channel.setShowBadge(true);
+        channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        channel.enableLights(true);
+        channel.enableVibration(true);
         
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         if (notificationManager != null) {

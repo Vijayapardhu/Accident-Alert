@@ -25,6 +25,8 @@ import com.crashalert.safety.utils.PreferenceUtils;
 import com.crashalert.safety.utils.BatteryOptimizationUtils;
 import com.crashalert.safety.utils.ServicePersistenceManager;
 import com.crashalert.safety.utils.BackgroundServiceMonitor;
+import com.crashalert.safety.utils.ServicePersistenceEnhancer;
+import com.crashalert.safety.utils.LocationTestUtils;
 import com.crashalert.safety.widget.DrivingModeWidget;
 
 import java.util.ArrayList;
@@ -114,6 +116,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, TestEmergencyCallingActivity.class);
             startActivity(intent);
         });
+        
+        // Test location accuracy
+        Button testLocationBtn = findViewById(R.id.test_location_button);
+        testLocationBtn.setOnClickListener(v -> {
+            String locationDebugInfo = LocationTestUtils.getLocationDebugInfo(this);
+            Log.d("MainActivity", "Location Debug Info:\n" + locationDebugInfo);
+            Toast.makeText(this, "Location test completed - check logs for details", Toast.LENGTH_LONG).show();
+        });
     }
     
     private void initializeDatabase() {
@@ -171,6 +181,9 @@ public class MainActivity extends AppCompatActivity {
     private void startBackgroundMonitoring() {
         // Start background service monitoring
         BackgroundServiceMonitor.startMonitoring(this);
+        
+        // Ensure maximum service persistence
+        ServicePersistenceEnhancer.ensureServicePersistence(this);
         Log.d("MainActivity", "Background monitoring started");
     }
     

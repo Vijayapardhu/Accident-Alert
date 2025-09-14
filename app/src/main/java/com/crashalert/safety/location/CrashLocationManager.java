@@ -25,6 +25,9 @@ public class CrashLocationManager implements LocationListener {
     private static final long MIN_TIME_MS = 1000; // 1 second
     private static final float MIN_DISTANCE_M = 1.0f; // 1 meter
     private static final int MAX_RETRIES = 3;
+    private static final float MIN_ACCURACY_M = 50.0f; // 50 meters maximum accuracy
+    private static final long MAX_LOCATION_AGE_MS = 30000; // 30 seconds maximum age
+    private static final double MAX_REASONABLE_SPEED_MS = 50.0; // 50 m/s (180 km/h) maximum reasonable speed
     
     private Context context;
     private android.location.LocationManager locationManager;
@@ -33,6 +36,8 @@ public class CrashLocationManager implements LocationListener {
     
     private Location lastKnownLocation;
     private boolean isTracking = false;
+    private long lastLocationUpdateTime = 0;
+    private String lastLocationProvider = null;
     
     public interface LocationCallback {
         void onLocationUpdate(double latitude, double longitude, String address);
@@ -75,7 +80,7 @@ public class CrashLocationManager implements LocationListener {
                 
                 // Force immediate location request
                 Location gpsLocation = locationManager.getLastKnownLocation(android.location.LocationManager.GPS_PROVIDER);
-                if (gpsLocation != null) {
+                if (gpsLocation != null && isValidLocation(gpsLocation)) {
                     Log.d(TAG, "Got immediate GPS location: " + gpsLocation.getLatitude() + ", " + gpsLocation.getLongitude());
                     onLocationChanged(gpsLocation);
                 }
@@ -93,7 +98,7 @@ public class CrashLocationManager implements LocationListener {
                 
                 // Force immediate network location request
                 Location networkLocation = locationManager.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER);
-                if (networkLocation != null) {
+                if (networkLocation != null && isValidLocation(networkLocation)) {
                     Log.d(TAG, "Got immediate network location: " + networkLocation.getLatitude() + ", " + networkLocation.getLongitude());
                     onLocationChanged(networkLocation);
                 }
@@ -128,29 +133,45 @@ public class CrashLocationManager implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         if (location == null) {
+            Log.w(TAG, "Received null location");
             return;
         }
         
-        // Update last known location
-        lastKnownLocation = location;
+        // Validate location before processing
+        if (!isValidLocation(location)) {
+            Log.w(TAG, "Invalid location received: " + location.getLatitude() + ", " + location.getLongitude() + 
+                  " (accuracy: " + location.getAccuracy() + "m, age: " + (System.currentTimeMillis() - location.getTime()) + "ms)");
+            return;
+        }
         
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        float accuracy = location.getAccuracy();
-        
-        Log.d(TAG, "Location updated: " + latitude + ", " + longitude + 
-              " (accuracy: " + accuracy + "m)");
-        
-        // Save to preferences
-        PreferenceUtils.setLastKnownLatitude(context, latitude);
-        PreferenceUtils.setLastKnownLongitude(context, longitude);
-        
-        // Get address asynchronously
-        getAddressFromLocation(latitude, longitude);
-        
-        // Notify callback
-        if (callback != null) {
-            callback.onLocationUpdate(latitude, longitude, null);
+        // Check if this location is better than the current one
+        if (shouldUpdateLocation(location)) {
+            Log.d(TAG, "Updating location from " + lastLocationProvider + " to " + location.getProvider() + 
+                  ": " + location.getLatitude() + ", " + location.getLongitude() + 
+                  " (accuracy: " + location.getAccuracy() + "m)");
+            
+            // Update last known location
+            lastKnownLocation = location;
+            lastLocationUpdateTime = System.currentTimeMillis();
+            lastLocationProvider = location.getProvider();
+            
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            float accuracy = location.getAccuracy();
+            
+            // Save to preferences
+            PreferenceUtils.setLastKnownLatitude(context, latitude);
+            PreferenceUtils.setLastKnownLongitude(context, longitude);
+            
+            // Get address asynchronously
+            getAddressFromLocation(latitude, longitude);
+            
+            // Notify callback
+            if (callback != null) {
+                callback.onLocationUpdate(latitude, longitude, null);
+            }
+        } else {
+            Log.d(TAG, "Location not better than current, ignoring: " + location.getLatitude() + ", " + location.getLongitude());
         }
     }
     
@@ -209,14 +230,22 @@ public class CrashLocationManager implements LocationListener {
             Location gpsLocation = locationManager.getLastKnownLocation(android.location.LocationManager.GPS_PROVIDER);
             Location networkLocation = locationManager.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER);
             
-            // Return the most recent location
-            if (gpsLocation != null && networkLocation != null) {
-                return gpsLocation.getTime() > networkLocation.getTime() ? gpsLocation : networkLocation;
-            } else if (gpsLocation != null) {
-                return gpsLocation;
-            } else {
-                return networkLocation;
+            // Validate locations and return the best one
+            Location bestLocation = null;
+            
+            if (gpsLocation != null && isValidLocation(gpsLocation)) {
+                bestLocation = gpsLocation;
+                Log.d(TAG, "Using GPS location: " + gpsLocation.getLatitude() + ", " + gpsLocation.getLongitude());
             }
+            
+            if (networkLocation != null && isValidLocation(networkLocation)) {
+                if (bestLocation == null || networkLocation.getTime() > bestLocation.getTime()) {
+                    bestLocation = networkLocation;
+                    Log.d(TAG, "Using network location: " + networkLocation.getLatitude() + ", " + networkLocation.getLongitude());
+                }
+            }
+            
+            return bestLocation;
         } catch (SecurityException e) {
             Log.e(TAG, "Security exception getting last known location", e);
             return null;
@@ -339,5 +368,94 @@ public class CrashLocationManager implements LocationListener {
     
     public void destroy() {
         stopLocationTracking();
+    }
+    
+    /**
+     * Validate if a location is reasonable and accurate enough
+     */
+    private boolean isValidLocation(Location location) {
+        if (location == null) {
+            return false;
+        }
+        
+        // Check if location has valid coordinates
+        if (location.getLatitude() == 0.0 && location.getLongitude() == 0.0) {
+            Log.w(TAG, "Location has zero coordinates");
+            return false;
+        }
+        
+        // Check if location is within reasonable bounds
+        if (Math.abs(location.getLatitude()) > 90.0 || Math.abs(location.getLongitude()) > 180.0) {
+            Log.w(TAG, "Location coordinates out of bounds: " + location.getLatitude() + ", " + location.getLongitude());
+            return false;
+        }
+        
+        // Check location age
+        long locationAge = System.currentTimeMillis() - location.getTime();
+        if (locationAge > MAX_LOCATION_AGE_MS) {
+            Log.w(TAG, "Location too old: " + locationAge + "ms");
+            return false;
+        }
+        
+        // Check accuracy
+        if (location.getAccuracy() > MIN_ACCURACY_M) {
+            Log.w(TAG, "Location accuracy too poor: " + location.getAccuracy() + "m");
+            return false;
+        }
+        
+        // Check for reasonable speed if we have a previous location
+        if (lastKnownLocation != null) {
+            float distance = location.distanceTo(lastKnownLocation);
+            long timeDiff = location.getTime() - lastKnownLocation.getTime();
+            
+            if (timeDiff > 0) {
+                double speed = (distance / timeDiff) * 1000; // Convert to m/s
+                if (speed > MAX_REASONABLE_SPEED_MS) {
+                    Log.w(TAG, "Location implies unreasonable speed: " + speed + " m/s");
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Determine if a new location should replace the current one
+     */
+    private boolean shouldUpdateLocation(Location newLocation) {
+        if (lastKnownLocation == null) {
+            return true; // No current location, accept any valid one
+        }
+        
+        // GPS is always preferred over network
+        if (newLocation.getProvider().equals(android.location.LocationManager.GPS_PROVIDER) && 
+            !lastLocationProvider.equals(android.location.LocationManager.GPS_PROVIDER)) {
+            Log.d(TAG, "GPS location preferred over network");
+            return true;
+        }
+        
+        // If same provider, check accuracy
+        if (newLocation.getProvider().equals(lastLocationProvider)) {
+            if (newLocation.getAccuracy() < lastKnownLocation.getAccuracy()) {
+                Log.d(TAG, "Better accuracy from same provider");
+                return true;
+            }
+        }
+        
+        // If different provider but much better accuracy
+        if (newLocation.getAccuracy() < lastKnownLocation.getAccuracy() * 0.5f) {
+            Log.d(TAG, "Much better accuracy from different provider");
+            return true;
+        }
+        
+        // If current location is getting old, accept newer one
+        long currentAge = System.currentTimeMillis() - lastLocationUpdateTime;
+        if (currentAge > MAX_LOCATION_AGE_MS / 2) {
+            Log.d(TAG, "Current location getting old, accepting newer one");
+            return true;
+        }
+        
+        return false;
     }
 }

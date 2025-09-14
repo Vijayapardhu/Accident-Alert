@@ -2,19 +2,25 @@
 
 ## 📱 App Information
 - **App Name:** Crash Alert Safety
-- **Latest Version:** 2.0
+- **Latest Version:** 2.1
 - **Target SDK:** 34 (Android 14)
 - **Min SDK:** 24 (Android 7.0)
 - **Repository:** https://github.com/Vijayapardhu/Accident-Alert.git
 
 ## 📦 Available Builds
 
-### Latest Release (v2.0) - RECOMMENDED
+### Latest Release (v2.1) - RECOMMENDED
+- **File:** `CrashAlertSafety-v2.1-release.apk`
+- **Size:** 16.1 MB
+- **Type:** Release (Production Ready)
+- **Features:** Fixed location tracking issues, enhanced accuracy validation, improved background services
+- **Status:** ✅ Latest stable release
+
+### Previous Release (v2.0)
 - **File:** `CrashAlertSafety-v2.0-release.apk`
 - **Size:** 16.1 MB
 - **Type:** Release (Production Ready)
 - **Features:** Fixed emergency calling functionality, enhanced background service reliability
-- **Status:** ✅ Latest stable release
 
 ### Previous Releases
 - **v1.9:** `CrashAlertSafety-v1.9-release.apk` (16.1 MB) - Enhanced background service functionality
@@ -151,7 +157,19 @@
 
 ## 🔄 Version History
 
-### v2.0 (Latest) - Emergency Calling Fix
+### v2.1 (Latest) - Location Tracking Fix
+- ✅ Fixed location tracking issues with comprehensive validation system
+- ✅ Added GPS priority over Network location sources
+- ✅ Implemented location accuracy filtering (max 50m accuracy)
+- ✅ Added location age validation (max 30 seconds old)
+- ✅ Enhanced coordinate validation (rejects 0,0 and out-of-bounds)
+- ✅ Added speed validation to prevent impossible locations
+- ✅ Created LocationTestUtils for comprehensive debugging
+- ✅ Added Test Location Accuracy button in MainActivity
+- ✅ Improved location source priority and selection logic
+- ✅ Enhanced error handling and logging for location issues
+
+### v2.0 - Emergency Calling Fix
 - ✅ Fixed emergency calling functionality with BackgroundCallManager
 - ✅ Enhanced EmergencyAlertService with reliable calling mechanisms
 - ✅ Added TestEmergencyCallingActivity for comprehensive testing
@@ -201,5 +219,5 @@ Check back regularly for new releases with bug fixes and feature improvements. T
 
 ---
 
-**Latest Version: 2.0 - September 2024**  
+**Latest Version: 2.1 - September 2024**  
 **Repository: https://github.com/Vijayapardhu/Accident-Alert.git**

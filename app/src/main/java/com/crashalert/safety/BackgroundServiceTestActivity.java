@@ -19,6 +19,7 @@ import com.crashalert.safety.utils.ServicePersistenceManager;
 import com.crashalert.safety.utils.BackgroundServiceTester;
 import com.crashalert.safety.utils.BackgroundServiceMonitor;
 import com.crashalert.safety.utils.ServiceRestartManager;
+import com.crashalert.safety.utils.ServicePersistenceEnhancer;
 import com.crashalert.safety.work.WorkManagerHelper;
 
 import java.util.List;
@@ -201,6 +202,10 @@ public class BackgroundServiceTestActivity extends AppCompatActivity {
             status += "Background Monitor: " + (BackgroundServiceMonitor.isMonitoring() ? "Active" : "Inactive") + "\n";
             status += "Monitor Status: " + BackgroundServiceMonitor.getMonitoringStatus() + "\n";
             status += "Restart Status: " + ServiceRestartManager.getRestartStatus() + "\n";
+            
+            // Add enhanced persistence status
+            status += "\n=== ENHANCED PERSISTENCE STATUS ===\n";
+            status += ServicePersistenceEnhancer.getServiceStatus(this) + "\n";
             
             // Add timestamp
             status += "\nLast update: " + java.text.DateFormat.getTimeInstance().format(new java.util.Date());
