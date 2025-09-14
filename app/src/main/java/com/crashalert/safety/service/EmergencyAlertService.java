@@ -37,6 +37,7 @@ import com.crashalert.safety.hospital.HospitalCaller;
 import com.crashalert.safety.hospital.Hospital;
 import com.crashalert.safety.map.OpenStreetMapManager;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.utils.BackgroundCallManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,7 @@ public class EmergencyAlertService extends Service {
     private AudioManager audioManager;
     private AudioFocusRequest audioFocusRequest;
     private MediaPlayer mediaPlayer;
+    private BackgroundCallManager backgroundCallManager;
     
     private double crashLatitude;
     private double crashLongitude;
@@ -146,6 +148,7 @@ public class EmergencyAlertService extends Service {
         hospitalFinder = new HospitalFinder(this);
         hospitalCaller = new HospitalCaller(this);
         osmManager = new OpenStreetMapManager(this);
+        backgroundCallManager = new BackgroundCallManager(this);
         
         
         // Initialize phone state listener for call monitoring
@@ -242,17 +245,12 @@ public class EmergencyAlertService extends Service {
                 // Send SMS to all contacts
                 sendSMSToAllContacts(contacts);
                 
-                // Make voice calls to top 3 priority contacts
-                makeVoiceCallsToTopContacts(contacts);
-                
-                // Call emergency contacts if enabled
-                if (PreferenceUtils.isCallEmergencyContactsEnabled(this)) {
-                    callEmergencyContacts(contacts);
-                }
+                // Make voice calls using BackgroundCallManager
+                makeEmergencyCallsWithBackgroundManager(contacts);
                 
                 // Call nearby hospitals if enabled
                 if (PreferenceUtils.isCallHospitalsEnabled(this)) {
-                    callNearbyHospitals();
+                    callNearbyHospitalsWithBackgroundManager();
                 } else {
                     // Contact nearest hospitals (SMS only)
                     contactNearestHospitals();
@@ -346,94 +344,40 @@ public class EmergencyAlertService extends Service {
         }
     }
     
-    private void makeVoiceCallsToTopContacts(List<EmergencyContact> contacts) {
-        int maxCalls = Math.min(3, contacts.size());
-        boolean callAnswered = false;
+    /**
+     * Make emergency calls using BackgroundCallManager
+     */
+    private void makeEmergencyCallsWithBackgroundManager(List<EmergencyContact> contacts) {
+        Log.d(TAG, "Making emergency calls using BackgroundCallManager");
         
-        for (int i = 0; i < maxCalls && !callAnswered; i++) {
-            EmergencyContact contact = contacts.get(i);
-            try {
-                Log.d(TAG, "Making voice call to: " + contact.getName() + " (" + contact.getPhone() + ")");
-                
-                // Make actual voice call
-                callAnswered = makeVoiceCall(contact);
-                
-                if (callAnswered) {
-                    Log.d(TAG, "Call answered by " + contact.getName() + ", stopping sequential calls");
-                    break; // Stop calling if someone answers
-                } else {
-                    Log.d(TAG, "Call not answered by " + contact.getName() + ", waiting 30 seconds before next call");
-                    Thread.sleep(30000); // Wait 30 seconds before next call
-                }
-                
-            } catch (Exception e) {
-                Log.e(TAG, "Failed to make voice call to " + contact.getName(), e);
-                // Continue to next contact even if this one fails
+        if (backgroundCallManager == null) {
+            Log.e(TAG, "BackgroundCallManager is null, cannot make calls");
+            return;
+        }
+        
+        backgroundCallManager.makeEmergencyCalls(contacts, new BackgroundCallManager.CallCallback() {
+            @Override
+            public void onCallInitiated(String phoneNumber) {
+                Log.d(TAG, "Emergency call initiated to: " + phoneNumber);
             }
-        }
-        
-        if (callAnswered) {
-            Log.d(TAG, "Emergency call sequence completed - someone answered");
-        } else {
-            Log.d(TAG, "Emergency call sequence completed - no one answered");
-        }
+            
+            @Override
+            public void onCallAnswered(String phoneNumber) {
+                Log.d(TAG, "Emergency call answered: " + phoneNumber);
+            }
+            
+            @Override
+            public void onCallEnded(String phoneNumber, boolean wasAnswered) {
+                Log.d(TAG, "Emergency call ended: " + phoneNumber + " (answered: " + wasAnswered + ")");
+            }
+            
+            @Override
+            public void onCallFailed(String phoneNumber, String error) {
+                Log.e(TAG, "Emergency call failed: " + phoneNumber + " - " + error);
+            }
+        });
     }
     
-    private boolean makeVoiceCall(EmergencyContact contact) {
-        try {
-            // Check if we have phone permission
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) 
-                    != PackageManager.PERMISSION_GRANTED) {
-                Log.e(TAG, "CALL_PHONE permission not granted");
-                return false;
-            }
-            
-            Log.d(TAG, "Initiating call to " + contact.getName() + " (" + contact.getPhone() + ")");
-            
-            // Reset call state
-            callAnswered = false;
-            isCallActive = false;
-            
-            // Create intent to make phone call
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:" + contact.getPhone()));
-            callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            
-            // Start the call
-            startActivity(callIntent);
-            
-            Log.d(TAG, "Call initiated to " + contact.getName() + ". Monitoring call state...");
-            
-            // Wait for call to be answered or timeout (30 seconds)
-            long startTime = System.currentTimeMillis();
-            long timeout = 30000; // 30 seconds
-            
-            while (System.currentTimeMillis() - startTime < timeout) {
-                if (callAnswered) {
-                    Log.d(TAG, "Call answered by " + contact.getName() + "!");
-                    return true;
-                }
-                
-                // Check if call is still active
-                if (!isCallActive && System.currentTimeMillis() - startTime > 5000) {
-                    // Call ended without being answered
-                    Log.d(TAG, "Call to " + contact.getName() + " ended without being answered");
-                    return false;
-                }
-                
-                // Sleep for 1 second before checking again
-                Thread.sleep(1000);
-            }
-            
-            // Timeout reached
-            Log.d(TAG, "Call to " + contact.getName() + " timed out after 30 seconds");
-            return false;
-            
-        } catch (Exception e) {
-            Log.e(TAG, "Error making voice call to " + contact.getPhone(), e);
-            return false;
-        }
-    }
     
     private boolean sendSMS(String phoneNumber, String message) {
         try {
@@ -765,6 +709,11 @@ public class EmergencyAlertService extends Service {
             hospitalCaller.destroy();
         }
         
+        // Clean up background call manager
+        if (backgroundCallManager != null) {
+            backgroundCallManager.destroy();
+        }
+        
         if (executorService != null) {
             executorService.shutdown();
         }
@@ -776,63 +725,15 @@ public class EmergencyAlertService extends Service {
         super.onDestroy();
     }
     
-    /**
-     * Call emergency contacts directly
-     */
-    private void callEmergencyContacts(List<EmergencyContact> contacts) {
-        Log.d(TAG, "Calling emergency contacts directly");
-        
-        // Check if contacts list is valid
-        if (contacts == null || contacts.isEmpty()) {
-            Log.w(TAG, "No emergency contacts available for calling");
-            return;
-        }
-        
-        // Check CALL_PHONE permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) 
-                != PackageManager.PERMISSION_GRANTED) {
-            Log.e(TAG, "CALL_PHONE permission not granted - cannot make calls");
-            return;
-        }
-        
-        // Call top 3 priority contacts
-        int maxCalls = Math.min(3, contacts.size());
-        for (int i = 0; i < maxCalls; i++) {
-            EmergencyContact contact = contacts.get(i);
-            try {
-                // Validate contact data
-                if (contact == null || contact.getPhone() == null || contact.getPhone().trim().isEmpty()) {
-                    Log.w(TAG, "Skipping invalid contact at index " + i);
-                    continue;
-                }
-                
-                Log.d(TAG, "Calling emergency contact: " + contact.getName() + " (" + contact.getPhone() + ")");
-                
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + contact.getPhone()));
-                callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                
-                startActivity(callIntent);
-                
-                // Add delay between calls
-                Thread.sleep(2000);
-                
-            } catch (Exception e) {
-                Log.e(TAG, "Failed to call " + contact.getName() + " (" + contact.getPhone() + ")", e);
-            }
-        }
-    }
     
     /**
-     * Call nearby hospitals directly
+     * Call nearby hospitals using BackgroundCallManager
      */
-    private void callNearbyHospitals() {
-        Log.d(TAG, "Calling nearby hospitals directly");
+    private void callNearbyHospitalsWithBackgroundManager() {
+        Log.d(TAG, "Calling nearby hospitals using BackgroundCallManager");
         
-        // Check CALL_PHONE permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) 
-                != PackageManager.PERMISSION_GRANTED) {
-            Log.e(TAG, "CALL_PHONE permission not granted - cannot make calls");
+        if (backgroundCallManager == null) {
+            Log.e(TAG, "BackgroundCallManager is null, cannot make calls");
             return;
         }
         
@@ -845,26 +746,30 @@ public class EmergencyAlertService extends Service {
                     return;
                 }
                 
-                // Call top 3 nearest hospitals
-                int maxCalls = Math.min(3, hospitals.size());
-                for (int i = 0; i < maxCalls; i++) {
-                    Hospital hospital = hospitals.get(i);
-                    try {
-                        Log.d(TAG, "Calling hospital: " + hospital.getName() + " (" + hospital.getPhoneNumber() + ")");
-                        
-                        Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:" + hospital.getPhoneNumber()));
-                        callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        
-                        startActivity(callIntent);
-                        
-                        // Add delay between calls
-                        Thread.sleep(3000);
-                        
-                    } catch (Exception e) {
-                        Log.e(TAG, "Failed to call hospital " + hospital.getName() + " (" + hospital.getPhoneNumber() + ")", e);
+                Log.d(TAG, "Found " + hospitals.size() + " hospitals, calling top 3");
+                
+                // Call hospitals using BackgroundCallManager
+                backgroundCallManager.makeHospitalCalls(hospitals, new BackgroundCallManager.CallCallback() {
+                    @Override
+                    public void onCallInitiated(String phoneNumber) {
+                        Log.d(TAG, "Hospital call initiated to: " + phoneNumber);
                     }
-                }
+                    
+                    @Override
+                    public void onCallAnswered(String phoneNumber) {
+                        Log.d(TAG, "Hospital call answered: " + phoneNumber);
+                    }
+                    
+                    @Override
+                    public void onCallEnded(String phoneNumber, boolean wasAnswered) {
+                        Log.d(TAG, "Hospital call ended: " + phoneNumber + " (answered: " + wasAnswered + ")");
+                    }
+                    
+                    @Override
+                    public void onCallFailed(String phoneNumber, String error) {
+                        Log.e(TAG, "Hospital call failed: " + phoneNumber + " - " + error);
+                    }
+                });
             }
             
             @Override

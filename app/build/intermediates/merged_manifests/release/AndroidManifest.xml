@@ -32,6 +32,11 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.REQUEST_COMPANION_START_FOREGROUND_SERVICES_FROM_BACKGROUND" />
+    <uses-permission android:name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND" />
 
     <!-- OpenStreetMap permissions -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -118,6 +123,16 @@
             android:exported="false"
             android:label="Test Hospital Calling"
             android:parentActivityName="com.crashalert.safety.MainActivity" />
+        <activity
+            android:name="com.crashalert.safety.BackgroundServiceTestActivity"
+            android:exported="false"
+            android:label="Background Service Test"
+            android:parentActivityName="com.crashalert.safety.MainActivity" />
+        <activity
+            android:name="com.crashalert.safety.TestEmergencyCallingActivity"
+            android:exported="false"
+            android:label="Test Emergency Calling"
+            android:parentActivityName="com.crashalert.safety.MainActivity" />
 
         <!-- OpenStreetMap Crash Location Activity -->
         <activity
@@ -147,14 +162,17 @@
             android:name="com.crashalert.safety.service.DrivingModeService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="location" />
+            android:foregroundServiceType="location|specialUse"
+            android:process=":driving_mode_service"
+            android:stopWithTask="false" />
 
         <!-- Emergency Alert Service -->
         <service
             android:name="com.crashalert.safety.service.EmergencyAlertService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="specialUse" />
+            android:foregroundServiceType="specialUse"
+            android:stopWithTask="false" />
 
         <!-- Home Screen Widget -->
         <receiver
@@ -186,6 +204,12 @@
         <!-- Emergency Alert Receiver -->
         <receiver
             android:name="com.crashalert.safety.receiver.EmergencyAlertReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- Service Keep-Alive Receiver -->
+        <receiver
+            android:name="com.crashalert.safety.utils.ServiceKeepAliveManager$ServiceKeepAliveReceiver"
             android:enabled="true"
             android:exported="false" />
 

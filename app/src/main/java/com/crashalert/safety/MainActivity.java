@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Button testCrashBtn;
     private Button crashHistoryBtn;
     private Button backgroundTestBtn;
+    private Button testEmergencyCallingBtn;
     private TextView statusText;
     private DatabaseHelper databaseHelper;
     
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         testCrashBtn = findViewById(R.id.test_crash_btn);
         crashHistoryBtn = findViewById(R.id.crash_history_btn);
         backgroundTestBtn = findViewById(R.id.background_test_button);
+        testEmergencyCallingBtn = findViewById(R.id.test_emergency_calling_button);
         statusText = findViewById(R.id.status_text);
         
         drivingModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -105,6 +107,11 @@ public class MainActivity extends AppCompatActivity {
         
         backgroundTestBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, BackgroundServiceTestActivity.class);
+            startActivity(intent);
+        });
+        
+        testEmergencyCallingBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, TestEmergencyCallingActivity.class);
             startActivity(intent);
         });
     }

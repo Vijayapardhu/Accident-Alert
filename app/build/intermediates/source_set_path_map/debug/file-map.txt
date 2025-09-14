@@ -1,0 +1,54 @@
+com.crashalert.safety.app-preference-1.2.0-0 C:\Users\PARDHU\.gradle\caches\transforms-3\02779e2ada1a96931db5f4c0e8734cb9\transformed\preference-1.2.0\res
+com.crashalert.safety.app-jetified-appcompat-resources-1.6.1-1 C:\Users\PARDHU\.gradle\caches\transforms-3\0886aa54eb4715b41f375791fc439636\transformed\jetified-appcompat-resources-1.6.1\res
+com.crashalert.safety.app-cardview-1.0.0-2 C:\Users\PARDHU\.gradle\caches\transforms-3\21c62c13b097cec44e5ce2804254bfa7\transformed\cardview-1.0.0\res
+com.crashalert.safety.app-jetified-lifecycle-viewmodel-ktx-2.6.1-3 C:\Users\PARDHU\.gradle\caches\transforms-3\29edd125874097f8ee211492142c9845\transformed\jetified-lifecycle-viewmodel-ktx-2.6.1\res
+com.crashalert.safety.app-coordinatorlayout-1.1.0-4 C:\Users\PARDHU\.gradle\caches\transforms-3\42bb03566f6ee86c260f8b00f1a41542\transformed\coordinatorlayout-1.1.0\res
+com.crashalert.safety.app-lifecycle-livedata-2.6.1-5 C:\Users\PARDHU\.gradle\caches\transforms-3\42e8170ccef06a005419ececa3a18f0e\transformed\lifecycle-livedata-2.6.1\res
+com.crashalert.safety.app-jetified-window-1.0.0-6 C:\Users\PARDHU\.gradle\caches\transforms-3\43ce956c9e04729769049d49e3755953\transformed\jetified-window-1.0.0\res
+com.crashalert.safety.app-jetified-lifecycle-livedata-core-ktx-2.6.1-7 C:\Users\PARDHU\.gradle\caches\transforms-3\46c13e9cfbd8f66b47a54b94f32dc007\transformed\jetified-lifecycle-livedata-core-ktx-2.6.1\res
+com.crashalert.safety.app-fragment-1.3.6-8 C:\Users\PARDHU\.gradle\caches\transforms-3\487240ab1718029980ced622dfbb3346\transformed\fragment-1.3.6\res
+com.crashalert.safety.app-jetified-play-services-basement-18.1.0-9 C:\Users\PARDHU\.gradle\caches\transforms-3\4960d96c561e6858a06c7c4ebe9984d1\transformed\jetified-play-services-basement-18.1.0\res
+com.crashalert.safety.app-jetified-startup-runtime-1.1.1-10 C:\Users\PARDHU\.gradle\caches\transforms-3\4d1e686e279bd3209b48912700bd8fe6\transformed\jetified-startup-runtime-1.1.1\res
+com.crashalert.safety.app-jetified-play-services-base-18.1.0-11 C:\Users\PARDHU\.gradle\caches\transforms-3\550f97feb966acf1d1b38c30c403cf3a\transformed\jetified-play-services-base-18.1.0\res
+com.crashalert.safety.app-room-runtime-2.5.0-12 C:\Users\PARDHU\.gradle\caches\transforms-3\593bec6ae634d2061d769b64fd2ab48a\transformed\room-runtime-2.5.0\res
+com.crashalert.safety.app-jetified-activity-1.6.0-13 C:\Users\PARDHU\.gradle\caches\transforms-3\5ca19fb43abe6542a03d50a9cf05e0d4\transformed\jetified-activity-1.6.0\res
+com.crashalert.safety.app-jetified-osmdroid-android-6.1.17-14 C:\Users\PARDHU\.gradle\caches\transforms-3\6512f7231c323fc8d87486500a5da625\transformed\jetified-osmdroid-android-6.1.17\res
+com.crashalert.safety.app-jetified-savedstate-1.2.1-15 C:\Users\PARDHU\.gradle\caches\transforms-3\697ad9a301ee562322bd1e405cb2be15\transformed\jetified-savedstate-1.2.1\res
+com.crashalert.safety.app-jetified-lifecycle-process-2.6.1-16 C:\Users\PARDHU\.gradle\caches\transforms-3\71ebe3137e8152bf99755c3b0c94f78e\transformed\jetified-lifecycle-process-2.6.1\res
+com.crashalert.safety.app-sqlite-framework-2.3.0-17 C:\Users\PARDHU\.gradle\caches\transforms-3\74f2fe155bee1fc10b5ec421218146a9\transformed\sqlite-framework-2.3.0\res
+com.crashalert.safety.app-jetified-emoji2-1.2.0-18 C:\Users\PARDHU\.gradle\caches\transforms-3\7e018ad17737e3bbff7428485e891d69\transformed\jetified-emoji2-1.2.0\res
+com.crashalert.safety.app-jetified-activity-ktx-1.6.0-19 C:\Users\PARDHU\.gradle\caches\transforms-3\813891f3e20764a5718f05968f75ce30\transformed\jetified-activity-ktx-1.6.0\res
+com.crashalert.safety.app-jetified-geopackage-android-6.6.0-20 C:\Users\PARDHU\.gradle\caches\transforms-3\8b564157f223a71d588c8a675aac4f6c\transformed\jetified-geopackage-android-6.6.0\res
+com.crashalert.safety.app-work-runtime-2.8.1-21 C:\Users\PARDHU\.gradle\caches\transforms-3\8bdd76ee482c6e17a0f4c804492f279f\transformed\work-runtime-2.8.1\res
+com.crashalert.safety.app-transition-1.4.1-22 C:\Users\PARDHU\.gradle\caches\transforms-3\8d109e3480bf1beb3939cc63be84e809\transformed\transition-1.4.1\res
+com.crashalert.safety.app-sqlite-2.3.0-23 C:\Users\PARDHU\.gradle\caches\transforms-3\8d40de9c47b3ef91b9b47f781cacea98\transformed\sqlite-2.3.0\res
+com.crashalert.safety.app-jetified-core-ktx-1.10.1-24 C:\Users\PARDHU\.gradle\caches\transforms-3\8f14ff18055d0cbac869998dc780b77a\transformed\jetified-core-ktx-1.10.1\res
+com.crashalert.safety.app-jetified-lifecycle-viewmodel-savedstate-2.6.1-25 C:\Users\PARDHU\.gradle\caches\transforms-3\97960f9054fd89232c34f68d8f3baf1c\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.1\res
+com.crashalert.safety.app-biometric-1.1.0-26 C:\Users\PARDHU\.gradle\caches\transforms-3\9825c58f7a813aa11176c4e682c52138\transformed\biometric-1.1.0\res
+com.crashalert.safety.app-material-1.9.0-27 C:\Users\PARDHU\.gradle\caches\transforms-3\9d2e5d677a91ccd9dbd00cfe30113072\transformed\material-1.9.0\res
+com.crashalert.safety.app-appcompat-1.6.1-28 C:\Users\PARDHU\.gradle\caches\transforms-3\a577e8470c10c876d1d5c4227f67a139\transformed\appcompat-1.6.1\res
+com.crashalert.safety.app-jetified-osmdroid-geopackage-6.1.17-29 C:\Users\PARDHU\.gradle\caches\transforms-3\a5f458bcfebd3af7b8a842003b06b840\transformed\jetified-osmdroid-geopackage-6.1.17\res
+com.crashalert.safety.app-lifecycle-viewmodel-2.6.1-30 C:\Users\PARDHU\.gradle\caches\transforms-3\a74d816d016eb1f7912fe0b06510a173\transformed\lifecycle-viewmodel-2.6.1\res
+com.crashalert.safety.app-lifecycle-livedata-core-2.6.1-31 C:\Users\PARDHU\.gradle\caches\transforms-3\ae1957ce0b3cc81821e5be3ee5210226\transformed\lifecycle-livedata-core-2.6.1\res
+com.crashalert.safety.app-recyclerview-1.1.0-32 C:\Users\PARDHU\.gradle\caches\transforms-3\bc8f85958c2f81de4c27d967c42a15bc\transformed\recyclerview-1.1.0\res
+com.crashalert.safety.app-core-1.10.1-33 C:\Users\PARDHU\.gradle\caches\transforms-3\bf0ca6bb16017f830b46538b1c4d3a05\transformed\core-1.10.1\res
+com.crashalert.safety.app-jetified-profileinstaller-1.3.0-34 C:\Users\PARDHU\.gradle\caches\transforms-3\c25e5488006b1000142eee102d483a6e\transformed\jetified-profileinstaller-1.3.0\res
+com.crashalert.safety.app-jetified-sqlite-android-3390300-35 C:\Users\PARDHU\.gradle\caches\transforms-3\c9938509631ea6941e5c2b25ac7acddd\transformed\jetified-sqlite-android-3390300\res
+com.crashalert.safety.app-constraintlayout-2.1.4-36 C:\Users\PARDHU\.gradle\caches\transforms-3\cb18eaec7a5810faf7aebcde5b32381b\transformed\constraintlayout-2.1.4\res
+com.crashalert.safety.app-jetified-emoji2-views-helper-1.2.0-37 C:\Users\PARDHU\.gradle\caches\transforms-3\ce2b24e048d69c723400c841e397c7cd\transformed\jetified-emoji2-views-helper-1.2.0\res
+com.crashalert.safety.app-drawerlayout-1.1.1-38 C:\Users\PARDHU\.gradle\caches\transforms-3\d26fc42c450084b96e6d0f3b7559c607\transformed\drawerlayout-1.1.1\res
+com.crashalert.safety.app-jetified-annotation-experimental-1.3.0-39 C:\Users\PARDHU\.gradle\caches\transforms-3\e474d9a493487a2596d245c8538e72d8\transformed\jetified-annotation-experimental-1.3.0\res
+com.crashalert.safety.app-jetified-lifecycle-runtime-ktx-2.6.1-40 C:\Users\PARDHU\.gradle\caches\transforms-3\e616c13dcc104b57274dda27aacd1edc\transformed\jetified-lifecycle-runtime-ktx-2.6.1\res
+com.crashalert.safety.app-jetified-viewpager2-1.0.0-41 C:\Users\PARDHU\.gradle\caches\transforms-3\e72ea9b3ea1077219a81fc1bc3455765\transformed\jetified-viewpager2-1.0.0\res
+com.crashalert.safety.app-jetified-savedstate-ktx-1.2.1-42 C:\Users\PARDHU\.gradle\caches\transforms-3\ee209130e5be0315a8d10312afbc11fc\transformed\jetified-savedstate-ktx-1.2.1\res
+com.crashalert.safety.app-slidingpanelayout-1.2.0-43 C:\Users\PARDHU\.gradle\caches\transforms-3\f434ff52dbe3d148328118075bb6c88c\transformed\slidingpanelayout-1.2.0\res
+com.crashalert.safety.app-jetified-lifecycle-service-2.6.1-44 C:\Users\PARDHU\.gradle\caches\transforms-3\f48ad5f5252d4770f816db4904b44fae\transformed\jetified-lifecycle-service-2.6.1\res
+com.crashalert.safety.app-lifecycle-runtime-2.6.1-45 C:\Users\PARDHU\.gradle\caches\transforms-3\fc50db5668ff7bc8adf5ca296bc7f0b2\transformed\lifecycle-runtime-2.6.1\res
+com.crashalert.safety.app-core-runtime-2.2.0-46 C:\Users\PARDHU\.gradle\caches\transforms-3\ff1b369f9efaa17b93f6d25459ede875\transformed\core-runtime-2.2.0\res
+com.crashalert.safety.app-pngs-47 C:\Users\PARDHU\Desktop\alert app\app\build\generated\res\pngs\debug
+com.crashalert.safety.app-resValues-48 C:\Users\PARDHU\Desktop\alert app\app\build\generated\res\resValues\debug
+com.crashalert.safety.app-packageDebugResources-49 C:\Users\PARDHU\Desktop\alert app\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.crashalert.safety.app-packageDebugResources-50 C:\Users\PARDHU\Desktop\alert app\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.crashalert.safety.app-merged_res-51 C:\Users\PARDHU\Desktop\alert app\app\build\intermediates\merged_res\debug
+com.crashalert.safety.app-debug-52 C:\Users\PARDHU\Desktop\alert app\app\src\debug\res
+com.crashalert.safety.app-main-53 C:\Users\PARDHU\Desktop\alert app\app\src\main\res

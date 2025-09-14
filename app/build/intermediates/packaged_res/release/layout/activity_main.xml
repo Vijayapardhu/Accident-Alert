@@ -199,8 +199,37 @@
             android:id="@+id/crash_history_btn"
             android:layout_width="match_parent"
             android:layout_height="64dp"
+            android:layout_marginBottom="12dp"
             android:backgroundTint="@color/secondary_color"
             android:text="Crash History"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_emergency"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/background_test_button"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:backgroundTint="@color/info_color"
+            android:text="Background Service Test"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_settings"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/test_emergency_calling_button"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:backgroundTint="@color/warning_color"
+            android:text="Test Emergency Calling"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"

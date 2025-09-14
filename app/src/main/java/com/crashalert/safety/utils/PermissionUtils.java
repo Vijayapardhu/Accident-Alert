@@ -85,6 +85,10 @@ public class PermissionUtils {
         return hasPermission(context, "android.permission.HIGH_SAMPLING_RATE_SENSORS");
     }
     
+    public static boolean hasPhoneStatePermission(Context context) {
+        return hasPermission(context, Manifest.permission.READ_PHONE_STATE);
+    }
+    
     public static String[] getMissingRequiredPermissions(Context context) {
         java.util.List<String> missingPermissions = new java.util.ArrayList<>();
         
