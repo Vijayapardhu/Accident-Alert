@@ -2,19 +2,25 @@
 
 ## 📱 App Information
 - **App Name:** Crash Alert Safety
-- **Latest Version:** 2.1
+- **Latest Version:** 2.2
 - **Target SDK:** 34 (Android 14)
 - **Min SDK:** 24 (Android 7.0)
 - **Repository:** https://github.com/Vijayapardhu/Accident-Alert.git
 
 ## 📦 Available Builds
 
-### Latest Release (v2.1) - RECOMMENDED
-- **File:** `CrashAlertSafety-v2.1-release.apk`
+### Latest Release (v2.2) - RECOMMENDED
+- **File:** `CrashAlertSafety-v2.2-release.apk`
 - **Size:** 16.5 MB
 - **Type:** Release (Production Ready)
 - **Features:** Auto-activation emergency system, 15-second countdown timer, enhanced overlay interface
 - **Status:** ✅ Latest stable release
+
+### Previous Release (v2.1)
+- **File:** `CrashAlertSafety-v2.1-release.apk`
+- **Size:** 16.5 MB
+- **Type:** Release (Production Ready)
+- **Features:** Auto-activation emergency system, 15-second countdown timer, enhanced overlay interface
 
 ### Previous Release (v2.0)
 - **File:** `CrashAlertSafety-v2.0-release.apk`
@@ -160,7 +166,19 @@
 
 ## 🔄 Version History
 
-### v2.1 (Latest) - Auto-Activation Emergency System
+### v2.2 (Latest) - Auto-Activation Emergency System
+- ✅ **NEW:** 15-second auto-activation countdown timer in emergency overlay
+- ✅ **NEW:** Visual countdown display with color-coded warnings (yellow → red)
+- ✅ **NEW:** Audio and vibration feedback during final 5 seconds
+- ✅ **NEW:** Automatic emergency calls and SMS after countdown expires
+- ✅ **NEW:** Enhanced overlay interface with dedicated countdown display
+- ✅ **NEW:** Fallback countdown display in status text if countdown view fails
+- ✅ **NEW:** Comprehensive debug logging for countdown timer troubleshooting
+- ✅ **NEW:** Smart cancellation system prevents duplicate activations
+- ✅ **NEW:** Blinking animation during critical countdown phase
+- ✅ **NEW:** Progressive warning system with escalating alerts
+
+### v2.1 - Auto-Activation Emergency System
 - ✅ **NEW:** 15-second auto-activation countdown timer in emergency overlay
 - ✅ **NEW:** Visual countdown display with color-coded warnings (yellow → red)
 - ✅ **NEW:** Audio and vibration feedback during final 5 seconds
@@ -222,5 +240,5 @@ Check back regularly for new releases with bug fixes and feature improvements. T
 
 ---
 
-**Latest Version: 2.1 - September 2024**  
+**Latest Version: 2.2 - September 2024**  
 **Repository: https://github.com/Vijayapardhu/Accident-Alert.git**
