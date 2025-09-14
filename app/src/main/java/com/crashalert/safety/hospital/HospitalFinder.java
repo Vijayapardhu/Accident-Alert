@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import com.crashalert.safety.config.ApiConfig;
+import com.crashalert.safety.hospital.LocalHospitalDatabase;
 
 /**
  * HospitalFinder class to find nearest hospitals using OpenStreetMap Nominatim API
@@ -46,71 +47,164 @@ public class HospitalFinder {
     public void findNearbyHospitals(double latitude, double longitude, HospitalSearchCallback callback) {
         Log.d(TAG, "Searching for hospitals near: " + latitude + ", " + longitude);
         
-        // Use OpenStreetMap Nominatim API
-        searchHospitalsWithNominatim(latitude, longitude, callback);
+        // Check if we're in the Surampalem, Andhra Pradesh area (within 200km)
+        if (isNearSurampalem(latitude, longitude)) {
+            Log.d(TAG, "Location is near Surampalem, using local database for better results");
+            useLocalHospitalDatabase(latitude, longitude, callback);
+        } else {
+            // Use OpenStreetMap Nominatim API for other locations
+            searchHospitalsWithNominatim(latitude, longitude, callback);
+        }
+    }
+    
+    /**
+     * Check if the location is near Surampalem, Andhra Pradesh (within 200km)
+     */
+    private boolean isNearSurampalem(double latitude, double longitude) {
+        // Surampalem coordinates
+        double surampalemLat = 16.7167;
+        double surampalemLng = 82.0167;
+        
+        // Calculate distance
+        double distance = calculateDistance(latitude, longitude, surampalemLat, surampalemLng);
+        
+        return distance <= 200.0; // Within 200km of Surampalem
+    }
+    
+    /**
+     * Calculate distance between two points using Haversine formula
+     */
+    private double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
+        final int R = 6371; // Radius of the earth in km
+        
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lngDistance = Math.toRadians(lng2 - lng1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c; // convert to kilometers
+        
+        return distance;
     }
     
     private void searchHospitalsWithNominatim(double latitude, double longitude, HospitalSearchCallback callback) {
         new Thread(() -> {
-            try {
-                String query = "hospital emergency medical";
-                String url = NOMINATIM_BASE_URL + "?format=json&q=" + URLEncoder.encode(query, "UTF-8") +
-                           "&lat=" + latitude + "&lon=" + longitude + "&radius=" + (MAX_RADIUS / 1000) +
-                           "&limit=" + MAX_RESULTS + "&addressdetails=1&extratags=1";
-                
-                Log.d(TAG, "Making request to OpenStreetMap Nominatim API");
-                String response = makeHttpRequest(url);
-                
-                if (response != null) {
-                    List<Hospital> hospitals = parseNominatimResults(response, latitude, longitude);
+            int retryCount = 0;
+            int maxRetries = 3;
+            
+            while (retryCount < maxRetries) {
+                try {
+                    String query = "hospital emergency medical";
+                    String url = NOMINATIM_BASE_URL + "?format=json&q=" + URLEncoder.encode(query, "UTF-8") +
+                               "&lat=" + latitude + "&lon=" + longitude + "&radius=" + (MAX_RADIUS / 1000) +
+                               "&limit=" + MAX_RESULTS + "&addressdetails=1&extratags=1";
                     
-                    if (!hospitals.isEmpty()) {
-                        Log.d(TAG, "Found " + hospitals.size() + " hospitals via Nominatim");
-                        nearbyHospitals = hospitals;
-                        callback.onHospitalsFound(hospitals);
-                        return;
+                    Log.d(TAG, "Making request to OpenStreetMap Nominatim API (attempt " + (retryCount + 1) + ")");
+                    String response = makeHttpRequest(url);
+                    
+                    if (response != null && !response.trim().isEmpty()) {
+                        List<Hospital> hospitals = parseNominatimResults(response, latitude, longitude);
+                        
+                        if (!hospitals.isEmpty()) {
+                            Log.d(TAG, "Found " + hospitals.size() + " hospitals via Nominatim");
+                            nearbyHospitals = hospitals;
+                            callback.onHospitalsFound(hospitals);
+                            return;
+                        } else {
+                            Log.w(TAG, "No hospitals found in Nominatim response");
+                        }
+                    } else {
+                        Log.w(TAG, "Empty response from Nominatim API");
                     }
+                    
+                } catch (Exception e) {
+                    Log.e(TAG, "Error searching hospitals with Nominatim (attempt " + (retryCount + 1) + ")", e);
                 }
                 
-                // Fallback to local database if API fails
-                Log.w(TAG, "Nominatim API failed, using local hospital database");
-                useLocalHospitalDatabase(latitude, longitude, callback);
+                retryCount++;
                 
-            } catch (Exception e) {
-                Log.e(TAG, "Error searching hospitals with Nominatim", e);
-                useLocalHospitalDatabase(latitude, longitude, callback);
+                // Wait before retry (exponential backoff)
+                if (retryCount < maxRetries) {
+                    try {
+                        Thread.sleep(1000 * retryCount); // 1s, 2s, 3s delays
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
+                }
             }
+            
+            // All retries failed, use fallback
+            Log.w(TAG, "Nominatim API failed after " + maxRetries + " attempts, using local hospital database");
+            useLocalHospitalDatabase(latitude, longitude, callback);
+            
         }).start();
     }
     
     private String makeHttpRequest(String urlString) {
+        HttpURLConnection connection = null;
+        BufferedReader reader = null;
+        
         try {
             URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection = (HttpURLConnection) url.openConnection();
+            
+            // Set request properties
             connection.setRequestMethod("GET");
             connection.setRequestProperty("User-Agent", USER_AGENT);
+            connection.setRequestProperty("Accept", "application/json");
             connection.setConnectTimeout(TIMEOUT_MS);
             connection.setReadTimeout(TIMEOUT_MS);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(true);
             
+            // Check response code
             int responseCode = connection.getResponseCode();
+            Log.d(TAG, "HTTP response code: " + responseCode);
+            
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
                 String line;
                 
                 while ((line = reader.readLine()) != null) {
                     response.append(line);
                 }
-                reader.close();
                 
-                return response.toString();
+                String result = response.toString();
+                Log.d(TAG, "Received response length: " + result.length());
+                return result;
+                
+            } else if (responseCode == 429) { // HTTP_TOO_MANY_REQUESTS
+                Log.w(TAG, "Rate limited by Nominatim API");
+                return null;
             } else {
-                Log.e(TAG, "HTTP error: " + responseCode);
+                Log.e(TAG, "HTTP error: " + responseCode + " - " + connection.getResponseMessage());
                 return null;
             }
+            
+        } catch (java.net.SocketTimeoutException e) {
+            Log.e(TAG, "Request timeout", e);
+            return null;
+        } catch (java.net.UnknownHostException e) {
+            Log.e(TAG, "No internet connection", e);
+            return null;
         } catch (Exception e) {
             Log.e(TAG, "Error making HTTP request", e);
             return null;
+        } finally {
+            // Clean up resources
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (Exception e) {
+                    Log.e(TAG, "Error closing reader", e);
+                }
+            }
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
     }
     
@@ -157,33 +251,13 @@ public class HospitalFinder {
     }
     
     private void useLocalHospitalDatabase(double latitude, double longitude, HospitalSearchCallback callback) {
-        List<Hospital> hospitals = new ArrayList<>();
+        Log.d(TAG, "Using local hospital database for location: " + latitude + ", " + longitude);
         
-        // Add some major hospitals in different regions
-        // This is a simplified database - in a real app, you'd have a more comprehensive list
+        // Use the comprehensive local database for Surampalem, Andhra Pradesh
+        List<Hospital> hospitals = LocalHospitalDatabase.getHospitalsNearLocation(latitude, longitude);
         
-        // India hospitals
-        hospitals.add(createHospital("Apollo Hospitals", "+91-11-26925858", "New Delhi", 28.6139, 77.2090, latitude, longitude));
-        hospitals.add(createHospital("AIIMS Delhi", "+91-11-26588500", "New Delhi", 28.5673, 77.2100, latitude, longitude));
-        hospitals.add(createHospital("Fortis Healthcare", "+91-11-42776200", "New Delhi", 28.6000, 77.2000, latitude, longitude));
-        
-        // Mumbai hospitals
-        hospitals.add(createHospital("Kokilaben Hospital", "+91-22-30999999", "Mumbai", 19.0760, 72.8777, latitude, longitude));
-        hospitals.add(createHospital("Lilavati Hospital", "+91-22-26751000", "Mumbai", 19.0596, 72.8295, latitude, longitude));
-        
-        // Bangalore hospitals
-        hospitals.add(createHospital("Narayana Health", "+91-80-22277777", "Bangalore", 12.9716, 77.5946, latitude, longitude));
-        hospitals.add(createHospital("Manipal Hospital", "+91-80-25024000", "Bangalore", 12.9352, 77.6245, latitude, longitude));
-        
-        // Chennai hospitals
-        hospitals.add(createHospital("Apollo Chennai", "+91-44-28290200", "Chennai", 13.0827, 80.2707, latitude, longitude));
-        hospitals.add(createHospital("Fortis Chennai", "+91-44-42000000", "Chennai", 13.0067, 80.2206, latitude, longitude));
-        
-        // Sort by distance
-        hospitals.sort((h1, h2) -> Double.compare(h1.getDistance(), h2.getDistance()));
-        
-        // Take only the closest 5 hospitals
-        List<Hospital> nearbyHospitals = hospitals.subList(0, Math.min(5, hospitals.size()));
+        // Take only the closest 10 hospitals
+        List<Hospital> nearbyHospitals = hospitals.subList(0, Math.min(10, hospitals.size()));
         
         this.nearbyHospitals = nearbyHospitals;
         callback.onHospitalsFound(nearbyHospitals);
@@ -230,17 +304,6 @@ public class HospitalFinder {
         return "108"; // India emergency number
     }
     
-    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        Location location1 = new Location("point1");
-        location1.setLatitude(lat1);
-        location1.setLongitude(lon1);
-        
-        Location location2 = new Location("point2");
-        location2.setLatitude(lat2);
-        location2.setLongitude(lon2);
-        
-        return location1.distanceTo(location2) / 1000.0; // Convert to kilometers
-    }
     
     /**
      * Get the nearest hospital from the last search

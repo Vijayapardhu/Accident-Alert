@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Button testHospitalBtn;
     private Button testCrashBtn;
     private Button crashHistoryBtn;
+    private Button backgroundTestBtn;
     private TextView statusText;
     private DatabaseHelper databaseHelper;
     
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         testHospitalBtn = findViewById(R.id.test_hospital_btn);
         testCrashBtn = findViewById(R.id.test_crash_btn);
         crashHistoryBtn = findViewById(R.id.crash_history_btn);
+        backgroundTestBtn = findViewById(R.id.background_test_button);
         statusText = findViewById(R.id.status_text);
         
         drivingModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -94,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
         
         crashHistoryBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, CrashHistoryActivity.class);
+            startActivity(intent);
+        });
+        
+        backgroundTestBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, BackgroundServiceTestActivity.class);
             startActivity(intent);
         });
     }
@@ -178,9 +185,17 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         
         if (requestCode == BATTERY_OPTIMIZATION_REQUEST_CODE) {
-            updateUI();
+            if (BatteryOptimizationUtils.isBatteryOptimizationDisabled(this)) {
+                Toast.makeText(this, "✅ Battery optimization disabled! App can now run in background.", 
+                    Toast.LENGTH_LONG).show();
+                updateUI();
+            } else {
+                Toast.makeText(this, "⚠️ Battery optimization is still enabled. App may be killed in background.", 
+                    Toast.LENGTH_LONG).show();
+            }
         }
     }
+    
     
     private void startDrivingMode() {
         if (!PermissionUtils.hasAllRequiredPermissions(this)) {

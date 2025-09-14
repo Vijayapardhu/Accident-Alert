@@ -18,6 +18,8 @@ public class PreferenceUtils {
     private static final String KEY_VOICE_FEEDBACK_ENABLED = "voice_feedback_enabled";
     private static final String KEY_VIBRATION_ENABLED = "vibration_enabled";
     private static final String KEY_AUTO_START_DRIVING_MODE = "auto_start_driving_mode";
+    private static final String KEY_CALL_HOSPITALS_ENABLED = "call_hospitals_enabled";
+    private static final String KEY_CALL_EMERGENCY_CONTACTS_ENABLED = "call_emergency_contacts_enabled";
     
     private static SharedPreferences getSharedPreferences(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -145,6 +147,28 @@ public class PreferenceUtils {
     public static void setAutoStartDrivingMode(Context context, boolean enabled) {
         getSharedPreferences(context).edit()
                 .putBoolean(KEY_AUTO_START_DRIVING_MODE, enabled)
+                .apply();
+    }
+    
+    // Call Hospitals Setting
+    public static boolean isCallHospitalsEnabled(Context context) {
+        return getSharedPreferences(context).getBoolean(KEY_CALL_HOSPITALS_ENABLED, false);
+    }
+    
+    public static void setCallHospitalsEnabled(Context context, boolean isEnabled) {
+        getSharedPreferences(context).edit()
+                .putBoolean(KEY_CALL_HOSPITALS_ENABLED, isEnabled)
+                .apply();
+    }
+    
+    // Call Emergency Contacts Setting
+    public static boolean isCallEmergencyContactsEnabled(Context context) {
+        return getSharedPreferences(context).getBoolean(KEY_CALL_EMERGENCY_CONTACTS_ENABLED, false);
+    }
+    
+    public static void setCallEmergencyContactsEnabled(Context context, boolean isEnabled) {
+        getSharedPreferences(context).edit()
+                .putBoolean(KEY_CALL_EMERGENCY_CONTACTS_ENABLED, isEnabled)
                 .apply();
     }
     

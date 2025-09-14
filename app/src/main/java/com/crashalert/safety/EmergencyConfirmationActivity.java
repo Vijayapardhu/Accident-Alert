@@ -7,6 +7,7 @@ import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,15 +42,17 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // Make this activity full screen and on top
+        // Make this activity full screen and on top - ensure it always appears
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN |
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN |
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         
         setContentView(R.layout.activity_emergency_confirmation);
         
@@ -59,10 +62,16 @@ public class EmergencyConfirmationActivity extends AppCompatActivity {
         crashLongitude = intent.getDoubleExtra("longitude", 0.0);
         gForce = intent.getDoubleExtra("g_force", 0.0);
         
+        // Ensure activity is brought to front and stays on top
+        setShowWhenLocked(true);
+        setTurnScreenOn(true);
+        
         initializeViews();
         initializeAudioAndVibration();
         startConfirmationTimer();
         startEmergencyAlerts();
+        
+        Log.d("EmergencyConfirmation", "Emergency confirmation activity created and started");
     }
     
     private void initializeViews() {

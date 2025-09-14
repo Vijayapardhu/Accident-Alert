@@ -37,7 +37,9 @@ color teal_700
 color text_primary
 color text_secondary
 color transparent
+color warning_background
 color warning_color
+color warning_text
 color white
 drawable button_primary
 drawable button_round
@@ -69,6 +71,8 @@ id add_contact_button
 id auto_start_switch
 id battery_optimization_button
 id button_container
+id call_emergency_contacts_switch
+id call_hospitals_switch
 id clear_history_btn
 id confirmation_timeout_edit
 id contact_name
@@ -92,6 +96,7 @@ id edit_button
 id emergencyServicesButton
 id emergency_alerts_switch
 id emergency_button
+id emergency_calling_note
 id emergency_contacts_btn
 id emergency_header
 id emergency_message

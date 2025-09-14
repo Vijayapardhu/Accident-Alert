@@ -21,6 +21,7 @@ import com.crashalert.safety.hospital.Hospital;
 import com.crashalert.safety.hospital.HospitalCaller;
 import com.crashalert.safety.hospital.HospitalFinder;
 import com.crashalert.safety.service.EmergencyAlertService;
+import com.crashalert.safety.location.CrashLocationManager;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
     
     private HospitalFinder hospitalFinder;
     private HospitalCaller hospitalCaller;
+    private CrashLocationManager locationManager;
     private List<Hospital> foundHospitals;
     private TextToSpeech textToSpeech;
     private AudioManager audioManager;
@@ -53,6 +55,7 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
         initializeViews();
         initializeServices();
         checkPermissions();
+        startLocationTracking();
     }
     
     private void initializeViews() {
@@ -72,9 +75,26 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
         updateStatus("Ready to test hospital calling functionality");
     }
     
+    private void startLocationTracking() {
+        // Start location tracking to get current GPS location
+        locationManager.startLocationTracking();
+        locationManager.forceLocationUpdate();
+        
+        // Check if we have a valid location
+        double lat = locationManager.getCurrentLatitude();
+        double lng = locationManager.getCurrentLongitude();
+        
+        if (!Double.isNaN(lat) && !Double.isNaN(lng) && lat != 0.0 && lng != 0.0) {
+            updateStatus("📍 Current location: " + String.format("%.6f", lat) + ", " + String.format("%.6f", lng));
+        } else {
+            updateStatus("⚠️ Getting GPS location... Please wait a moment for location to be available.");
+        }
+    }
+    
     private void initializeServices() {
         hospitalFinder = new HospitalFinder(this);
         hospitalCaller = new HospitalCaller(this);
+        locationManager = new CrashLocationManager(this);
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         initializeTextToSpeech();
     }
@@ -137,13 +157,32 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
     }
     
     private void testHospitalSearch() {
-        updateStatus("Searching for hospitals...");
+        updateStatus("Getting current location and searching for hospitals...");
         
-        // Use a test location (New Delhi, India)
-        double testLatitude = 28.6139;
-        double testLongitude = 77.2090;
+        // Start location tracking to get current location
+        locationManager.startLocationTracking();
+        locationManager.forceLocationUpdate();
         
-        hospitalFinder.findNearbyHospitals(testLatitude, testLongitude, new HospitalFinder.HospitalSearchCallback() {
+        // Get current location or use fallback
+        double latitude = locationManager.getCurrentLatitude();
+        double longitude = locationManager.getCurrentLongitude();
+        
+        // Check if we have valid location
+        if (Double.isNaN(latitude) || Double.isNaN(longitude) || latitude == 0.0 || longitude == 0.0) {
+            updateStatus("⚠️ No GPS location available. Using last known location or fallback...");
+            // Use stored location as fallback
+            latitude = com.crashalert.safety.utils.PreferenceUtils.getLastKnownLatitude(this);
+            longitude = com.crashalert.safety.utils.PreferenceUtils.getLastKnownLongitude(this);
+            
+            if (latitude == 0.0 || longitude == 0.0) {
+                updateStatus("❌ No location available. Please enable GPS and try again.");
+                return;
+            }
+        }
+        
+        updateStatus("Searching for hospitals near: " + String.format("%.6f", latitude) + ", " + String.format("%.6f", longitude));
+        
+        hospitalFinder.findNearbyHospitals(latitude, longitude, new HospitalFinder.HospitalSearchCallback() {
             @Override
             public void onHospitalsFound(List<Hospital> hospitals) {
                 runOnUiThread(() -> {
@@ -229,10 +268,27 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
             return;
         }
         
-        // Start emergency alert service with test data
+        // Get current location for emergency alert
+        double latitude = locationManager.getCurrentLatitude();
+        double longitude = locationManager.getCurrentLongitude();
+        
+        // Check if we have valid location
+        if (Double.isNaN(latitude) || Double.isNaN(longitude) || latitude == 0.0 || longitude == 0.0) {
+            // Use stored location as fallback
+            latitude = com.crashalert.safety.utils.PreferenceUtils.getLastKnownLatitude(this);
+            longitude = com.crashalert.safety.utils.PreferenceUtils.getLastKnownLongitude(this);
+            
+            if (latitude == 0.0 || longitude == 0.0) {
+                updateStatus("❌ No location available for emergency alert test");
+                Toast.makeText(this, "No location available for emergency alert test", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        
+        // Start emergency alert service with current location
         Intent serviceIntent = new Intent(this, EmergencyAlertService.class);
-        serviceIntent.putExtra("latitude", 28.6139);
-        serviceIntent.putExtra("longitude", 77.2090);
+        serviceIntent.putExtra("latitude", latitude);
+        serviceIntent.putExtra("longitude", longitude);
         serviceIntent.putExtra("g_force", 4.5);
         serviceIntent.putExtra("confirmed", true);
         
@@ -254,10 +310,27 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
             return;
         }
         
-        // Start emergency alert service with test data (this will notify emergency contacts)
+        // Get current location for emergency contact test
+        double latitude = locationManager.getCurrentLatitude();
+        double longitude = locationManager.getCurrentLongitude();
+        
+        // Check if we have valid location
+        if (Double.isNaN(latitude) || Double.isNaN(longitude) || latitude == 0.0 || longitude == 0.0) {
+            // Use stored location as fallback
+            latitude = com.crashalert.safety.utils.PreferenceUtils.getLastKnownLatitude(this);
+            longitude = com.crashalert.safety.utils.PreferenceUtils.getLastKnownLongitude(this);
+            
+            if (latitude == 0.0 || longitude == 0.0) {
+                updateStatus("❌ No location available for emergency contact test");
+                Toast.makeText(this, "No location available for emergency contact test", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        
+        // Start emergency alert service with current location (this will notify emergency contacts)
         Intent serviceIntent = new Intent(this, EmergencyAlertService.class);
-        serviceIntent.putExtra("latitude", 28.6139);
-        serviceIntent.putExtra("longitude", 77.2090);
+        serviceIntent.putExtra("latitude", latitude);
+        serviceIntent.putExtra("longitude", longitude);
         serviceIntent.putExtra("g_force", 4.5);
         serviceIntent.putExtra("confirmed", true);
         
@@ -369,6 +442,11 @@ public class TestHospitalCallingActivity extends AppCompatActivity {
         if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
+        }
+        
+        // Stop location tracking
+        if (locationManager != null) {
+            locationManager.stopLocationTracking();
         }
     }
 }

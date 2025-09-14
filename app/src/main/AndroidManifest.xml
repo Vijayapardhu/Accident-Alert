@@ -83,6 +83,12 @@
             android:parentActivityName=".MainActivity"
             android:label="Test Hospital Calling" />
 
+        <activity
+            android:name=".BackgroundServiceTestActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:label="Background Service Test" />
+
         <!-- OpenStreetMap Crash Location Activity -->
         <activity
             android:name=".map.CrashMapActivity"

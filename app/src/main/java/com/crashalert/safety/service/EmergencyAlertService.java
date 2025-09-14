@@ -36,6 +36,7 @@ import com.crashalert.safety.hospital.HospitalFinder;
 import com.crashalert.safety.hospital.HospitalCaller;
 import com.crashalert.safety.hospital.Hospital;
 import com.crashalert.safety.map.OpenStreetMapManager;
+import com.crashalert.safety.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -244,8 +245,18 @@ public class EmergencyAlertService extends Service {
                 // Make voice calls to top 3 priority contacts
                 makeVoiceCallsToTopContacts(contacts);
                 
-                // Contact nearest hospitals
-                contactNearestHospitals();
+                // Call emergency contacts if enabled
+                if (PreferenceUtils.isCallEmergencyContactsEnabled(this)) {
+                    callEmergencyContacts(contacts);
+                }
+                
+                // Call nearby hospitals if enabled
+                if (PreferenceUtils.isCallHospitalsEnabled(this)) {
+                    callNearbyHospitals();
+                } else {
+                    // Contact nearest hospitals (SMS only)
+                    contactNearestHospitals();
+                }
                 
                 // Mark alert as sent in database
                 markAlertsAsSent();
@@ -763,5 +774,103 @@ public class EmergencyAlertService extends Service {
         }
         
         super.onDestroy();
+    }
+    
+    /**
+     * Call emergency contacts directly
+     */
+    private void callEmergencyContacts(List<EmergencyContact> contacts) {
+        Log.d(TAG, "Calling emergency contacts directly");
+        
+        // Check if contacts list is valid
+        if (contacts == null || contacts.isEmpty()) {
+            Log.w(TAG, "No emergency contacts available for calling");
+            return;
+        }
+        
+        // Check CALL_PHONE permission
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) 
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "CALL_PHONE permission not granted - cannot make calls");
+            return;
+        }
+        
+        // Call top 3 priority contacts
+        int maxCalls = Math.min(3, contacts.size());
+        for (int i = 0; i < maxCalls; i++) {
+            EmergencyContact contact = contacts.get(i);
+            try {
+                // Validate contact data
+                if (contact == null || contact.getPhone() == null || contact.getPhone().trim().isEmpty()) {
+                    Log.w(TAG, "Skipping invalid contact at index " + i);
+                    continue;
+                }
+                
+                Log.d(TAG, "Calling emergency contact: " + contact.getName() + " (" + contact.getPhone() + ")");
+                
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + contact.getPhone()));
+                callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                
+                startActivity(callIntent);
+                
+                // Add delay between calls
+                Thread.sleep(2000);
+                
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to call " + contact.getName() + " (" + contact.getPhone() + ")", e);
+            }
+        }
+    }
+    
+    /**
+     * Call nearby hospitals directly
+     */
+    private void callNearbyHospitals() {
+        Log.d(TAG, "Calling nearby hospitals directly");
+        
+        // Check CALL_PHONE permission
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) 
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "CALL_PHONE permission not granted - cannot make calls");
+            return;
+        }
+        
+        // Find nearby hospitals
+        hospitalFinder.findNearbyHospitals(crashLatitude, crashLongitude, new HospitalFinder.HospitalSearchCallback() {
+            @Override
+            public void onHospitalsFound(List<Hospital> hospitals) {
+                if (hospitals.isEmpty()) {
+                    Log.w(TAG, "No hospitals found nearby");
+                    return;
+                }
+                
+                // Call top 3 nearest hospitals
+                int maxCalls = Math.min(3, hospitals.size());
+                for (int i = 0; i < maxCalls; i++) {
+                    Hospital hospital = hospitals.get(i);
+                    try {
+                        Log.d(TAG, "Calling hospital: " + hospital.getName() + " (" + hospital.getPhoneNumber() + ")");
+                        
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + hospital.getPhoneNumber()));
+                        callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        
+                        startActivity(callIntent);
+                        
+                        // Add delay between calls
+                        Thread.sleep(3000);
+                        
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed to call hospital " + hospital.getName() + " (" + hospital.getPhoneNumber() + ")", e);
+                    }
+                }
+            }
+            
+            @Override
+            public void onError(String error) {
+                Log.e(TAG, "Error finding hospitals: " + error);
+            }
+        });
     }
 }

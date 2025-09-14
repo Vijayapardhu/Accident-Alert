@@ -23,6 +23,8 @@
     <!-- Status Colors -->
     <color name="success_color">#4CAF50</color>
     <color name="warning_color">#FF9800</color>
+    <color name="warning_background">#FFF3E0</color>
+    <color name="warning_text">#E65100</color>
     <color name="error_color">#F44336</color>
     <color name="info_color">#2196F3</color>
     

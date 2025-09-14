@@ -2197,7 +2197,9 @@ color text_secondary
 color tooltip_background_dark
 color tooltip_background_light
 color transparent
+color warning_background
 color warning_color
+color warning_text
 color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
@@ -3361,6 +3363,8 @@ id buttonPanel
 id button_container
 id cache_measures
 id callMeasure
+id call_emergency_contacts_switch
+id call_hospitals_switch
 id cancel_button
 id carryVelocity
 id center
@@ -3458,6 +3462,7 @@ id embed
 id emergencyServicesButton
 id emergency_alerts_switch
 id emergency_button
+id emergency_calling_note
 id emergency_contacts_btn
 id emergency_header
 id emergency_message

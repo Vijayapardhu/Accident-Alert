@@ -9,11 +9,13 @@ import android.widget.EditText;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.crashalert.safety.database.DatabaseHelper;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.utils.BatteryOptimizationUtils;
 
 public class SettingsActivity extends AppCompatActivity {
     
@@ -22,6 +24,8 @@ public class SettingsActivity extends AppCompatActivity {
     private SwitchMaterial voiceFeedbackSwitch;
     private SwitchMaterial vibrationSwitch;
     private SwitchMaterial autoStartSwitch;
+    private SwitchMaterial callHospitalsSwitch;
+    private SwitchMaterial callEmergencyContactsSwitch;
     
     private EditText gForceThresholdEditText;
     private EditText confirmationTimeoutEditText;
@@ -30,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Button saveSettingsButton;
     private Button resetSettingsButton;
     private Button batteryOptimizationButton;
+    private TextView emergencyCallingNote;
     
     private DatabaseHelper databaseHelper;
     
@@ -50,6 +55,8 @@ public class SettingsActivity extends AppCompatActivity {
         voiceFeedbackSwitch = findViewById(R.id.voice_feedback_switch);
         vibrationSwitch = findViewById(R.id.vibration_switch);
         autoStartSwitch = findViewById(R.id.auto_start_switch);
+        callHospitalsSwitch = findViewById(R.id.call_hospitals_switch);
+        callEmergencyContactsSwitch = findViewById(R.id.call_emergency_contacts_switch);
         
         gForceThresholdEditText = findViewById(R.id.g_force_threshold_edit);
         confirmationTimeoutEditText = findViewById(R.id.confirmation_timeout_edit);
@@ -58,6 +65,7 @@ public class SettingsActivity extends AppCompatActivity {
         saveSettingsButton = findViewById(R.id.save_settings_button);
         resetSettingsButton = findViewById(R.id.reset_settings_button);
         batteryOptimizationButton = findViewById(R.id.battery_optimization_button);
+        emergencyCallingNote = findViewById(R.id.emergency_calling_note);
     }
     
     private void initializeDatabase() {
@@ -71,6 +79,11 @@ public class SettingsActivity extends AppCompatActivity {
         voiceFeedbackSwitch.setChecked(PreferenceUtils.isVoiceFeedbackEnabled(this));
         vibrationSwitch.setChecked(PreferenceUtils.isVibrationEnabled(this));
         autoStartSwitch.setChecked(PreferenceUtils.isAutoStartDrivingMode(this));
+        callHospitalsSwitch.setChecked(PreferenceUtils.isCallHospitalsEnabled(this));
+        callEmergencyContactsSwitch.setChecked(PreferenceUtils.isCallEmergencyContactsEnabled(this));
+        
+        // Check battery optimization status and update UI (after views are initialized)
+        // updateBatteryOptimizationStatus(); // Moved to setupListeners
         
         // Load text field values
         String gForceThreshold = databaseHelper.getSetting("g_force_threshold");
@@ -98,7 +111,25 @@ public class SettingsActivity extends AppCompatActivity {
     private void setupListeners() {
         saveSettingsButton.setOnClickListener(v -> saveSettings());
         resetSettingsButton.setOnClickListener(v -> showResetConfirmationDialog());
-        batteryOptimizationButton.setOnClickListener(v -> openBatteryOptimizationSettings());
+        batteryOptimizationButton.setOnClickListener(v -> handleBatteryOptimizationClick());
+        
+        // Add listeners for emergency calling switches
+        callHospitalsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked && !BatteryOptimizationUtils.isBatteryOptimizationDisabled(this)) {
+                callHospitalsSwitch.setChecked(false);
+                Toast.makeText(this, "Please disable battery optimization first", Toast.LENGTH_LONG).show();
+            }
+        });
+        
+        callEmergencyContactsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked && !BatteryOptimizationUtils.isBatteryOptimizationDisabled(this)) {
+                callEmergencyContactsSwitch.setChecked(false);
+                Toast.makeText(this, "Please disable battery optimization first", Toast.LENGTH_LONG).show();
+            }
+        });
+        
+        // Update battery optimization status after all listeners are set up
+        updateBatteryOptimizationStatus();
     }
     
     private void saveSettings() {
@@ -113,6 +144,8 @@ public class SettingsActivity extends AppCompatActivity {
         PreferenceUtils.setVoiceFeedbackEnabled(this, voiceFeedbackSwitch.isChecked());
         PreferenceUtils.setVibrationEnabled(this, vibrationSwitch.isChecked());
         PreferenceUtils.setAutoStartDrivingMode(this, autoStartSwitch.isChecked());
+        PreferenceUtils.setCallHospitalsEnabled(this, callHospitalsSwitch.isChecked());
+        PreferenceUtils.setCallEmergencyContactsEnabled(this, callEmergencyContactsSwitch.isChecked());
         
         // Save text field values
         databaseHelper.setSetting("g_force_threshold", gForceThresholdEditText.getText().toString().trim());
@@ -206,10 +239,62 @@ public class SettingsActivity extends AppCompatActivity {
     }
     
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (requestCode == 1001) { // Battery optimization request
+            updateBatteryOptimizationStatus();
+            if (BatteryOptimizationUtils.isBatteryOptimizationDisabled(this)) {
+                Toast.makeText(this, "Battery optimization disabled successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Battery optimization is still enabled", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (databaseHelper != null) {
             databaseHelper.close();
+        }
+    }
+    
+    /**
+     * Update UI based on battery optimization status
+     */
+    private void updateBatteryOptimizationStatus() {
+        // Add null checks to prevent crashes
+        if (callHospitalsSwitch == null || callEmergencyContactsSwitch == null || emergencyCallingNote == null) {
+            Log.w("SettingsActivity", "Views not initialized yet, skipping battery optimization check");
+            return;
+        }
+        
+        boolean isOptimizationDisabled = BatteryOptimizationUtils.isBatteryOptimizationDisabled(this);
+        
+        if (isOptimizationDisabled) {
+            // Battery optimization is disabled - enable emergency calling features
+            callHospitalsSwitch.setEnabled(true);
+            callEmergencyContactsSwitch.setEnabled(true);
+            emergencyCallingNote.setVisibility(TextView.GONE);
+        } else {
+            // Battery optimization is enabled - disable emergency calling features
+            callHospitalsSwitch.setEnabled(false);
+            callEmergencyContactsSwitch.setEnabled(false);
+            callHospitalsSwitch.setChecked(false);
+            callEmergencyContactsSwitch.setChecked(false);
+            emergencyCallingNote.setVisibility(TextView.VISIBLE);
+        }
+    }
+    
+    /**
+     * Handle battery optimization button click
+     */
+    private void handleBatteryOptimizationClick() {
+        if (BatteryOptimizationUtils.isBatteryOptimizationDisabled(this)) {
+            Toast.makeText(this, "Battery optimization is already disabled", Toast.LENGTH_SHORT).show();
+        } else {
+            BatteryOptimizationUtils.requestDisableBatteryOptimization(this, 1001);
         }
     }
 }

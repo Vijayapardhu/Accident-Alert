@@ -37,7 +37,9 @@
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#757575</color>
     <color name="transparent">#00000000</color>
+    <color name="warning_background">#FFF3E0</color>
     <color name="warning_color">#FF9800</color>
+    <color name="warning_text">#E65100</color>
     <color name="white">#FFFFFFFF</color>
     <string name="add_contact">Add</string>
     <string name="add_emergency_contact">Add Emergency Contact</string>
