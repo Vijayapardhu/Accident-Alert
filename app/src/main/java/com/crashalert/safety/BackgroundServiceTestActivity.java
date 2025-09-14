@@ -15,6 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.crashalert.safety.service.DrivingModeService;
 import com.crashalert.safety.utils.BackgroundServiceManager;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.utils.ServicePersistenceManager;
+import com.crashalert.safety.utils.BackgroundServiceTester;
+import com.crashalert.safety.utils.BackgroundServiceMonitor;
+import com.crashalert.safety.utils.ServiceRestartManager;
 import com.crashalert.safety.work.WorkManagerHelper;
 
 import java.util.List;
@@ -32,9 +36,12 @@ public class BackgroundServiceTestActivity extends AppCompatActivity {
     private Button checkStatusButton;
     private Button startWorkManagerButton;
     private Button stopWorkManagerButton;
+    private Button runComprehensiveTestButton;
+    private Button quickHealthCheckButton;
     
     private Handler handler;
     private Runnable statusUpdateRunnable;
+    private BackgroundServiceTester serviceTester;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +60,11 @@ public class BackgroundServiceTestActivity extends AppCompatActivity {
         checkStatusButton = findViewById(R.id.check_status_button);
         startWorkManagerButton = findViewById(R.id.start_workmanager_button);
         stopWorkManagerButton = findViewById(R.id.stop_workmanager_button);
+        runComprehensiveTestButton = findViewById(R.id.run_comprehensive_test_button);
+        quickHealthCheckButton = findViewById(R.id.quick_health_check_button);
         
         handler = new Handler(Looper.getMainLooper());
+        serviceTester = new BackgroundServiceTester(this);
     }
     
     private void setupListeners() {
@@ -63,6 +73,8 @@ public class BackgroundServiceTestActivity extends AppCompatActivity {
         checkStatusButton.setOnClickListener(v -> checkServiceStatus());
         startWorkManagerButton.setOnClickListener(v -> startWorkManager());
         stopWorkManagerButton.setOnClickListener(v -> stopWorkManager());
+        runComprehensiveTestButton.setOnClickListener(v -> runComprehensiveTest());
+        quickHealthCheckButton.setOnClickListener(v -> quickHealthCheck());
     }
     
     private void startService() {
@@ -139,6 +151,35 @@ public class BackgroundServiceTestActivity extends AppCompatActivity {
         }
     }
     
+    private void runComprehensiveTest() {
+        try {
+            if (serviceTester.isTestRunning()) {
+                Toast.makeText(this, "Test already running", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            serviceTester.startTest();
+            Toast.makeText(this, "Comprehensive test started", Toast.LENGTH_SHORT).show();
+            updateStatus();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to start comprehensive test", e);
+            Toast.makeText(this, "Failed to start test: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+    
+    private void quickHealthCheck() {
+        try {
+            String healthStatus = BackgroundServiceTester.quickHealthCheck(this);
+            statusText.setText(healthStatus);
+            Toast.makeText(this, "Quick health check completed", Toast.LENGTH_SHORT).show();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to run quick health check", e);
+            Toast.makeText(this, "Failed to run health check: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+    
     private void startStatusUpdates() {
         statusUpdateRunnable = new Runnable() {
             @Override
@@ -152,23 +193,17 @@ public class BackgroundServiceTestActivity extends AppCompatActivity {
     
     private void updateStatus() {
         try {
-            boolean isServiceRunning = BackgroundServiceManager.isServiceRunning(this);
-            boolean shouldBeRunning = PreferenceUtils.isDrivingModeActive(this);
-            boolean isWorkManagerRunning = WorkManagerHelper.isCrashDetectionWorkRunning(this);
+            // Use ServicePersistenceManager for comprehensive status
+            String status = ServicePersistenceManager.getServiceHealthStatus(this);
             
-            String status = String.format(
-                "Service Status:\n" +
-                "Should be running: %s\n" +
-                "Is running: %s\n" +
-                "WorkManager active: %s\n" +
-                "Battery optimization: %s\n" +
-                "Last update: %s",
-                shouldBeRunning,
-                isServiceRunning,
-                isWorkManagerRunning,
-                com.crashalert.safety.utils.BatteryOptimizationUtils.isBatteryOptimizationDisabled(this) ? "Disabled" : "Enabled",
-                java.text.DateFormat.getTimeInstance().format(new java.util.Date())
-            );
+            // Add monitoring status
+            status += "\n\n=== MONITORING STATUS ===\n";
+            status += "Background Monitor: " + (BackgroundServiceMonitor.isMonitoring() ? "Active" : "Inactive") + "\n";
+            status += "Monitor Status: " + BackgroundServiceMonitor.getMonitoringStatus() + "\n";
+            status += "Restart Status: " + ServiceRestartManager.getRestartStatus() + "\n";
+            
+            // Add timestamp
+            status += "\nLast update: " + java.text.DateFormat.getTimeInstance().format(new java.util.Date());
             
             statusText.setText(status);
             
@@ -183,6 +218,9 @@ public class BackgroundServiceTestActivity extends AppCompatActivity {
         super.onDestroy();
         if (handler != null && statusUpdateRunnable != null) {
             handler.removeCallbacks(statusUpdateRunnable);
+        }
+        if (serviceTester != null) {
+            serviceTester.stopTest();
         }
     }
 }

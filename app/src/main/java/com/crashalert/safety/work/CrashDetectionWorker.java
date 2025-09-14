@@ -12,6 +12,7 @@ import com.crashalert.safety.service.DrivingModeService;
 import com.crashalert.safety.utils.PreferenceUtils;
 import com.crashalert.safety.utils.ServiceRestartUtils;
 import com.crashalert.safety.utils.BackgroundServiceManager;
+import com.crashalert.safety.utils.ServicePersistenceManager;
 
 /**
  * WorkManager worker to ensure crash detection service stays running
@@ -31,11 +32,11 @@ public class CrashDetectionWorker extends Worker {
         Log.d(TAG, "CrashDetectionWorker executing");
         
         try {
-            // Use the new BackgroundServiceManager for more reliable service management
-            BackgroundServiceManager.ensureServiceRunning(getApplicationContext());
+            // Use ServicePersistenceManager for comprehensive service management
+            ServicePersistenceManager.ensureServiceRunning(getApplicationContext());
             
             // Log service status for debugging
-            String status = BackgroundServiceManager.getServiceStatus(getApplicationContext());
+            String status = ServicePersistenceManager.getServiceStatus(getApplicationContext());
             Log.d(TAG, "Service status check completed: " + status);
             
             return Result.success();

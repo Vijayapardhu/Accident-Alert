@@ -32,13 +32,14 @@ public class WorkManagerHelper {
                 .setRequiresCharging(false) // Run even if not charging
                 .build();
         
-        // Create periodic work request - run every 5 minutes for better reliability
+        // Create periodic work request - run every 2 minutes for better reliability
         PeriodicWorkRequest crashDetectionWork = new PeriodicWorkRequest.Builder(
                 CrashDetectionWorker.class,
-                5, // Repeat interval - more frequent for better reliability
+                2, // Repeat interval - more frequent for better reliability
                 TimeUnit.MINUTES
         )
                 .setConstraints(constraints)
+                .setInitialDelay(30, TimeUnit.SECONDS) // Start after 30 seconds
                 .build();
         
         // Enqueue the work with unique name

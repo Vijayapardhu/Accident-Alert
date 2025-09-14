@@ -19,6 +19,7 @@ import com.crashalert.safety.R;
 import com.crashalert.safety.sensors.CrashDetectionManager;
 import com.crashalert.safety.location.CrashLocationManager;
 import com.crashalert.safety.utils.PreferenceUtils;
+import com.crashalert.safety.utils.ServiceKeepAliveManager;
 import com.crashalert.safety.work.WorkManagerHelper;
 import com.crashalert.safety.database.DatabaseHelper;
 
@@ -64,6 +65,8 @@ public class DrivingModeService extends Service implements
                 startDrivingMode();
             } else if ("STOP_DRIVING_MODE".equals(action)) {
                 stopDrivingMode();
+            } else if ("RESTART_DRIVING_MODE".equals(action)) {
+                restartDrivingMode();
             }
         } else {
             // Service was restarted by system, check if driving mode should be active
@@ -76,7 +79,8 @@ public class DrivingModeService extends Service implements
             }
         }
         
-        return START_STICKY; // Restart service if killed
+        // Use START_REDELIVER_INTENT for better reliability
+        return START_REDELIVER_INTENT;
     }
     
     @Override
@@ -140,6 +144,9 @@ public class DrivingModeService extends Service implements
         // Start WorkManager fallback
         WorkManagerHelper.startCrashDetectionWork(this);
         
+        // Start keep-alive mechanism using AlarmManager
+        ServiceKeepAliveManager.startKeepAlive(this);
+        
         // Start periodic notification updates to keep service alive
         startNotificationUpdates();
         
@@ -170,11 +177,33 @@ public class DrivingModeService extends Service implements
         // Stop WorkManager fallback
         WorkManagerHelper.stopCrashDetectionWork(this);
         
+        // Stop keep-alive mechanism
+        ServiceKeepAliveManager.stopKeepAlive(this);
+        
         // Stop foreground service
         stopForeground(true);
         stopSelf();
         
         Log.d(TAG, "Driving mode stopped");
+    }
+    
+    private void restartDrivingMode() {
+        Log.d(TAG, "Restarting driving mode");
+        
+        // Stop current mode first
+        if (isServiceRunning) {
+            stopDrivingMode();
+        }
+        
+        // Wait a moment
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        
+        // Start again
+        startDrivingMode();
     }
     
     private Notification createNotification() {
@@ -354,25 +383,30 @@ public class DrivingModeService extends Service implements
     
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        Log.d(TAG, "Task removed - restarting service");
+        Log.d(TAG, "Task removed - attempting service restart");
         
         // Only restart if driving mode should be active
         if (PreferenceUtils.isDrivingModeActive(this)) {
             // Schedule a restart using WorkManager for more reliable restart
             WorkManagerHelper.startCrashDetectionWork(this);
             
-            // Also try immediate restart
+            // Also try immediate restart with proper flags
             Intent restartServiceIntent = new Intent(getApplicationContext(), this.getClass());
-            restartServiceIntent.setAction("START_DRIVING_MODE");
+            restartServiceIntent.setAction("RESTART_DRIVING_MODE");
             restartServiceIntent.setPackage(getPackageName());
+            restartServiceIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                startForegroundService(restartServiceIntent);
-            } else {
-                startService(restartServiceIntent);
+            try {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    startForegroundService(restartServiceIntent);
+                } else {
+                    startService(restartServiceIntent);
+                }
+                Log.d(TAG, "Service restart initiated");
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to restart service immediately", e);
+                // WorkManager will handle the restart
             }
-            
-            Log.d(TAG, "Service restart scheduled");
         } else {
             Log.d(TAG, "Driving mode not active, not restarting service");
         }

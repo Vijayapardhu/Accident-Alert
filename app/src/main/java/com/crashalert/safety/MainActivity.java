@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -22,6 +23,8 @@ import com.crashalert.safety.service.DrivingModeService;
 import com.crashalert.safety.utils.PermissionUtils;
 import com.crashalert.safety.utils.PreferenceUtils;
 import com.crashalert.safety.utils.BatteryOptimizationUtils;
+import com.crashalert.safety.utils.ServicePersistenceManager;
+import com.crashalert.safety.utils.BackgroundServiceMonitor;
 import com.crashalert.safety.widget.DrivingModeWidget;
 
 import java.util.ArrayList;
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         initializeDatabase();
         checkPermissions();
         checkBatteryOptimization();
+        startBackgroundMonitoring();
         updateUI();
     }
     
@@ -157,6 +161,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     
+    private void startBackgroundMonitoring() {
+        // Start background service monitoring
+        BackgroundServiceMonitor.startMonitoring(this);
+        Log.d("MainActivity", "Background monitoring started");
+    }
+    
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, 
                                          @NonNull int[] grantResults) {
@@ -213,8 +223,16 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         
-        Intent serviceIntent = new Intent(this, DrivingModeService.class);
-        startForegroundService(serviceIntent);
+        // Check background permissions
+        if (!ServicePersistenceManager.hasBackgroundPermissions(this)) {
+            Toast.makeText(this, "Missing critical permissions for background operation", 
+                Toast.LENGTH_LONG).show();
+            drivingModeSwitch.setChecked(false);
+            return;
+        }
+        
+        // Use ServicePersistenceManager for better reliability
+        ServicePersistenceManager.ensureServiceRunning(this);
         
         isDrivingModeActive = true;
         PreferenceUtils.setDrivingModeActive(this, true);
@@ -283,6 +301,8 @@ public class MainActivity extends AppCompatActivity {
         if (databaseHelper != null) {
             databaseHelper.close();
         }
+        // Stop background monitoring when activity is destroyed
+        BackgroundServiceMonitor.stopMonitoring();
     }
     
 }
