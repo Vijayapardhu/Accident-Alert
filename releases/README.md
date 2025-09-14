@@ -11,9 +11,9 @@
 
 ### Latest Release (v2.1) - RECOMMENDED
 - **File:** `CrashAlertSafety-v2.1-release.apk`
-- **Size:** 16.1 MB
+- **Size:** 16.5 MB
 - **Type:** Release (Production Ready)
-- **Features:** Fixed location tracking issues, enhanced accuracy validation, improved background services
+- **Features:** Auto-activation emergency system, 15-second countdown timer, enhanced overlay interface
 - **Status:** ✅ Latest stable release
 
 ### Previous Release (v2.0)
@@ -33,7 +33,8 @@
 
 ### Core Functionality
 - **Real-time Crash Detection** using accelerometer and gyroscope sensors
-- **15-second Emergency Confirmation** with auto-trigger
+- **15-second Auto-Activation Countdown** with visual timer and audio/vibration feedback
+- **Automatic Emergency Response** - triggers calls and SMS after countdown expires
 - **SMS & Voice Call Alerts** with Google Maps location links
 - **Background Service Reliability** - runs continuously even when app is closed
 - **Multi-layer Service Persistence** - 5 different restart mechanisms
@@ -113,7 +114,9 @@
 
 ### Automatic Response
 - **Crash Detection** - Monitors for sudden impacts using G-force threshold
-- **15-second Countdown** - Time to cancel false alarms
+- **15-second Auto-Activation Countdown** - Visual timer with color-coded warnings
+- **Audio & Vibration Alerts** - Progressive warnings during final 5 seconds
+- **Automatic Emergency Activation** - Triggers calls and SMS after countdown expires
 - **Emergency Contacts** - Automatically calls and texts your contacts
 - **Hospital Finder** - Locates and calls nearest hospitals
 - **Location Sharing** - Sends precise coordinates via SMS
@@ -157,17 +160,17 @@
 
 ## 🔄 Version History
 
-### v2.1 (Latest) - Location Tracking Fix
-- ✅ Fixed location tracking issues with comprehensive validation system
-- ✅ Added GPS priority over Network location sources
-- ✅ Implemented location accuracy filtering (max 50m accuracy)
-- ✅ Added location age validation (max 30 seconds old)
-- ✅ Enhanced coordinate validation (rejects 0,0 and out-of-bounds)
-- ✅ Added speed validation to prevent impossible locations
-- ✅ Created LocationTestUtils for comprehensive debugging
-- ✅ Added Test Location Accuracy button in MainActivity
-- ✅ Improved location source priority and selection logic
-- ✅ Enhanced error handling and logging for location issues
+### v2.1 (Latest) - Auto-Activation Emergency System
+- ✅ **NEW:** 15-second auto-activation countdown timer in emergency overlay
+- ✅ **NEW:** Visual countdown display with color-coded warnings (yellow → red)
+- ✅ **NEW:** Audio and vibration feedback during final 5 seconds
+- ✅ **NEW:** Automatic emergency calls and SMS after countdown expires
+- ✅ **NEW:** Enhanced overlay interface with dedicated countdown display
+- ✅ **NEW:** Fallback countdown display in status text if countdown view fails
+- ✅ **NEW:** Comprehensive debug logging for countdown timer troubleshooting
+- ✅ **NEW:** Smart cancellation system prevents duplicate activations
+- ✅ **NEW:** Blinking animation during critical countdown phase
+- ✅ **NEW:** Progressive warning system with escalating alerts
 
 ### v2.0 - Emergency Calling Fix
 - ✅ Fixed emergency calling functionality with BackgroundCallManager

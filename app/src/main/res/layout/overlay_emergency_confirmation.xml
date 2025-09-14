@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Emergency Status Text -->
+    <TextView
+        android:id="@+id/overlay_status_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/overlay_background"
+        android:gravity="center"
+        android:padding="24dp"
+        android:text="🚨 EMERGENCY MODE ACTIVE 🚨\n\nLocation: Loading...\nTime: Loading...\n\nQuick Actions:\n• Call Emergency - Make emergency calls\n• Send SMS - Send location via SMS\n• Share Location - Share via other apps\n• Cancel Emergency - Exit emergency mode"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Countdown Timer Display -->
+    <TextView
+        android:id="@+id/overlay_countdown_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/overlay_background"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="AUTO-ACTIVATION IN: 15s"
+        android:textColor="#FFFF00"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <!-- Call Emergency Button -->
+        <Button
+            android:id="@+id/overlay_call_emergency_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_emergency"
+            android:text="CALL EMERGENCY"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Send SMS Button -->
+        <Button
+            android:id="@+id/overlay_send_sms_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_emergency"
+            android:text="SEND SMS"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Share Location Button -->
+        <Button
+            android:id="@+id/overlay_share_location_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_emergency"
+            android:text="SHARE LOCATION"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Cancel Emergency Button -->
+        <Button
+            android:id="@+id/overlay_cancel_emergency_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_cancel"
+            android:text="CANCEL EMERGENCY"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

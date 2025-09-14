@@ -10,8 +10,8 @@ android {
         applicationId "com.crashalert.safety"
         minSdk 24
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -77,6 +77,9 @@ dependencies {
     implementation('org.osmdroid:osmdroid-geopackage:6.1.17') {
         exclude group: 'com.j256.ormlite', module: 'ormlite-core'
     }
+    // QR Code generation
+    implementation 'com.google.zxing:core:3.5.2'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
     implementation 'androidx.core:core:1.10.1'
     
     annotationProcessor 'androidx.room:room-compiler:2.5.0'
